@@ -207,8 +207,20 @@
   .bg-mint-gradient {
     background-image: var(--gradient-mint);
   }
+  .bg-gold-gradient {
+    background-image: var(--gradient-gold);
+  }
+  .bg-mint-gold-gradient {
+    background-image: var(--gradient-mint-gold);
+  }
+  .bg-luxe {
+    background-image: var(--gradient-luxe-bg);
+  }
   .shadow-glow {
     box-shadow: var(--shadow-glow);
+  }
+  .shadow-gold-glow {
+    box-shadow: var(--shadow-gold-glow);
   }
   .shadow-card-soft {
     box-shadow: var(--shadow-card);
@@ -218,5 +230,41 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+  .text-gold-gradient {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-mint-gold-gradient {
+    background: var(--gradient-mint-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .shimmer-gold {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer-gold::after {
+    content: "";
+    position: absolute;
+    inset: -200% -50%;
+    background: linear-gradient(115deg, transparent 35%, oklch(1 0 0 / 0.18) 50%, transparent 65%);
+    transform: translateX(-30%);
+    animation: shimmer 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes shimmer {
+    0%, 100% { transform: translateX(-30%); }
+    50% { transform: translateX(30%); }
+  }
+  @keyframes float-slow {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(20px, -30px, 0) scale(1.05); }
+  }
+  .animate-float-slow {
+    animation: float-slow 12s ease-in-out infinite;
   }
 }
