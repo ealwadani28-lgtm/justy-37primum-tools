@@ -50,13 +50,13 @@ export function Logistics() {
   return (
     <div className="space-y-6">
       {/* KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3" dir="rtl">
         {kpis.map((k) => (
-          <div key={k.l} className="relative rounded-2xl border border-border bg-card p-4 overflow-hidden">
-            <div className="absolute -top-8 -left-8 w-20 h-20 rounded-full opacity-20 blur-2xl" style={{ background: k.c }} />
+          <div key={k.l} className="relative rounded-2xl border border-border bg-card p-4 overflow-hidden text-right">
+            <div className="absolute -top-8 -right-8 w-20 h-20 rounded-full opacity-20 blur-2xl" style={{ background: k.c }} />
             <div className="relative">
               <div className="text-xs text-muted-foreground">{k.l}</div>
-              <div className="text-3xl font-extrabold mt-1" style={{ color: k.c }}>{k.v}</div>
+              <div className="text-3xl font-extrabold mt-1" style={{ color: k.c }}>{arNumber(k.v)}</div>
             </div>
           </div>
         ))}
