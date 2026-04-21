@@ -23,10 +23,10 @@ export function BloomShowcase() {
           {/* Main chart */}
           <div className="md:col-span-2 rounded-2xl bg-white/80 backdrop-blur border border-white shadow-[0_10px_30px_-10px_rgba(30,180,140,0.3)] p-5">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs text-emerald-700 font-bold">+18%</span>
+              <span className="text-xs text-emerald-700 font-bold">+١٨٪</span>
               <div className="text-right">
                 <div className="text-[10px] text-emerald-900/60">إجمالي الإيرادات</div>
-                <div className="text-2xl font-extrabold text-[#0d3b2e]">AED 1,250,000</div>
+                <div className="text-2xl font-extrabold text-[#0d3b2e]">١٬٢٥٠٬٠٠٠ د.إ</div>
               </div>
             </div>
             {/* Line chart */}
@@ -57,15 +57,15 @@ export function BloomShowcase() {
             <div className="space-y-4 text-right">
               <div>
                 <div className="text-[10px] text-emerald-900/60">المستخدمين النشطين الآن</div>
-                <div className="text-3xl font-extrabold text-[#0d3b2e]">3,450</div>
+                <div className="text-3xl font-extrabold text-[#0d3b2e]">٣٬٤٥٠</div>
               </div>
               <div>
                 <div className="text-[10px] text-emerald-900/60">معدل التحويل</div>
-                <div className="text-3xl font-extrabold text-emerald-600">4.5%</div>
+                <div className="text-3xl font-extrabold text-emerald-600">٤٫٥٪</div>
               </div>
               <div className="pt-3 border-t border-emerald-200">
                 <div className="text-[10px] text-emerald-900/60 mb-1">العملاء الجدد</div>
-                <div className="text-2xl font-extrabold text-[#0d3b2e]">600</div>
+                <div className="text-2xl font-extrabold text-[#0d3b2e]">٦٠٠</div>
               </div>
             </div>
           </div>
@@ -83,10 +83,10 @@ export function BloomShowcase() {
             </div>
             <div className="space-y-1 text-[10px]">
               {[
-                { l: "بحث جوجل", c: "#10b981", v: "50%" },
-                { l: "سوشيال", c: "#5eead4", v: "27%" },
-                { l: "مباشر", c: "#7d01b1", v: "14%" },
-                { l: "إحالة", c: "#0d3b2e", v: "9%" },
+                { l: "بحث جوجل", c: "#10b981", v: "٥٠٪" },
+                { l: "سوشيال", c: "#5eead4", v: "٢٧٪" },
+                { l: "مباشر", c: "#7d01b1", v: "١٤٪" },
+                { l: "إحالة", c: "#0d3b2e", v: "٩٪" },
               ].map(s => (
                 <div key={s.l} className="flex items-center justify-between">
                   <span className="font-bold text-[#0d3b2e]">{s.v}</span>
