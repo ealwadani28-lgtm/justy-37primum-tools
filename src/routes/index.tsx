@@ -63,40 +63,188 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const categories = Array.from(new Set(tools.map((t) => t.category)));
+  const featuredSlugs = ["whatsapp", "qr-generator", "pricing", "testimonials"];
+  const featured = featuredSlugs
+    .map((s) => tools.find((t) => t.slug === s))
+    .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   return (
     <div>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-hero-glow">
-        <div className="max-w-7xl mx-auto px-6 pt-20 pb-16 md:pt-32 md:pb-24 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card/50 text-xs text-muted-foreground mb-6">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            ٢٤ أداة جاهزة وقابلة للتخصيص
+      {/* HERO — Luxe mint with gold accents */}
+      <section className="relative overflow-hidden">
+        {/* Layered ambient backgrounds */}
+        <div className="absolute inset-0 bg-luxe" aria-hidden />
+        <div
+          className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full opacity-30 blur-3xl animate-float-slow"
+          style={{ background: "radial-gradient(circle, oklch(0.82 0.13 85 / 0.5), transparent 70%)" }}
+          aria-hidden
+        />
+        <div
+          className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl animate-float-slow"
+          style={{ background: "radial-gradient(circle, oklch(0.78 0.14 175 / 0.7), transparent 70%)", animationDelay: "3s" }}
+          aria-hidden
+        />
+
+        {/* Floating gold particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+          {[
+            { top: "15%", left: "10%", size: 6, delay: "0s" },
+            { top: "30%", left: "85%", size: 4, delay: "1s" },
+            { top: "65%", left: "12%", size: 5, delay: "2s" },
+            { top: "20%", left: "70%", size: 3, delay: "1.5s" },
+            { top: "75%", left: "80%", size: 6, delay: "0.5s" },
+            { top: "50%", left: "5%", size: 3, delay: "2.5s" },
+          ].map((p, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full animate-float-slow"
+              style={{
+                top: p.top,
+                left: p.left,
+                width: `${p.size}px`,
+                height: `${p.size}px`,
+                background: "var(--gradient-gold)",
+                boxShadow: "0 0 12px oklch(0.82 0.13 85 / 0.6)",
+                animationDelay: p.delay,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-20 md:pt-32 md:pb-28 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[oklch(0.82_0.13_85_/_0.4)] bg-card/50 backdrop-blur-sm text-xs text-muted-foreground mb-6 shadow-[0_0_30px_-5px_oklch(0.82_0.13_85_/_0.3)]">
+            <span className="w-2 h-2 rounded-full bg-gold-gradient animate-pulse" />
+            ٢٤ أداة مصمّمة باحتراف · جاهزة للاستخدام
           </div>
+
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
             أدوات صغيرة <br />
-            <span className="text-mint-gradient">بنتائج كبيرة</span>
+            <span className="text-mint-gold-gradient">بنتائج كبيرة</span>
           </h1>
+
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            مجموعة من ٢٤ أداة ويب عربية، خفيفة وأنيقة، تساعدك على بناء موقع أفضل في دقائق.
+            مجموعة من ٢٤ أداة ويب عربية، مصمّمة بأناقة، تساعدك على بناء موقع يليق بعملك في دقائق.
           </p>
-          <div className="mt-10 flex items-center justify-center gap-4">
-            <a href="#tools" className="bg-mint-gradient text-primary-foreground font-semibold px-6 py-3 rounded-xl shadow-glow hover:opacity-90 transition">
-              تصفّح الأدوات
+
+          <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
+            <a
+              href="#tools"
+              className="relative group bg-mint-gold-gradient text-[oklch(0.18_0.02_200)] font-bold px-7 py-3.5 rounded-2xl shadow-gold-glow hover:scale-[1.03] transition-all overflow-hidden shimmer-gold"
+            >
+              <span className="relative z-10">تصفّح الأدوات ←</span>
             </a>
-            <a href="#about" className="border border-border bg-card/50 px-6 py-3 rounded-xl hover:bg-card transition">
-              تعرّف علينا
+            <a
+              href="#featured"
+              className="border border-[oklch(0.82_0.13_85_/_0.35)] bg-card/40 backdrop-blur-sm px-7 py-3.5 rounded-2xl hover:bg-card/70 hover:border-[oklch(0.82_0.13_85_/_0.6)] transition"
+            >
+              الأدوات المختارة ✨
             </a>
           </div>
-          <div className="mt-16 flex items-center justify-center gap-8 text-sm text-muted-foreground">
-            <div><b className="text-foreground text-2xl">24</b><div>أداة</div></div>
-            <div className="w-px h-10 bg-border"></div>
-            <div><b className="text-foreground text-2xl">100%</b><div>عربي</div></div>
-            <div className="w-px h-10 bg-border"></div>
-            <div><b className="text-foreground text-2xl">∞</b><div>استخدام</div></div>
+
+          {/* Hero showcase card — luxe glass with mint+gold */}
+          <div className="mt-20 max-w-3xl mx-auto">
+            <div className="relative rounded-[2rem] p-1 bg-mint-gold-gradient shadow-gold-glow">
+              <div className="rounded-[1.85rem] bg-card/95 backdrop-blur-xl p-8 md:p-10 relative overflow-hidden shimmer-gold">
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[oklch(0.82_0.13_85_/_0.6)] to-transparent" />
+                <div className="grid grid-cols-3 gap-6 relative">
+                  <div className="text-center">
+                    <div className="text-4xl md:text-5xl font-extrabold text-mint-gold-gradient">24</div>
+                    <div className="text-xs text-muted-foreground mt-1">أداة احترافية</div>
+                  </div>
+                  <div className="text-center border-x border-[oklch(0.82_0.13_85_/_0.2)]">
+                    <div className="text-4xl md:text-5xl font-extrabold text-mint-gold-gradient">100%</div>
+                    <div className="text-xs text-muted-foreground mt-1">عربي · RTL</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-4xl md:text-5xl font-extrabold text-mint-gold-gradient">∞</div>
+                    <div className="text-xs text-muted-foreground mt-1">استخدام مجاني</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Bottom gold hairline */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[oklch(0.82_0.13_85_/_0.5)] to-transparent" />
       </section>
+
+      {/* FEATURED — luxe cards with mint+gold frame */}
+      <section id="featured" className="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
+        <div className="text-center mb-12">
+          <div className="inline-block text-[11px] uppercase tracking-[0.3em] text-gold-gradient font-bold mb-3">
+            ★ مختارات الأسبوع
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            الأدوات <span className="text-mint-gold-gradient">الأكثر طلباً</span>
+          </h2>
+          <p className="text-muted-foreground mt-3">أربع أدوات تصنع فرقاً حقيقياً في موقعك ومبيعاتك.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {featured.map((tool, idx) => (
+            <Link
+              key={tool.slug}
+              to="/tools/$slug"
+              params={{ slug: tool.slug }}
+              className="group relative rounded-[1.75rem] p-[1.5px] bg-mint-gold-gradient hover:shadow-gold-glow transition-all duration-500 hover:-translate-y-1"
+            >
+              <div className="relative rounded-[1.65rem] overflow-hidden bg-gradient-to-br from-[#e8f7f1] via-[#dff3ea] to-[#cfeee1] h-full">
+                {/* Featured badge */}
+                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 text-[10px] font-bold bg-gradient-to-r from-[oklch(0.92_0.07_90)] to-[oklch(0.82_0.13_85)] text-[oklch(0.3_0.05_60)] px-2.5 py-1 rounded-full shadow-md">
+                  <span>★</span>
+                  <span>مميّزة #{idx + 1}</span>
+                </div>
+
+                {/* Brand chip */}
+                <div className="absolute top-4 left-4 z-10 text-[10px] font-extrabold tracking-wide text-emerald-700/80">
+                  Justlator<span className="text-emerald-500">·</span>
+                </div>
+
+                {/* Mockup area — taller for featured */}
+                <div className="relative h-56 overflow-hidden pt-10">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.95),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(245,220,140,0.35),transparent_55%),radial-gradient(circle_at_15%_85%,rgba(167,243,208,0.5),transparent_55%)]" />
+                  <div className="absolute inset-0 pt-8 px-4">
+                    <ToolPreview slug={tool.slug} />
+                  </div>
+                  {/* Subtle gold sheen */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[oklch(0.92_0.07_90_/_0.15)] to-transparent" />
+                </div>
+
+                {/* Meta */}
+                <div className="bg-card/95 backdrop-blur-md border-t border-[oklch(0.82_0.13_85_/_0.25)] p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] text-emerald-300 bg-emerald-500/10 border border-emerald-400/30 px-2 py-0.5 rounded-full">
+                      {tool.category}
+                    </span>
+                    <span className="text-[10px] text-[oklch(0.82_0.13_85)] bg-[oklch(0.82_0.13_85_/_0.1)] border border-[oklch(0.82_0.13_85_/_0.3)] px-2 py-0.5 rounded-full font-bold">
+                      مفضّل
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground group-hover:text-mint-gold-gradient transition-colors mb-1.5">
+                    {tool.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    {tool.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-mint-gold-gradient">
+                      جرّب الآن
+                      <span className="w-7 h-7 rounded-full bg-mint-gold-gradient flex items-center justify-center text-[oklch(0.18_0.02_200)] text-xs group-hover:translate-x-[-3px] transition-transform">
+                        ←
+                      </span>
+                    </span>
+                    <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider">
+                      مجاني · فوري
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
 
       {/* TOOLS GRID */}
       <section id="tools" className="max-w-7xl mx-auto px-6 py-20">
