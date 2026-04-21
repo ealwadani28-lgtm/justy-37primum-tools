@@ -110,7 +110,7 @@ export function ProjectsKanban() {
                   className="rounded-xl border border-border bg-secondary/60 p-3 cursor-grab active:cursor-grabbing hover:border-primary/50 transition"
                 >
                   <div className="text-sm text-foreground font-bold mb-2 text-right">{c.title}</div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between flex-row-reverse">
                     <div
                       className="w-6 h-6 rounded-full text-[10px] flex items-center justify-center font-bold"
                       style={{ background: col.color, color: "#0a0a0b" }}
