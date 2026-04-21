@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { arNumber } from "@/lib/utils";
 
 type Card = { id: string; title: string; assignee: string; priority: "low" | "med" | "high" };
 type Col = { id: string; title: string; color: string; cards: Card[] };
@@ -68,14 +69,14 @@ export function ProjectsKanban() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" dir="rtl">
       <div className="flex gap-2">
         <input
           value={newCard}
           onChange={(e) => setNewCard(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addCard()}
           placeholder="مهمة جديدة..."
-          className="flex-1 bg-input border border-border rounded-xl p-2.5 text-sm"
+          className="flex-1 bg-input border border-border rounded-xl p-2.5 text-sm text-right"
         />
         <button onClick={addCard} className="px-4 py-2 rounded-xl bg-primary text-primary-foreground font-bold text-sm">
           + إضافة
@@ -90,12 +91,12 @@ export function ProjectsKanban() {
             onDrop={() => dragId && move(dragId, col.id)}
             className="rounded-2xl border border-border bg-card/60 p-3 min-h-[300px]"
           >
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-3 flex-row-reverse">
               <span
                 className="text-xs px-2 py-0.5 rounded-full"
                 style={{ background: `${col.color}22`, color: col.color, border: `1px solid ${col.color}55` }}
               >
-                {col.cards.length}
+                {arNumber(col.cards.length)}
               </span>
               <div className="text-sm font-bold">{col.title}</div>
             </div>
@@ -109,7 +110,7 @@ export function ProjectsKanban() {
                   className="rounded-xl border border-border bg-secondary/60 p-3 cursor-grab active:cursor-grabbing hover:border-primary/50 transition"
                 >
                   <div className="text-sm text-foreground font-bold mb-2 text-right">{c.title}</div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between flex-row-reverse">
                     <div
                       className="w-6 h-6 rounded-full text-[10px] flex items-center justify-center font-bold"
                       style={{ background: col.color, color: "#0a0a0b" }}

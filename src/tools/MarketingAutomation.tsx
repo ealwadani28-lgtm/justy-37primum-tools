@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ActionBar } from "@/components/ActionBar";
+import { toArabicDigits } from "@/lib/utils";
 
 type Step = { id: string; type: "trigger" | "email" | "wait" | "branch"; label: string; detail: string };
 
@@ -37,13 +38,13 @@ export function MarketingAutomation() {
   const json = JSON.stringify({ name, steps }, null, 2);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" dir="rtl">
       <div>
-        <label className="text-sm font-semibold mb-2 block">اسم الرحلة</label>
+        <label className="text-sm font-semibold mb-2 block text-right">اسم الرحلة</label>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full bg-input border border-border rounded-xl p-3"
+          className="w-full bg-input border border-border rounded-xl p-3 text-right"
         />
       </div>
 
@@ -68,17 +69,17 @@ export function MarketingAutomation() {
                 <div className="text-2xl">{m.icon}</div>
                 <div className="flex-1">
                   <div className={`text-[10px] uppercase tracking-[0.2em] ${m.color} font-bold mb-1`}>
-                    خطوة {i + 1} · {s.type}
+                    خطوة {toArabicDigits(i + 1)} · {s.type}
                   </div>
                   <input
                     value={s.label}
                     onChange={(e) => setSteps((arr) => arr.map((x) => (x.id === s.id ? { ...x, label: e.target.value } : x)))}
-                    className="w-full bg-transparent text-base font-bold text-foreground border-b border-transparent focus:border-border outline-none"
+                    className="w-full bg-transparent text-base font-bold text-foreground border-b border-transparent focus:border-border outline-none text-right"
                   />
                   <input
                     value={s.detail}
                     onChange={(e) => setSteps((arr) => arr.map((x) => (x.id === s.id ? { ...x, detail: e.target.value } : x)))}
-                    className="w-full bg-transparent text-xs text-muted-foreground mt-1 outline-none"
+                    className="w-full bg-transparent text-xs text-muted-foreground mt-1 outline-none text-right"
                   />
                 </div>
                 <button onClick={() => remove(s.id)} className="text-xs text-muted-foreground hover:text-foreground">✕</button>

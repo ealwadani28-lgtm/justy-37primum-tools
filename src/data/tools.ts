@@ -268,7 +268,7 @@ export const tools: Tool[] = [
   },
   {
     slug: "sentiment-ai",
-    name: "تحليل المشاعر AI",
+    name: "تحليل المشاعر الذكي",
     description: "حلّل مشاعر تعليقات عملائك بالذكاء الاصطناعي.",
     icon: "🧠",
     category: "بيانات",
@@ -298,7 +298,7 @@ export const tools: Tool[] = [
   },
   {
     slug: "logistics",
-    name: "داشبورد لوجستي",
+    name: "لوحة الشحن واللوجستيات",
     description: "تتبّع شحناتك وأسطولك في الوقت الفعلي.",
     icon: "🚚",
     category: "أعمال",
@@ -318,8 +318,8 @@ export const tools: Tool[] = [
   },
   {
     slug: "crm-pipeline",
-    name: "CRM عربي",
-    description: "نظام إدارة عملاء بقمع مبيعات احترافي.",
+    name: "إدارة العملاء",
+    description: "نظام عربي لتتبّع العملاء وقمع المبيعات.",
     icon: "🎯",
     category: "أعمال",
     seoTitle: "نظام CRM عربي | إدارة العملاء وقمع المبيعات أونلاين",
@@ -329,7 +329,7 @@ export const tools: Tool[] = [
   {
     slug: "payments-dashboard",
     name: "بوابة الدفع",
-    description: "داشبورد بوابة دفع وتقنية مالية.",
+    description: "لوحة تحكم لبوابة دفع وتقنية مالية.",
     icon: "💳",
     category: "أعمال",
     seoTitle: "داشبورد بوابة الدفع | FinTech Payment Gateway عربي",
@@ -339,7 +339,7 @@ export const tools: Tool[] = [
   {
     slug: "talent-management",
     name: "إدارة المواهب",
-    description: "منصة HR لإدارة الأداء والتطوير.",
+    description: "منصّة موارد بشرية لإدارة الأداء والتطوير.",
     icon: "🌟",
     category: "أعمال",
     seoTitle: "منصة إدارة المواهب البشرية | HR Talent Management عربي",
@@ -348,8 +348,8 @@ export const tools: Tool[] = [
   },
   {
     slug: "bloom-analytics",
-    name: "بلوم تحليلات",
-    description: "داشبورد تحليلات أنيق بأسلوب نعناعي.",
+    name: "لوحة التحليلات",
+    description: "لوحة تحليلات أنيقة بأسلوب نعناعي هادئ.",
     icon: "🌱",
     category: "بيانات",
     seoTitle: "بلوم سبيس Analytics | داشبورد تحليلات أنيق عربي",
