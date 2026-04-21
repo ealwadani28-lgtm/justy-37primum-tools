@@ -124,14 +124,8 @@
    so existing ml-/mr-/pl-/pr-/left-/right-/space-x-/text-left/right
    work correctly under dir="rtl".
    ============================================================ */
-@layer utilities {
-  [dir="rtl"] .text-left { text-align: right; }
-  [dir="rtl"] .text-right { text-align: left; }
-
-  /* Margin flips */
-  [dir="rtl"] [class*="ml-"] { margin-left: 0 !important; }
-  [dir="rtl"] [class*="mr-"] { margin-right: 0 !important; }
-}
+[dir="rtl"] .text-left { text-align: right !important; }
+[dir="rtl"] .text-right { text-align: left !important; }
 
 /* Use attribute selectors to swap physical → logical via inheritance */
 [dir="rtl"] .ml-1  { margin-right: 0.25rem !important; }
