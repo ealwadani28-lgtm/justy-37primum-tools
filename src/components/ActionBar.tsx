@@ -7,8 +7,12 @@ type ActionBarProps = {
   copyLabel?: string;
   /** تحميل: محتوى نصي */
   downloadText?: { content: string; filename: string; mime?: string };
-  /** تحميل: من canvas (للـ QR والصور) */
-  downloadCanvas?: { canvas: HTMLCanvasElement | null; filename: string; mime?: string };
+  /** تحميل: من canvas (للـ QR والصور) — يقبل canvas مباشرة أو دالة تُرجع canvas حيّ وقت الضغط */
+  downloadCanvas?: {
+    canvas: HTMLCanvasElement | null | (() => HTMLCanvasElement | null);
+    filename: string;
+    mime?: string;
+  };
   /** تحميل: blob جاهز */
   downloadBlob?: { blob: Blob | null; filename: string };
   /** اسم زر التحميل — اختياري */
