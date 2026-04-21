@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
+import { ActionBar } from "@/components/ActionBar";
 
 export function QrGenerator() {
   const [text, setText] = useState("https://plumspace.app");
   const [color, setColor] = useState("#5dd4c5");
   const [bg, setBg] = useState("#1a2424");
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [dataUrl, setDataUrl] = useState<string>("");
 
   useEffect(() => {
     if (!canvasRef.current || !text) return;
@@ -14,16 +16,12 @@ export function QrGenerator() {
       margin: 2,
       color: { dark: color, light: bg },
       errorCorrectionLevel: "H",
-    }).catch(() => {});
+    })
+      .then(() => {
+        if (canvasRef.current) setDataUrl(canvasRef.current.toDataURL("image/png"));
+      })
+      .catch(() => {});
   }, [text, color, bg]);
-
-  const download = () => {
-    if (!canvasRef.current) return;
-    const link = document.createElement("a");
-    link.download = "qr-code.png";
-    link.href = canvasRef.current.toDataURL("image/png");
-    link.click();
-  };
 
   return (
     <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -41,16 +39,34 @@ export function QrGenerator() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="text-sm font-semibold mb-2 block">لون الرمز</label>
-            <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="w-full h-12 bg-input border border-border rounded-xl cursor-pointer" />
+            <input
+              type="color"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+              className="w-full h-12 bg-input border border-border rounded-xl cursor-pointer"
+            />
           </div>
           <div>
             <label className="text-sm font-semibold mb-2 block">لون الخلفية</label>
-            <input type="color" value={bg} onChange={(e) => setBg(e.target.value)} className="w-full h-12 bg-input border border-border rounded-xl cursor-pointer" />
+            <input
+              type="color"
+              value={bg}
+              onChange={(e) => setBg(e.target.value)}
+              className="w-full h-12 bg-input border border-border rounded-xl cursor-pointer"
+            />
           </div>
         </div>
-        <button onClick={download} className="w-full bg-mint-gradient text-primary-foreground font-semibold py-3 rounded-xl hover:opacity-90">
-          تحميل PNG
-        </button>
+        <ActionBar
+          copyText={text}
+          copyLabel="نسخ النص"
+          downloadCanvas={{ canvas: canvasRef.current, filename: "qr-code.png" }}
+          downloadLabel="تحميل PNG"
+          share={{
+            title: "رمز QR",
+            text: `رمز QR لـ: ${text}`,
+            url: dataUrl || undefined,
+          }}
+        />
       </div>
       <div className="flex items-center justify-center bg-secondary rounded-2xl p-8">
         <canvas ref={canvasRef} className="rounded-lg shadow-card-soft" />
