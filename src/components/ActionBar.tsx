@@ -76,10 +76,6 @@ export function ActionBar({
       filename = downloadBlob.filename;
       cleanup = () => URL.revokeObjectURL(url!);
     } else if (!url && downloadText) {
-      url = URL.createObjectURL(downloadBlob.blob);
-      filename = downloadBlob.filename;
-      cleanup = () => URL.revokeObjectURL(url!);
-    } else if (downloadText) {
       const blob = new Blob([downloadText.content], {
         type: downloadText.mime ?? "text/plain;charset=utf-8",
       });
