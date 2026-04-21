@@ -14,4 +14,4 @@ Sitemap: ${SITE.url}/sitemap.xml
       },
     },
   },
-});
+} as any);
