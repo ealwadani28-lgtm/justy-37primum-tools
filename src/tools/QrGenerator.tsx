@@ -59,7 +59,11 @@ export function QrGenerator() {
         <ActionBar
           copyText={text}
           copyLabel="نسخ النص"
-          downloadCanvas={{ canvas: canvasRef.current, filename: "qr-code.png" }}
+          downloadCanvas={{
+            canvas: () => canvasRef.current,
+            filename: `qr-${(text.replace(/[^a-z0-9\u0600-\u06FF]+/gi, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "code")}.png`,
+            mime: "image/png",
+          }}
           downloadLabel="تحميل PNG"
           share={{
             title: "رمز QR",
