@@ -31,9 +31,9 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PlumSpace — مجموعة أدوات الويب الصغيرة" },
+      { title: "Justlator Tools — مجموعة أدوات الويب الصغيرة" },
       { name: "description", content: "24 أداة جاهزة للاستخدام: مولّد QR، عدّ تنازلي، استطلاعات، رسوم بيانية، نماذج، وأكثر." },
-      { property: "og:title", content: "PlumSpace — مجموعة أدوات الويب" },
+      { property: "og:title", content: "Justlator Tools — مجموعة أدوات الويب" },
       { property: "og:description", content: "24 أداة عربية جاهزة وقابلة للتخصيص." },
       { property: "og:type", content: "website" },
     ],

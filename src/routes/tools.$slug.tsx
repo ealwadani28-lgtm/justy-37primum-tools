@@ -15,7 +15,7 @@ export const Route = createFileRoute("/tools/$slug")({
     if (!t) {
       return {
         meta: [
-          { title: "الأداة غير موجودة | PlumSpace" },
+          { title: "الأداة غير موجودة | Justlator Tools" },
           { name: "robots", content: "noindex, follow" },
         ],
       };
