@@ -39,9 +39,9 @@ export function WhatsappShowcase() {
 
           <div className="grid grid-cols-3 gap-3">
             {[
-              { v: "<2s", l: "زمن الرد" },
-              { v: "+38%", l: "تحويلات" },
-              { v: "24/7", l: "متاح دائماً" },
+              { v: "<٢ث", l: "زمن الرد" },
+              { v: "+٣٨٪", l: "تحويلات" },
+              { v: "٢٤/٧", l: "متاح دائماً" },
             ].map((s) => (
               <div key={s.l} className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-3 text-center">
                 <div className="text-xl font-bold text-[#52ec6f]">{s.v}</div>
