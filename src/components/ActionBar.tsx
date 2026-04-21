@@ -7,8 +7,12 @@ type ActionBarProps = {
   copyLabel?: string;
   /** تحميل: محتوى نصي */
   downloadText?: { content: string; filename: string; mime?: string };
-  /** تحميل: من canvas (للـ QR والصور) */
-  downloadCanvas?: { canvas: HTMLCanvasElement | null; filename: string; mime?: string };
+  /** تحميل: من canvas (للـ QR والصور) — يقبل canvas مباشرة أو دالة تُرجع canvas حيّ وقت الضغط */
+  downloadCanvas?: {
+    canvas: HTMLCanvasElement | null | (() => HTMLCanvasElement | null);
+    filename: string;
+    mime?: string;
+  };
   /** تحميل: blob جاهز */
   downloadBlob?: { blob: Blob | null; filename: string };
   /** اسم زر التحميل — اختياري */
@@ -57,14 +61,21 @@ export function ActionBar({
     let filename = "download";
     let cleanup: (() => void) | null = null;
 
-    if (downloadCanvas?.canvas) {
-      url = downloadCanvas.canvas.toDataURL(downloadCanvas.mime ?? "image/png");
-      filename = downloadCanvas.filename;
-    } else if (downloadBlob?.blob) {
+    if (downloadCanvas) {
+      const liveCanvas =
+        typeof downloadCanvas.canvas === "function"
+          ? downloadCanvas.canvas()
+          : downloadCanvas.canvas;
+      if (liveCanvas) {
+        url = liveCanvas.toDataURL(downloadCanvas.mime ?? "image/png");
+        filename = downloadCanvas.filename;
+      }
+    }
+    if (!url && downloadBlob?.blob) {
       url = URL.createObjectURL(downloadBlob.blob);
       filename = downloadBlob.filename;
       cleanup = () => URL.revokeObjectURL(url!);
-    } else if (downloadText) {
+    } else if (!url && downloadText) {
       const blob = new Blob([downloadText.content], {
         type: downloadText.mime ?? "text/plain;charset=utf-8",
       });
