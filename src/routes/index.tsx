@@ -251,6 +251,41 @@ function Index() {
           >
             <LogisticsShowcase />
           </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "projects-kanban" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <ProjectsShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "payments-dashboard" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <PaymentsShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "talent-management" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <TalentShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "crm-pipeline" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <CrmShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "bloom-analytics" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <BloomShowcase />
+          </Link>
         </div>
       </section>
 
