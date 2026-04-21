@@ -10,8 +10,8 @@ export type Tool = {
 };
 
 export const SITE = {
-  name: "PlumSpace",
-  url: "https://plumspace.app",
+  name: "Justlator Tools",
+  url: "https://justlator.com",
   tagline: "أدوات ويب عربية مجانية",
 };
 
@@ -22,7 +22,7 @@ export const tools: Tool[] = [
     description: "أنشئ رموز QR لأي رابط أو نص في ثوانٍ.",
     icon: "📱",
     category: "أدوات",
-    seoTitle: "مولّد رمز QR مجاني عربي | إنشاء باركود QR Code أونلاين | PlumSpace",
+    seoTitle: "مولّد رمز QR مجاني عربي | إنشاء باركود QR Code أونلاين | Justlator Tools",
     seoDescription: "أنشئ رمز QR احترافي لأي رابط، نص، واتساب، أو واي فاي في ثوانٍ. أداة مجانية بدون تسجيل، خصّص الألوان وحمّل الصورة بدقة عالية.",
     keywords: ["مولد QR", "باركود", "رمز استجابة سريعة", "QR Code generator", "إنشاء كيو ار", "تصميم باركود", "أداة عربية مجانية"],
   },
@@ -42,7 +42,7 @@ export const tools: Tool[] = [
     description: "أرقام متحركة لإبراز إنجازاتك.",
     icon: "🔢",
     category: "عرض",
-    seoTitle: "عدّاد أرقام متحرك للمواقع | إحصائيات وإنجازات بصرية | PlumSpace",
+    seoTitle: "عدّاد أرقام متحرك للمواقع | إحصائيات وإنجازات بصرية | Justlator Tools",
     seoDescription: "اعرض أرقامك وإنجازاتك بأناقة عبر عدّاد متحرك يجذب الانتباه. مثالي لصفحات الشركات، البورتفوليو، وصفحات الهبوط. متجاوب وسريع.",
     keywords: ["عداد أرقام", "إحصائيات متحركة", "animated counter", "أرقام للموقع", "عداد إنجازات"],
   },
@@ -52,7 +52,7 @@ export const tools: Tool[] = [
     description: "قسم أسئلة قابل للطيّ بتصميم عصري.",
     icon: "❓",
     category: "محتوى",
-    seoTitle: "قسم الأسئلة الشائعة FAQ بتصميم احترافي عربي | PlumSpace",
+    seoTitle: "قسم الأسئلة الشائعة FAQ بتصميم احترافي عربي | Justlator Tools",
     seoDescription: "أنشئ قسم أسئلة وأجوبة قابل للطي بتصميم عصري يدعم العربية بشكل كامل. يحسّن تجربة المستخدم وSEO موقعك ويقلل الاستفسارات المتكررة.",
     keywords: ["الأسئلة الشائعة", "FAQ عربي", "أكورديون", "أسئلة وأجوبة", "accordion", "قسم أسئلة"],
   },

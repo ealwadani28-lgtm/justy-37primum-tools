@@ -3,7 +3,7 @@ import QRCode from "qrcode";
 import { ActionBar } from "@/components/ActionBar";
 
 export function QrGenerator() {
-  const [text, setText] = useState("https://plumspace.app");
+  const [text, setText] = useState("https://justlator.com");
   const [color, setColor] = useState("#5dd4c5");
   const [bg, setBg] = useState("#1a2424");
   const canvasRef = useRef<HTMLCanvasElement>(null);
