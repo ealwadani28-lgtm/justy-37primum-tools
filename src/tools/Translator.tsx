@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ActionBar } from "@/components/ActionBar";
 
 const dict: Record<string, Record<string, string>> = {
   hello: { en: "Hello", ar: "مرحباً", fr: "Bonjour", es: "Hola", tr: "Merhaba" },
@@ -28,18 +29,41 @@ export function Translator() {
       <div className="grid md:grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-semibold mb-2 block">النص الأصلي</label>
-          <textarea value={text} onChange={(e) => setText(e.target.value)} rows={5} className="w-full bg-input border border-border rounded-xl p-3" />
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={5}
+            className="w-full bg-input border border-border rounded-xl p-3"
+          />
         </div>
         <div>
           <div className="flex items-center justify-between mb-2">
             <label className="text-sm font-semibold">الترجمة</label>
-            <select value={lang} onChange={(e) => setLang(e.target.value)} className="bg-input border border-border rounded-lg px-3 py-1 text-sm">
-              {langs.map((l) => <option key={l.code} value={l.code}>{l.label}</option>)}
+            <select
+              value={lang}
+              onChange={(e) => setLang(e.target.value)}
+              className="bg-input border border-border rounded-lg px-3 py-1 text-sm"
+            >
+              {langs.map((l) => (
+                <option key={l.code} value={l.code}>
+                  {l.label}
+                </option>
+              ))}
             </select>
           </div>
-          <div className="w-full bg-secondary border border-border rounded-xl p-3 min-h-[124px] text-lg">{result}</div>
+          <div className="w-full bg-secondary border border-border rounded-xl p-3 min-h-[124px] text-lg">
+            {result}
+          </div>
         </div>
       </div>
+
+      <ActionBar
+        copyText={result}
+        copyLabel="نسخ الترجمة"
+        downloadText={{ content: `${text}\n→ ${result}`, filename: "translation.txt" }}
+        downloadLabel="تحميل نص"
+        share={{ title: "ترجمة", text: result }}
+      />
     </div>
   );
 }

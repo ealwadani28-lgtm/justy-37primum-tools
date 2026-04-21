@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ActionBar } from "@/components/ActionBar";
 
 const items = [
   { name: "نورة العتيبي", role: "مديرة منتج", text: "أدوات رائعة وفّرت علي أسابيع من العمل. تصميم نظيف وسهل الاستخدام جداً.", avatar: "https://i.pravatar.cc/100?img=49" },
@@ -6,12 +7,22 @@ const items = [
   { name: "ريم الزهراني", role: "مصممة UI/UX", text: "أخيراً أدوات عربية تحترم RTL والخطوط العربية. شكراً جزيلاً!", avatar: "https://i.pravatar.cc/100?img=45" },
 ];
 
+const html = `<section dir="rtl" class="testimonials">\n${items
+  .map(
+    (t) =>
+      `  <figure>\n    <blockquote>${t.text}</blockquote>\n    <figcaption><img src="${t.avatar}" alt="${t.name}"/> <strong>${t.name}</strong> — ${t.role}</figcaption>\n  </figure>`
+  )
+  .join("\n")}\n</section>`;
+
 export function Testimonials() {
   const [i, setI] = useState(0);
-  useEffect(() => { const id = setInterval(() => setI((x) => (x + 1) % items.length), 5000); return () => clearInterval(id); }, []);
+  useEffect(() => {
+    const id = setInterval(() => setI((x) => (x + 1) % items.length), 5000);
+    return () => clearInterval(id);
+  }, []);
   const t = items[i];
   return (
-    <div>
+    <div className="space-y-6">
       <div className="bg-secondary border border-border rounded-2xl p-8 text-center min-h-[260px]">
         <div className="text-5xl text-primary mb-4">"</div>
         <p className="text-lg leading-relaxed mb-6">{t.text}</p>
@@ -23,11 +34,23 @@ export function Testimonials() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center gap-2 mt-4">
+      <div className="flex justify-center gap-2">
         {items.map((_, idx) => (
-          <button key={idx} onClick={() => setI(idx)} className={`h-2 rounded-full transition-all ${idx === i ? "w-8 bg-primary" : "w-2 bg-muted"}`} />
+          <button
+            key={idx}
+            onClick={() => setI(idx)}
+            className={`h-2 rounded-full transition-all ${idx === i ? "w-8 bg-primary" : "w-2 bg-muted"}`}
+          />
         ))}
       </div>
+
+      <ActionBar
+        copyText={html}
+        copyLabel="نسخ كود HTML"
+        downloadText={{ content: html, filename: "testimonials.html", mime: "text/html" }}
+        downloadLabel="تحميل HTML"
+        share={{ title: "آراء العملاء" }}
+      />
     </div>
   );
 }
