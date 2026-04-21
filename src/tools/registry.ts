@@ -28,6 +28,11 @@ import { SentimentAi } from "./SentimentAi";
 import { Heatmap } from "./Heatmap";
 import { MarketingAutomation } from "./MarketingAutomation";
 import { Logistics } from "./Logistics";
+import { ProjectsKanban } from "./ProjectsKanban";
+import { CrmPipeline } from "./CrmPipeline";
+import { PaymentsDashboard } from "./PaymentsDashboard";
+import { TalentManagement } from "./TalentManagement";
+import { BloomAnalytics } from "./BloomAnalytics";
 
 export const toolRegistry: Record<string, ComponentType> = {
   "qr-generator": QrGenerator,
@@ -59,4 +64,9 @@ export const toolRegistry: Record<string, ComponentType> = {
   heatmap: Heatmap,
   "marketing-automation": MarketingAutomation,
   logistics: Logistics,
+  "projects-kanban": ProjectsKanban,
+  "crm-pipeline": CrmPipeline,
+  "payments-dashboard": PaymentsDashboard,
+  "talent-management": TalentManagement,
+  "bloom-analytics": BloomAnalytics,
 };
