@@ -23,6 +23,9 @@ import { PdfViewer } from "./PdfViewer";
 import { Gdpr } from "./Gdpr";
 import { Whatsapp } from "./Whatsapp";
 import { FormBuilder } from "./FormBuilder";
+import { SecurityAudit } from "./SecurityAudit";
+import { SentimentAi } from "./SentimentAi";
+import { Heatmap } from "./Heatmap";
 
 export const toolRegistry: Record<string, ComponentType> = {
   "qr-generator": QrGenerator,
@@ -49,4 +52,7 @@ export const toolRegistry: Record<string, ComponentType> = {
   gdpr: Gdpr,
   whatsapp: Whatsapp,
   "form-builder": FormBuilder,
+  "security-audit": SecurityAudit,
+  "sentiment-ai": SentimentAi,
+  heatmap: Heatmap,
 };

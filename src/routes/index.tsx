@@ -3,6 +3,9 @@ import { tools, SITE } from "@/data/tools";
 import { ToolPreview } from "@/components/ToolPreview";
 import { PdfShowcase } from "@/components/showcases/PdfShowcase";
 import { VideoShowcase } from "@/components/showcases/VideoShowcase";
+import { SecurityShowcase } from "@/components/showcases/SecurityShowcase";
+import { SentimentShowcase } from "@/components/showcases/SentimentShowcase";
+import { HeatmapShowcase } from "@/components/showcases/HeatmapShowcase";
 
 const HOME_TITLE = "Justlator Tools | 24 أداة ويب عربية مجانية وجاهزة للاستخدام";
 const HOME_DESC = "مجموعة من 24 أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
@@ -197,6 +200,27 @@ function Index() {
             className="block group transition-transform duration-500 hover:-translate-y-1"
           >
             <VideoShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "security-audit" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <SecurityShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "sentiment-ai" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <SentimentShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "heatmap" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <HeatmapShowcase />
           </Link>
         </div>
       </section>
