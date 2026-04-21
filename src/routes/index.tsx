@@ -1,7 +1,62 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { tools } from "@/data/tools";
+import { tools, SITE } from "@/data/tools";
+
+const HOME_TITLE = "PlumSpace | 24 أداة ويب عربية مجانية وجاهزة للاستخدام";
+const HOME_DESC = "مجموعة من 24 أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
+const HOME_KEYWORDS = "أدوات ويب عربية, مولد QR, عد تنازلي, نماذج تواصل, استطلاعات رأي, أدوات مجانية, أدوات موقع عربي, web tools Arabic, RTL widgets";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: HOME_TITLE },
+      { name: "description", content: HOME_DESC },
+      { name: "keywords", content: HOME_KEYWORDS },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { property: "og:title", content: HOME_TITLE },
+      { property: "og:description", content: HOME_DESC },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE.url },
+      { property: "og:locale", content: "ar_SA" },
+      { property: "og:site_name", content: SITE.name },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: HOME_TITLE },
+      { name: "twitter:description", content: HOME_DESC },
+    ],
+    links: [{ rel: "canonical", href: SITE.url }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: SITE.name,
+          url: SITE.url,
+          inLanguage: "ar",
+          description: HOME_DESC,
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${SITE.url}/?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "أدوات PlumSpace",
+          numberOfItems: tools.length,
+          itemListElement: tools.map((t, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            url: `${SITE.url}/tools/${t.slug}`,
+            name: t.name,
+          })),
+        }),
+      },
+    ],
+  }),
   component: Index,
 });
 
