@@ -9,6 +9,11 @@ import { HeatmapShowcase } from "@/components/showcases/HeatmapShowcase";
 import { WhatsappShowcase } from "@/components/showcases/WhatsappShowcase";
 import { MarketingShowcase } from "@/components/showcases/MarketingShowcase";
 import { LogisticsShowcase } from "@/components/showcases/LogisticsShowcase";
+import { ProjectsShowcase } from "@/components/showcases/ProjectsShowcase";
+import { PaymentsShowcase } from "@/components/showcases/PaymentsShowcase";
+import { TalentShowcase } from "@/components/showcases/TalentShowcase";
+import { CrmShowcase } from "@/components/showcases/CrmShowcase";
+import { BloomShowcase } from "@/components/showcases/BloomShowcase";
 
 const HOME_TITLE = "Justlator Tools | 24 أداة ويب عربية مجانية وجاهزة للاستخدام";
 const HOME_DESC = "مجموعة من 24 أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
