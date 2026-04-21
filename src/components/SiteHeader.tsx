@@ -1,16 +1,18 @@
 import { Link } from "@tanstack/react-router";
+import logo from "@/assets/justlator-logo.png";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/50">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-xl bg-mint-gradient flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform">
-            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary-foreground" fill="currentColor">
-              <path d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.3L18 8v8l-6 3.7L6 16V8l6-3.7z"/>
-            </svg>
-          </div>
-          <span className="font-bold text-lg tracking-tight">PlumSpace<span className="text-primary">.</span></span>
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-3 group" aria-label="Justlator Tools — الرئيسية">
+          <img
+            src={logo}
+            alt="Justlator Technologies"
+            className="h-14 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_18px_rgba(80,160,255,0.35)]"
+            loading="eager"
+            decoding="async"
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
