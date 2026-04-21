@@ -3,7 +3,6 @@ import { SITE } from "@/data/tools";
 
 export const Route = createFileRoute("/robots.txt")({
   server: {
-  // @ts-expect-error - server handlers typing not yet in route types
     handlers: {
       GET: async () => {
         const body = `User-agent: *
@@ -15,4 +14,4 @@ Sitemap: ${SITE.url}/sitemap.xml
       },
     },
   },
-});
+} as any);
