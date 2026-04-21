@@ -9,6 +9,11 @@ import { HeatmapShowcase } from "@/components/showcases/HeatmapShowcase";
 import { WhatsappShowcase } from "@/components/showcases/WhatsappShowcase";
 import { MarketingShowcase } from "@/components/showcases/MarketingShowcase";
 import { LogisticsShowcase } from "@/components/showcases/LogisticsShowcase";
+import { ProjectsShowcase } from "@/components/showcases/ProjectsShowcase";
+import { PaymentsShowcase } from "@/components/showcases/PaymentsShowcase";
+import { TalentShowcase } from "@/components/showcases/TalentShowcase";
+import { CrmShowcase } from "@/components/showcases/CrmShowcase";
+import { BloomShowcase } from "@/components/showcases/BloomShowcase";
 
 const HOME_TITLE = "Justlator Tools | 24 أداة ويب عربية مجانية وجاهزة للاستخدام";
 const HOME_DESC = "مجموعة من 24 أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
@@ -245,6 +250,41 @@ function Index() {
             className="block group transition-transform duration-500 hover:-translate-y-1"
           >
             <LogisticsShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "projects-kanban" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <ProjectsShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "payments-dashboard" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <PaymentsShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "talent-management" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <TalentShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "crm-pipeline" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <CrmShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "bloom-analytics" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <BloomShowcase />
           </Link>
         </div>
       </section>
