@@ -61,10 +61,21 @@ export function ActionBar({
     let filename = "download";
     let cleanup: (() => void) | null = null;
 
-    if (downloadCanvas?.canvas) {
-      url = downloadCanvas.canvas.toDataURL(downloadCanvas.mime ?? "image/png");
-      filename = downloadCanvas.filename;
-    } else if (downloadBlob?.blob) {
+    if (downloadCanvas) {
+      const liveCanvas =
+        typeof downloadCanvas.canvas === "function"
+          ? downloadCanvas.canvas()
+          : downloadCanvas.canvas;
+      if (liveCanvas) {
+        url = liveCanvas.toDataURL(downloadCanvas.mime ?? "image/png");
+        filename = downloadCanvas.filename;
+      }
+    }
+    if (!url && downloadBlob?.blob) {
+      url = URL.createObjectURL(downloadBlob.blob);
+      filename = downloadBlob.filename;
+      cleanup = () => URL.revokeObjectURL(url!);
+    } else if (!url && downloadText) {
       url = URL.createObjectURL(downloadBlob.blob);
       filename = downloadBlob.filename;
       cleanup = () => URL.revokeObjectURL(url!);
