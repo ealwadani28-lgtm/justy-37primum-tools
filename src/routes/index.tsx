@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { tools, SITE } from "@/data/tools";
+import { ToolPreview } from "@/components/ToolPreview";
 
 const HOME_TITLE = "Justlator Tools | 24 أداة ويب عربية مجانية وجاهزة للاستخدام";
 const HOME_DESC = "مجموعة من 24 أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
@@ -113,30 +114,45 @@ function Index() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tools.map((tool) => (
             <Link
               key={tool.slug}
               to="/tools/$slug"
               params={{ slug: tool.slug }}
-              className="group relative bg-card border border-border rounded-2xl p-6 hover:border-primary/60 hover:shadow-glow transition-all overflow-hidden"
+              className="group relative rounded-3xl overflow-hidden border border-emerald-200/40 bg-gradient-to-br from-[#e8f7f1] via-[#dff3ea] to-[#cfeee1] hover:-translate-y-1 hover:shadow-[0_30px_60px_-20px_rgba(30,180,140,0.45)] transition-all duration-300"
             >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-card-glow transition-opacity"></div>
-              <div className="relative">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                    {tool.icon}
-                  </div>
-                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground border border-border px-2 py-1 rounded-full">
+              {/* Preview area (mockup) */}
+              <div className="relative h-44 overflow-hidden">
+                {/* Soft mesh background */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.9),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(167,243,208,0.6),transparent_55%)]" />
+                {/* Brand chip top-center */}
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 text-[10px] font-extrabold tracking-wide text-emerald-700/90 z-10">
+                  Justlator<span className="text-emerald-500">·</span>
+                </div>
+                <div className="absolute inset-0 pt-8">
+                  <ToolPreview slug={tool.slug} />
+                </div>
+              </div>
+
+              {/* Card meta — dark band */}
+              <div className="bg-card/95 backdrop-blur-sm border-t border-emerald-200/30 p-4">
+                <div className="flex items-start justify-between gap-3 mb-1">
+                  <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                    {tool.name}
+                  </h3>
+                  <span className="shrink-0 text-[10px] text-emerald-300 bg-emerald-500/10 border border-emerald-400/30 px-2 py-0.5 rounded-full">
                     {tool.category}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
-                  {tool.name}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{tool.description}</p>
-                <div className="mt-4 text-xs text-primary font-semibold inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  جرّب الآن ←
+                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                  {tool.description}
+                </p>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-primary opacity-70 group-hover:opacity-100 transition">
+                    جرّب الآن ←
+                  </span>
+                  <span className="text-[10px] text-muted-foreground/60">مجاني</span>
                 </div>
               </div>
             </Link>
