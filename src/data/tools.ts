@@ -268,7 +268,7 @@ export const tools: Tool[] = [
   },
   {
     slug: "sentiment-ai",
-    name: "تحليل المشاعر AI",
+    name: "تحليل المشاعر الذكي",
     description: "حلّل مشاعر تعليقات عملائك بالذكاء الاصطناعي.",
     icon: "🧠",
     category: "بيانات",
@@ -298,7 +298,7 @@ export const tools: Tool[] = [
   },
   {
     slug: "logistics",
-    name: "داشبورد لوجستي",
+    name: "لوحة الشحن واللوجستيات",
     description: "تتبّع شحناتك وأسطولك في الوقت الفعلي.",
     icon: "🚚",
     category: "أعمال",
