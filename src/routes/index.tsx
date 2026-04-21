@@ -6,6 +6,9 @@ import { VideoShowcase } from "@/components/showcases/VideoShowcase";
 import { SecurityShowcase } from "@/components/showcases/SecurityShowcase";
 import { SentimentShowcase } from "@/components/showcases/SentimentShowcase";
 import { HeatmapShowcase } from "@/components/showcases/HeatmapShowcase";
+import { WhatsappShowcase } from "@/components/showcases/WhatsappShowcase";
+import { MarketingShowcase } from "@/components/showcases/MarketingShowcase";
+import { LogisticsShowcase } from "@/components/showcases/LogisticsShowcase";
 
 const HOME_TITLE = "Justlator Tools | 24 أداة ويب عربية مجانية وجاهزة للاستخدام";
 const HOME_DESC = "مجموعة من 24 أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
@@ -221,6 +224,27 @@ function Index() {
             className="block group transition-transform duration-500 hover:-translate-y-1"
           >
             <HeatmapShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "whatsapp" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <WhatsappShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "marketing-automation" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <MarketingShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "logistics" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <LogisticsShowcase />
           </Link>
         </div>
       </section>
