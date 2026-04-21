@@ -84,25 +84,25 @@ export function Logistics() {
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl border border-border bg-card overflow-hidden">
-        <div className="grid grid-cols-12 gap-2 text-[11px] uppercase tracking-wider text-muted-foreground p-3 border-b border-border bg-secondary/40">
+      <div className="rounded-2xl border border-border bg-card overflow-hidden" dir="rtl">
+        <div className="grid grid-cols-12 gap-2 text-[11px] uppercase tracking-wider text-muted-foreground p-3 border-b border-border bg-secondary/40 text-right">
           <div className="col-span-2">رقم الشحنة</div>
-          <div className="col-span-3">من → إلى</div>
+          <div className="col-span-3">من ← إلى</div>
           <div className="col-span-2">السائق</div>
-          <div className="col-span-2">ETA</div>
-          <div className="col-span-3 text-left">الحالة</div>
+          <div className="col-span-2">الوصول المتوقّع</div>
+          <div className="col-span-3">الحالة</div>
         </div>
         {shipments.map((s) => {
           const m = statusMeta[s.status];
           return (
-            <div key={s.id} className="grid grid-cols-12 gap-2 items-center p-3 border-b border-border/50 last:border-0 text-sm hover:bg-secondary/30 transition">
-              <div className="col-span-2 font-mono text-xs">{s.id}</div>
+            <div key={s.id} className="grid grid-cols-12 gap-2 items-center p-3 border-b border-border/50 last:border-0 text-sm hover:bg-secondary/30 transition text-right">
+              <div className="col-span-2 font-mono text-xs" dir="ltr">{s.id}</div>
               <div className="col-span-3">
-                {s.from} <span className="text-muted-foreground">→</span> {s.to}
+                {s.from} <span className="text-muted-foreground">←</span> {s.to}
               </div>
               <div className="col-span-2 text-muted-foreground">{s.driver}</div>
               <div className="col-span-2 text-xs">{s.eta}</div>
-              <div className="col-span-3 text-left">
+              <div className="col-span-3">
                 <span
                   className="inline-block px-3 py-1 rounded-full text-[10px] font-bold"
                   style={{ background: `${m.color}22`, color: m.color, border: `1px solid ${m.color}55` }}
