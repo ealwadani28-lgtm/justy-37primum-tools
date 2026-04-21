@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { tools, SITE } from "@/data/tools";
 import { ToolPreview } from "@/components/ToolPreview";
+import { PdfShowcase } from "@/components/showcases/PdfShowcase";
+import { VideoShowcase } from "@/components/showcases/VideoShowcase";
 
 const HOME_TITLE = "Justlator Tools | 24 أداة ويب عربية مجانية وجاهزة للاستخدام";
 const HOME_DESC = "مجموعة من 24 أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
@@ -169,79 +171,33 @@ function Index() {
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[oklch(0.82_0.13_85_/_0.5)] to-transparent" />
       </section>
 
-      {/* FEATURED — luxe cards with mint+gold frame */}
+      {/* SHOWCASES — معرض هوكات بصرية بتصاميم ستيتش */}
       <section id="featured" className="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
         <div className="text-center mb-12">
           <div className="inline-block text-[11px] uppercase tracking-[0.3em] text-gold-gradient font-bold mb-3">
-            ★ مختارات الأسبوع
+            ★ المعرض الفاخر
           </div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            الأدوات <span className="text-mint-gold-gradient">الأكثر طلباً</span>
+            تصاميم تبيع <span className="text-mint-gold-gradient">قبل ما تتكلم</span>
           </h2>
-          <p className="text-muted-foreground mt-3">أربع أدوات تصنع فرقاً حقيقياً في موقعك ومبيعاتك.</p>
+          <p className="text-muted-foreground mt-3">اضغط على أي تصميم لتجربة الأداة الفعلية مع التفاصيل التقنية.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featured.map((tool, idx) => (
-            <Link
-              key={tool.slug}
-              to="/tools/$slug"
-              params={{ slug: tool.slug }}
-              className="group relative rounded-[1.75rem] p-[1.5px] bg-mint-gold-gradient hover:shadow-gold-glow transition-all duration-500 hover:-translate-y-1"
-            >
-              <div className="relative rounded-[1.65rem] overflow-hidden bg-gradient-to-br from-[#e8f7f1] via-[#dff3ea] to-[#cfeee1] h-full">
-                {/* Featured badge */}
-                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 text-[10px] font-bold bg-gradient-to-r from-[oklch(0.92_0.07_90)] to-[oklch(0.82_0.13_85)] text-[oklch(0.3_0.05_60)] px-2.5 py-1 rounded-full shadow-md">
-                  <span>★</span>
-                  <span>مميّزة #{idx + 1}</span>
-                </div>
-
-                {/* Brand chip */}
-                <div className="absolute top-4 left-4 z-10 text-[10px] font-extrabold tracking-wide text-emerald-700/80">
-                  Justlator<span className="text-emerald-500">·</span>
-                </div>
-
-                {/* Mockup area — taller for featured */}
-                <div className="relative h-56 overflow-hidden pt-10">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.95),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(245,220,140,0.35),transparent_55%),radial-gradient(circle_at_15%_85%,rgba(167,243,208,0.5),transparent_55%)]" />
-                  <div className="absolute inset-0 pt-8 px-4">
-                    <ToolPreview slug={tool.slug} />
-                  </div>
-                  {/* Subtle gold sheen */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[oklch(0.92_0.07_90_/_0.15)] to-transparent" />
-                </div>
-
-                {/* Meta */}
-                <div className="bg-card/95 backdrop-blur-md border-t border-[oklch(0.82_0.13_85_/_0.25)] p-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10px] text-emerald-300 bg-emerald-500/10 border border-emerald-400/30 px-2 py-0.5 rounded-full">
-                      {tool.category}
-                    </span>
-                    <span className="text-[10px] text-[oklch(0.82_0.13_85)] bg-[oklch(0.82_0.13_85_/_0.1)] border border-[oklch(0.82_0.13_85_/_0.3)] px-2 py-0.5 rounded-full font-bold">
-                      مفضّل
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground group-hover:text-mint-gold-gradient transition-colors mb-1.5">
-                    {tool.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                    {tool.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-2 text-sm font-bold text-mint-gold-gradient">
-                      جرّب الآن
-                      <span className="w-7 h-7 rounded-full bg-mint-gold-gradient flex items-center justify-center text-[oklch(0.18_0.02_200)] text-xs group-hover:translate-x-[-3px] transition-transform">
-                        ←
-                      </span>
-                    </span>
-                    <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider">
-                      مجاني · فوري
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+        <div className="space-y-8">
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "pdf-viewer" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <PdfShowcase />
+          </Link>
+          <Link
+            to="/tools/$slug"
+            params={{ slug: "video-banner" }}
+            className="block group transition-transform duration-500 hover:-translate-y-1"
+          >
+            <VideoShowcase />
+          </Link>
         </div>
       </section>
 
