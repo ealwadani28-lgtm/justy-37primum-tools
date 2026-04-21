@@ -26,6 +26,8 @@ import { FormBuilder } from "./FormBuilder";
 import { SecurityAudit } from "./SecurityAudit";
 import { SentimentAi } from "./SentimentAi";
 import { Heatmap } from "./Heatmap";
+import { MarketingAutomation } from "./MarketingAutomation";
+import { Logistics } from "./Logistics";
 
 export const toolRegistry: Record<string, ComponentType> = {
   "qr-generator": QrGenerator,
@@ -55,4 +57,6 @@ export const toolRegistry: Record<string, ComponentType> = {
   "security-audit": SecurityAudit,
   "sentiment-ai": SentimentAi,
   heatmap: Heatmap,
+  "marketing-automation": MarketingAutomation,
+  logistics: Logistics,
 };
