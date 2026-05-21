@@ -16,6 +16,29 @@ const InputSchema = z.object({
   url: z.string().min(3).max(500),
 });
 
+// In-memory cache: نفس الموقع لو انفحص خلال آخر ساعة → نرجع النتيجة بدون استدعاء AI
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const auditCache = new Map<string, { result: AuditResult; expiresAt: number }>();
+
+function getCached(key: string): AuditResult | null {
+  const entry = auditCache.get(key);
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAt) {
+    auditCache.delete(key);
+    return null;
+  }
+  return entry.result;
+}
+
+function setCached(key: string, result: AuditResult) {
+  // حد أقصى 200 موقع في الذاكرة (LRU بسيط)
+  if (auditCache.size >= 200) {
+    const firstKey = auditCache.keys().next().value;
+    if (firstKey) auditCache.delete(firstKey);
+  }
+  auditCache.set(key, { result, expiresAt: Date.now() + CACHE_TTL_MS });
+}
+
 export interface HeaderCheck {
   name: string;
   key: string;
