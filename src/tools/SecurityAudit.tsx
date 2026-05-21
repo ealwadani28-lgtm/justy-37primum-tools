@@ -1,79 +1,187 @@
 import { useState } from "react";
-
-const FAKE_ISSUES = [
-  { sev: "حرجة", color: "text-rose-400", title: "حقن SQL", status: "تم الحل", time: "12:45" },
-  { sev: "عالية", color: "text-amber-400", title: "تجاوز المصادقة", status: "قيد المعالجة", time: "12:43" },
-  { sev: "متوسطة", color: "text-yellow-300", title: "تسريب المعلومات", status: "مفتوح", time: "13:51" },
-  { sev: "منخفضة", color: "text-emerald-400", title: "تكوين خاطئ", status: "تم الحل", time: "12:46" },
-];
+import { useServerFn } from "@tanstack/react-start";
+import { runSecurityAudit, type AuditResult } from "@/lib/security-audit.functions";
+import { arNumber, toArabicDigits } from "@/lib/utils";
 
 export function SecurityAudit() {
+  const auditFn = useServerFn(runSecurityAudit);
   const [url, setUrl] = useState("");
-  const [scanning, setScanning] = useState(false);
-  const [done, setDone] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<AuditResult | null>(null);
 
-  const scan = (e: React.FormEvent) => {
+  const handleScan = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!url) return;
-    setScanning(true);
-    setDone(false);
-    setTimeout(() => { setScanning(false); setDone(true); }, 1800);
+    if (!url.trim()) return;
+    setLoading(true);
+    setResult(null);
+    try {
+      const res = await auditFn({ data: { url: url.trim() } });
+      setResult(res);
+    } catch (err) {
+      setResult({
+        url,
+        host: url,
+        https: false,
+        status: null,
+        totalScore: 0,
+        headersScore: 0,
+        httpsScore: 0,
+        headerChecks: [],
+        allHeaders: {},
+        aiSummary: "",
+        aiRecommendations: [],
+        error: err instanceof Error ? err.message : "فشل غير معروف",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
+  const scoreColor = (s: number) =>
+    s >= 80 ? "text-emerald-400" : s >= 50 ? "text-amber-400" : "text-rose-400";
+
   return (
-    <div className="space-y-6">
-      <form onSubmit={scan} className="flex gap-2">
+    <div className="space-y-6" dir="rtl">
+      <form onSubmit={handleScan} className="flex flex-col sm:flex-row gap-2">
         <input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://example.com"
-          className="flex-1 bg-input border border-border rounded-xl px-4 py-3 text-sm"
           dir="ltr"
+          className="flex-1 bg-input border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
         />
         <button
-          disabled={scanning}
-          className="bg-mint-gradient text-primary-foreground font-semibold px-6 rounded-xl disabled:opacity-50"
+          type="submit"
+          disabled={loading}
+          className="bg-mint-gradient text-primary-foreground font-bold px-6 py-3 rounded-xl disabled:opacity-50"
         >
-          {scanning ? "يفحص..." : "ابدأ الفحص"}
+          {loading ? "جارٍ الفحص..." : "ابدأ الفحص"}
         </button>
       </form>
 
-      {(scanning || done) && (
-        <div className="rounded-2xl border border-border bg-card p-6 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-bold">تقرير الثغرات الأمنية</h3>
-            <span className={`text-xs px-3 py-1 rounded-full ${done ? "bg-emerald-500/15 text-emerald-400" : "bg-amber-500/15 text-amber-400"}`}>
-              {done ? "✓ تم التحقق" : "جاري الفحص..."}
-            </span>
-          </div>
+      {loading && (
+        <div className="rounded-2xl border border-border bg-card p-6 text-center text-muted-foreground shadow-card-soft">
+          نُحلّل رؤوس الأمان والشهادة ونمرّر النتيجة لمحرك الذكاء الاصطناعي...
+        </div>
+      )}
 
-          <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="p-3 rounded-xl bg-secondary">
-              <div className="text-2xl font-bold text-emerald-400">98%</div>
-              <div className="text-xs text-muted-foreground">درجة الأمان</div>
+      {result && (
+        <div className="space-y-4">
+          {result.error && (
+            <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 p-4 text-rose-300">
+              ⚠️ {result.error}
             </div>
-            <div className="p-3 rounded-xl bg-secondary">
-              <div className="text-2xl font-bold text-amber-400">1,265</div>
-              <div className="text-xs text-muted-foreground">تهديدات محظورة</div>
-            </div>
-            <div className="p-3 rounded-xl bg-secondary">
-              <div className="text-2xl font-bold text-mint">99.9%</div>
-              <div className="text-xs text-muted-foreground">وقت التشغيل</div>
-            </div>
-          </div>
+          )}
 
-          <div className="space-y-2">
-            {FAKE_ISSUES.map((i, idx) => (
-              <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-secondary/60 text-sm">
-                <span className="text-xs text-muted-foreground">🕐 {i.time} مدخل</span>
-                <div className="flex items-center gap-3">
-                  <span className={`font-bold ${i.color}`}>{i.sev}</span>
-                  <span className="text-muted-foreground">- {i.title} -</span>
-                  <span className="text-foreground">{i.status}</span>
+          {!result.error && (
+            <>
+              {/* KPIs */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="rounded-2xl border border-border bg-card p-4 shadow-card-soft">
+                  <div className="text-xs text-muted-foreground">الدرجة الكلية</div>
+                  <div className={`text-2xl font-extrabold ${scoreColor(result.totalScore)}`}>
+                    {toArabicDigits(result.totalScore)}%
+                  </div>
+                </div>
+                <div className="rounded-2xl border border-border bg-card p-4 shadow-card-soft">
+                  <div className="text-xs text-muted-foreground">HTTPS</div>
+                  <div
+                    className={`text-2xl font-extrabold ${result.https ? "text-emerald-400" : "text-rose-400"}`}
+                  >
+                    {result.https ? "✓ مفعّل" : "✗ معطّل"}
+                  </div>
+                </div>
+                <div className="rounded-2xl border border-border bg-card p-4 shadow-card-soft">
+                  <div className="text-xs text-muted-foreground">رؤوس الأمان</div>
+                  <div className={`text-2xl font-extrabold ${scoreColor(result.headersScore)}`}>
+                    {toArabicDigits(result.headersScore)}%
+                  </div>
+                </div>
+                <div className="rounded-2xl border border-border bg-card p-4 shadow-card-soft">
+                  <div className="text-xs text-muted-foreground">حالة الاستجابة</div>
+                  <div className="text-2xl font-extrabold text-foreground">
+                    {result.status ? toArabicDigits(result.status) : "—"}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* AI Summary */}
+              {result.aiSummary && (
+                <div className="rounded-2xl border border-border bg-card p-5 shadow-card-soft">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-primary">🤖</span>
+                    <h3 className="font-bold">تحليل الذكاء الاصطناعي</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{result.aiSummary}</p>
+                </div>
+              )}
+
+              {/* Recommendations */}
+              {result.aiRecommendations.length > 0 && (
+                <div className="rounded-2xl border border-border bg-card p-5 shadow-card-soft">
+                  <h3 className="font-bold mb-3">التوصيات ({arNumber(result.aiRecommendations.length)})</h3>
+                  <ol className="space-y-2">
+                    {result.aiRecommendations.map((r, i) => (
+                      <li
+                        key={i}
+                        className="flex gap-3 text-sm p-3 rounded-xl bg-secondary/40"
+                      >
+                        <span className="font-bold text-primary shrink-0">
+                          {toArabicDigits(i + 1)}.
+                        </span>
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+
+              {/* Header checks */}
+              <div className="rounded-2xl border border-border bg-card p-5 shadow-card-soft">
+                <h3 className="font-bold mb-3">
+                  فحص رؤوس الأمان ({arNumber(result.headerChecks.filter((h) => h.present).length)}/
+                  {arNumber(result.headerChecks.length)})
+                </h3>
+                <div className="space-y-2">
+                  {result.headerChecks.map((h) => (
+                    <div
+                      key={h.key}
+                      className="flex items-center justify-between p-3 rounded-xl bg-secondary/40 text-sm"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`text-lg ${h.present ? "text-emerald-400" : "text-rose-400"}`}
+                        >
+                          {h.present ? "✓" : "✗"}
+                        </span>
+                        <span className="font-semibold">{h.name}</span>
+                      </div>
+                      <span className="text-xs text-muted-foreground" dir="ltr">
+                        {h.value ? h.value.slice(0, 60) + (h.value.length > 60 ? "..." : "") : "مفقود"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Raw headers */}
+              {Object.keys(result.allHeaders).length > 0 && (
+                <details className="rounded-2xl border border-border bg-card p-5 shadow-card-soft">
+                  <summary className="font-bold cursor-pointer">
+                    جميع رؤوس الاستجابة ({arNumber(Object.keys(result.allHeaders).length)})
+                  </summary>
+                  <div className="mt-3 space-y-1 text-xs font-mono max-h-72 overflow-auto" dir="ltr">
+                    {Object.entries(result.allHeaders).map(([k, v]) => (
+                      <div key={k} className="p-2 rounded bg-secondary/40">
+                        <span className="text-primary">{k}:</span>{" "}
+                        <span className="text-muted-foreground break-all">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              )}
+            </>
+          )}
         </div>
       )}
     </div>
