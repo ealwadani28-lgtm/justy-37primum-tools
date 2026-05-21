@@ -233,26 +233,6 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
     }
 
     const https = parsed.protocol === "https:";
-    try {
-      parsed = new URL(url);
-    } catch {
-      return {
-        url,
-        host: data.url,
-        https: false,
-        status: null,
-        totalScore: 0,
-        headersScore: 0,
-        httpsScore: 0,
-        headerChecks: [],
-        allHeaders: {},
-        aiSummary: "",
-        aiRecommendations: [],
-        error: "رابط غير صالح",
-      };
-    }
-
-    const https = parsed.protocol === "https:";
     const allHeaders: Record<string, string> = {};
     let status: number | null = null;
 
