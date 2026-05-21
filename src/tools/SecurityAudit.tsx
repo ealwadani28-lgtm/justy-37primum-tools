@@ -75,6 +75,12 @@ export function SecurityAudit() {
 
           {!result.error && (
             <>
+              {result.cached && (
+                <div className="rounded-xl border border-primary/30 bg-primary/10 px-4 py-2 text-xs text-primary flex items-center gap-2">
+                  <span>⚡</span>
+                  <span>نتيجة مخزّنة (تم فحص هذا الموقع خلال آخر ساعة — نتيجة فورية بدون استهلاك)</span>
+                </div>
+              )}
               {/* KPIs */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div className="rounded-2xl border border-border bg-card p-4 shadow-card-soft">
