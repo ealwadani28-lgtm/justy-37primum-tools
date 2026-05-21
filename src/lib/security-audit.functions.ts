@@ -24,6 +24,15 @@ export interface HeaderCheck {
   weight: number;
 }
 
+export interface Recommendation {
+  title: string;
+  priority: "critical" | "warning" | "info";
+  description: string;
+  headerName: string;
+  codeSnippet: string;
+  docUrl: string;
+}
+
 export interface AuditResult {
   url: string;
   host: string;
@@ -35,7 +44,7 @@ export interface AuditResult {
   headerChecks: HeaderCheck[];
   allHeaders: Record<string, string>;
   aiSummary: string;
-  aiRecommendations: string[];
+  aiRecommendations: Recommendation[];
   error: string | null;
 }
 
