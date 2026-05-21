@@ -119,20 +119,59 @@ export function SecurityAudit() {
               {/* Recommendations */}
               {result.aiRecommendations.length > 0 && (
                 <div className="rounded-2xl border border-border bg-card p-5 shadow-card-soft">
-                  <h3 className="font-bold mb-3">التوصيات ({arNumber(result.aiRecommendations.length)})</h3>
-                  <ol className="space-y-2">
-                    {result.aiRecommendations.map((r, i) => (
-                      <li
-                        key={i}
-                        className="flex gap-3 text-sm p-3 rounded-xl bg-secondary/40"
-                      >
-                        <span className="font-bold text-primary shrink-0">
-                          {toArabicDigits(i + 1)}.
-                        </span>
-                        <span>{r}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <h3 className="font-bold mb-4">التوصيات ({arNumber(result.aiRecommendations.length)})</h3>
+                  <div className="space-y-4">
+                    {result.aiRecommendations.map((r, i) => {
+                      const priorityStyle =
+                        r.priority === "critical"
+                          ? { label: "حرجة", cls: "bg-rose-500/15 text-rose-300 border-rose-500/30" }
+                          : r.priority === "warning"
+                          ? { label: "متوسطة", cls: "bg-amber-500/15 text-amber-300 border-amber-500/30" }
+                          : { label: "اختيارية", cls: "bg-sky-500/15 text-sky-300 border-sky-500/30" };
+                      return (
+                        <div key={i} className="rounded-xl border border-border bg-secondary/30 p-4 space-y-3">
+                          <div className="flex items-start justify-between gap-3 flex-wrap">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold text-primary">{toArabicDigits(i + 1)}.</span>
+                              <h4 className="font-bold">{r.title}</h4>
+                            </div>
+                            <span className={`text-xs font-bold px-2 py-1 rounded-full border ${priorityStyle.cls}`}>
+                              {priorityStyle.label}
+                            </span>
+                          </div>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{r.description}</p>
+                          {r.codeSnippet && (
+                            <div className="relative">
+                              <div className="text-xs text-muted-foreground mb-1">انسخ السطر التالي إلى إعدادات خادمك:</div>
+                              <pre
+                                dir="ltr"
+                                className="bg-background border border-border rounded-lg p-3 text-xs font-mono overflow-x-auto"
+                              >
+                                {r.codeSnippet}
+                              </pre>
+                              <button
+                                type="button"
+                                onClick={() => navigator.clipboard?.writeText(r.codeSnippet)}
+                                className="absolute top-7 left-2 text-xs px-2 py-1 rounded bg-primary/20 hover:bg-primary/30 text-primary"
+                              >
+                                نسخ
+                              </button>
+                            </div>
+                          )}
+                          {r.docUrl && (
+                            <a
+                              href={r.docUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                            >
+                              اقرأ المزيد على MDN ↗
+                            </a>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 
