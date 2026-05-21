@@ -297,7 +297,7 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
       presentHeaders,
     });
 
-    return {
+    const result: AuditResult = {
       url,
       host: parsed.host,
       https,
@@ -309,6 +309,14 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
       allHeaders,
       aiSummary: ai.summary,
       aiRecommendations: ai.recommendations,
+      cached: false,
       error: null,
     };
+
+    // خزّن النتيجة في الـ cache لمدة ساعة (فقط لو نجح التحليل)
+    if (ai.recommendations.length > 0) {
+      setCached(cacheKey, result);
+    }
+
+    return result;
   });
