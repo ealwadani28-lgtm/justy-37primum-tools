@@ -60,7 +60,7 @@ async function aiAnalyze(payload: {
   totalScore: number;
   missingHeaders: string[];
   presentHeaders: string[];
-}): Promise<{ summary: string; recommendations: string[] }> {
+}): Promise<{ summary: string; recommendations: Recommendation[] }> {
   const apiKey = process.env.LOVABLE_API_KEY;
   if (!apiKey) {
     return {
@@ -82,11 +82,11 @@ async function aiAnalyze(payload: {
           {
             role: "system",
             content:
-              "أنت خبير أمن سيبراني تكتب باللغة العربية الفصحى الواضحة. أعطِ ملخصاً موجزاً (سطرين) وقائمة توصيات عملية مرتّبة حسب الأولوية. لا تستخدم Markdown.",
+              "أنت خبير أمن سيبراني تكتب باللغة العربية الفصحى الواضحة. أعطِ ملخصاً موجزاً (سطرين) وقائمة توصيات عملية مرتّبة حسب الأولوية الفعلية. priority=critical للرؤوس الحرجة (HSTS, CSP, X-Frame-Options). priority=warning للمتوسطة. priority=info للقديمة/الاختيارية. codeSnippet يجب أن يكون السطر الكامل الجاهز للنسخ مثل: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload. docUrl رابط MDN الرسمي للرأس.",
           },
           {
             role: "user",
-            content: `حلّل نتيجة فحص أمان الموقع التالي:
+            content: `حلّل نتيجة فحص أمان الموقع التالي وأعطِ توصية لكل رأس مفقود:
 - النطاق: ${payload.host}
 - HTTPS مفعّل: ${payload.https ? "نعم" : "لا"}
 - الدرجة الكلية: ${payload.totalScore}/100
@@ -99,15 +99,50 @@ async function aiAnalyze(payload: {
             type: "function",
             function: {
               name: "report",
-              description: "تقرير تحليل أمني بالعربية",
+              description: "تقرير تحليل أمني بالعربية مع توصيات منظمة",
               parameters: {
                 type: "object",
                 properties: {
-                  summary: { type: "string", description: "ملخص بسطرين" },
+                  summary: { type: "string", description: "ملخص بسطرين بالعربية" },
                   recommendations: {
                     type: "array",
-                    items: { type: "string" },
-                    description: "3 إلى 6 توصيات عملية مرتبة بالأولوية",
+                    description: "توصية واحدة لكل رأس مفقود مرتبة حسب الأولوية",
+                    items: {
+                      type: "object",
+                      properties: {
+                        title: { type: "string", description: "عنوان قصير بالعربية" },
+                        priority: {
+                          type: "string",
+                          enum: ["critical", "warning", "info"],
+                        },
+                        description: {
+                          type: "string",
+                          description: "شرح موجز للخطر والفائدة بالعربية",
+                        },
+                        headerName: {
+                          type: "string",
+                          description: "اسم الرأس الإنجليزي مثل Strict-Transport-Security",
+                        },
+                        codeSnippet: {
+                          type: "string",
+                          description:
+                            "السطر الكامل للرأس جاهز للنسخ مثل: Strict-Transport-Security: max-age=31536000; includeSubDomains",
+                        },
+                        docUrl: {
+                          type: "string",
+                          description: "رابط MDN الرسمي للرأس",
+                        },
+                      },
+                      required: [
+                        "title",
+                        "priority",
+                        "description",
+                        "headerName",
+                        "codeSnippet",
+                        "docUrl",
+                      ],
+                      additionalProperties: false,
+                    },
                   },
                 },
                 required: ["summary", "recommendations"],
