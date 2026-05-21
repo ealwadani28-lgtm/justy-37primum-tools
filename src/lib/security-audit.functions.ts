@@ -16,6 +16,29 @@ const InputSchema = z.object({
   url: z.string().min(3).max(500),
 });
 
+// In-memory cache: نفس الموقع لو انفحص خلال آخر ساعة → نرجع النتيجة بدون استدعاء AI
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const auditCache = new Map<string, { result: AuditResult; expiresAt: number }>();
+
+function getCached(key: string): AuditResult | null {
+  const entry = auditCache.get(key);
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAt) {
+    auditCache.delete(key);
+    return null;
+  }
+  return entry.result;
+}
+
+function setCached(key: string, result: AuditResult) {
+  // حد أقصى 200 موقع في الذاكرة (LRU بسيط)
+  if (auditCache.size >= 200) {
+    const firstKey = auditCache.keys().next().value;
+    if (firstKey) auditCache.delete(firstKey);
+  }
+  auditCache.set(key, { result, expiresAt: Date.now() + CACHE_TTL_MS });
+}
+
 export interface HeaderCheck {
   name: string;
   key: string;
@@ -45,6 +68,7 @@ export interface AuditResult {
   allHeaders: Record<string, string>;
   aiSummary: string;
   aiRecommendations: Recommendation[];
+  cached?: boolean;
   error: string | null;
 }
 
@@ -201,6 +225,13 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
       };
     }
 
+    // فحص الـ cache أولاً — يوفر ~70% من تكلفة AI للمواقع الشائعة
+    const cacheKey = parsed.host.toLowerCase();
+    const cached = getCached(cacheKey);
+    if (cached) {
+      return { ...cached, cached: true };
+    }
+
     const https = parsed.protocol === "https:";
     const allHeaders: Record<string, string> = {};
     let status: number | null = null;
@@ -266,7 +297,7 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
       presentHeaders,
     });
 
-    return {
+    const result: AuditResult = {
       url,
       host: parsed.host,
       https,
@@ -278,6 +309,14 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
       allHeaders,
       aiSummary: ai.summary,
       aiRecommendations: ai.recommendations,
+      cached: false,
       error: null,
     };
+
+    // خزّن النتيجة في الـ cache لمدة ساعة (فقط لو نجح التحليل)
+    if (ai.recommendations.length > 0) {
+      setCached(cacheKey, result);
+    }
+
+    return result;
   });
