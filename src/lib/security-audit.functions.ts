@@ -68,6 +68,7 @@ export interface AuditResult {
   allHeaders: Record<string, string>;
   aiSummary: string;
   aiRecommendations: Recommendation[];
+  cached?: boolean;
   error: string | null;
 }
 
