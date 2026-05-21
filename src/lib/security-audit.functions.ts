@@ -225,6 +225,33 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
       };
     }
 
+    // فحص الـ cache أولاً — يوفر ~70% من تكلفة AI للمواقع الشائعة
+    const cacheKey = parsed.host.toLowerCase();
+    const cached = getCached(cacheKey);
+    if (cached) {
+      return { ...cached, cached: true };
+    }
+
+    const https = parsed.protocol === "https:";
+    try {
+      parsed = new URL(url);
+    } catch {
+      return {
+        url,
+        host: data.url,
+        https: false,
+        status: null,
+        totalScore: 0,
+        headersScore: 0,
+        httpsScore: 0,
+        headerChecks: [],
+        allHeaders: {},
+        aiSummary: "",
+        aiRecommendations: [],
+        error: "رابط غير صالح",
+      };
+    }
+
     const https = parsed.protocol === "https:";
     const allHeaders: Record<string, string> = {};
     let status: number | null = null;
