@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/justlator-logo.png";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function SiteHeader() {
   return (
@@ -21,12 +22,15 @@ export function SiteHeader() {
           <a href="#about" className="hover:text-foreground transition-colors">من نحن</a>
         </nav>
 
-        <a
-          href="#tools"
-          className="text-sm font-semibold bg-mint-gradient text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
-        >
-          ابدأ مجاناً
-        </a>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <a
+            href="#tools"
+            className="text-sm font-semibold bg-mint-gradient text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
+          >
+            ابدأ مجاناً
+          </a>
+        </div>
       </div>
     </header>
   );
