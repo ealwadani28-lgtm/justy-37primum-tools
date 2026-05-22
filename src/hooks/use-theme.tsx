@@ -15,7 +15,19 @@ function applyTheme(theme: Theme) {
   const root = document.documentElement;
   root.classList.remove("light", "dark");
   root.classList.add(theme);
+  root.dataset.theme = theme;
   root.style.colorScheme = theme;
+}
+
+// View Transitions wrapper — falls back gracefully
+function withTransition(cb: () => void) {
+  // @ts-expect-error startViewTransition is not yet in lib.dom
+  if (typeof document !== "undefined" && document.startViewTransition) {
+    // @ts-expect-error
+    document.startViewTransition(() => cb());
+  } else {
+    cb();
+  }
 }
 
 export function useTheme() {
@@ -28,11 +40,12 @@ export function useTheme() {
     } catch {}
   }, [theme]);
 
-  const setTheme = useCallback((t: Theme) => setThemeState(t), []);
-  const toggleTheme = useCallback(
-    () => setThemeState((p) => (p === "dark" ? "light" : "dark")),
-    [],
-  );
+  const setTheme = useCallback((t: Theme) => {
+    withTransition(() => setThemeState(t));
+  }, []);
+  const toggleTheme = useCallback(() => {
+    withTransition(() => setThemeState((p) => (p === "dark" ? "light" : "dark")));
+  }, []);
 
   return { theme, setTheme, toggleTheme };
 }

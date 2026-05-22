@@ -1,93 +1,214 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { Draggable } from "gsap/Draggable";
 import { useTheme } from "@/hooks/use-theme";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(Draggable);
+}
+
 /**
- * Creative day/night toggle — animated sun rays morph into moon + stars.
- * Pure CSS transitions, no extra deps.
+ * Pull-cord light bulb theme toggle.
+ * Inspired by Jhey Tompkins's "lights off" CodePen (raMGwYW).
+ * Drag the cord down and release — bulb flickers, theme transitions
+ * via the View Transitions API.
  */
 export function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  const isDark = theme === "dark";
+  const { toggleTheme, theme } = useTheme();
+  const containerRef = useRef<HTMLFormElement>(null);
+  const handleRef = useRef<HTMLDivElement>(null);
+  const cordRef = useRef<SVGLineElement>(null);
+  const swingGroupRef = useRef<SVGGElement>(null);
+  const proxyRef = useRef<HTMLDivElement | null>(null);
+  const toggleRef = useRef(toggleTheme);
+
+  // Keep latest toggle in ref (Draggable closes over it once)
+  useEffect(() => {
+    toggleRef.current = toggleTheme;
+  }, [toggleTheme]);
+
+  useEffect(() => {
+    if (!containerRef.current || !handleRef.current || !cordRef.current) return;
+
+    const cord = cordRef.current;
+    const ENDX = parseFloat(cord.getAttribute("x2") || "40");
+    const ENDY = parseFloat(cord.getAttribute("y2") || "150");
+    const proxy = document.createElement("div");
+    proxyRef.current = proxy;
+
+    gsap.set(proxy, { x: ENDX, y: ENDY });
+
+    let startX = 0;
+    let startY = 0;
+
+    // Faux "click" sound — short synthesized blip via WebAudio (no asset)
+    const playClick = () => {
+      try {
+        const AC = (window.AudioContext || (window as any).webkitAudioContext);
+        if (!AC) return;
+        const ctx = new AC();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "square";
+        o.frequency.value = 1800;
+        g.gain.value = 0.04;
+        o.connect(g).connect(ctx.destination);
+        o.start();
+        o.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.05);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.06);
+        o.stop(ctx.currentTime + 0.07);
+      } catch {}
+    };
+
+    // Swing the cord+bulb after a successful pull (replaces MorphSVG)
+    const swing = () => {
+      if (!swingGroupRef.current) return;
+      gsap.fromTo(
+        swingGroupRef.current,
+        { rotate: 0, transformOrigin: "50% 0%" },
+        {
+          keyframes: { rotate: [0, 8, -6, 4, -2, 0] },
+          duration: 0.9,
+          ease: "sine.out",
+        }
+      );
+    };
+
+    const fire = () => {
+      playClick();
+      toggleRef.current();
+      swing();
+    };
+
+    const drag = Draggable.create(proxy, {
+      trigger: handleRef.current,
+      type: "x,y",
+      onPress(e) {
+        startX = e.x;
+        startY = e.y;
+      },
+      onDragStart() {
+        document.documentElement.style.setProperty("cursor", "grabbing");
+      },
+      onDrag(this: any) {
+        // map screen px → SVG coords
+        const sceneEl = containerRef.current?.querySelector(".toggle-scene") as SVGSVGElement | null;
+        const ratio = sceneEl
+          ? 200 / sceneEl.getBoundingClientRect().height
+          : 1;
+        cord.setAttribute("x2", String(this.startX + (this.x - this.startX) * ratio));
+        cord.setAttribute("y2", String(this.startY + (this.y - this.startY) * ratio));
+      },
+      onRelease(e) {
+        const dx = e.x - startX;
+        const dy = e.y - startY;
+        const travelled = Math.sqrt(dx * dx + dy * dy);
+        document.documentElement.style.setProperty("cursor", "unset");
+
+        gsap.to(cord, {
+          attr: { x2: ENDX, y2: ENDY },
+          duration: 0.18,
+          ease: "back.out(2.4)",
+          onComplete: () => {
+            if (travelled > 40) fire();
+            gsap.set(proxy, { x: ENDX, y: ENDY });
+          },
+        });
+      },
+    });
+
+    return () => {
+      drag.forEach((d) => d.kill());
+    };
+  }, []);
+
+  // Plain click on the bulb also toggles (a11y fallback)
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toggleTheme();
+  };
+
+  const isLight = theme === "light";
 
   return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      aria-label={isDark ? "تفعيل الوضع النهاري" : "تفعيل الوضع الليلي"}
-      aria-pressed={isDark}
-      className="relative h-9 w-[72px] rounded-full border border-border/60 overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all"
-      style={{
-        background: isDark
-          ? "linear-gradient(135deg, oklch(0.22 0.04 250) 0%, oklch(0.14 0.03 260) 100%)"
-          : "linear-gradient(135deg, oklch(0.85 0.08 85) 0%, oklch(0.78 0.12 70) 100%)",
-        boxShadow: isDark
-          ? "inset 0 2px 8px oklch(0 0 0 / 0.5), 0 0 18px oklch(0.5 0.2 270 / 0.25)"
-          : "inset 0 2px 8px oklch(0.4 0.1 70 / 0.25), 0 0 18px oklch(0.82 0.13 85 / 0.4)",
-      }}
+    <form
+      ref={containerRef}
+      onSubmit={onSubmit}
+      className="lights-toggle"
+      aria-label="مفتاح الإضاءة — تبديل المظهر"
     >
-      {/* Stars — only visible in dark */}
-      <span
-        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
-        style={{ opacity: isDark ? 1 : 0 }}
-        aria-hidden
+      <button
+        type="submit"
+        aria-pressed={isLight}
+        aria-label={isLight ? "إطفاء الإضاءة (الوضع الليلي)" : "تشغيل الإضاءة (الوضع النهاري)"}
+        className="lights-toggle__btn"
       >
-        <span className="absolute top-1.5 left-3 h-[2px] w-[2px] rounded-full bg-white/90 animate-pulse" />
-        <span
-          className="absolute top-3 left-7 h-[3px] w-[3px] rounded-full bg-white/80 animate-pulse"
-          style={{ animationDelay: "0.4s" }}
-        />
-        <span
-          className="absolute bottom-1.5 left-5 h-[2px] w-[2px] rounded-full bg-white/70 animate-pulse"
-          style={{ animationDelay: "0.8s" }}
-        />
-        <span
-          className="absolute top-2 left-12 h-[2px] w-[2px] rounded-full bg-white/60 animate-pulse"
-          style={{ animationDelay: "1.2s" }}
-        />
-      </span>
+        <span className="sr-only">تبديل المظهر</span>
 
-      {/* Clouds — only visible in light */}
-      <span
-        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
-        style={{ opacity: isDark ? 0 : 1 }}
-        aria-hidden
-      >
-        <span className="absolute top-2 right-3 h-1.5 w-4 rounded-full bg-white/70 blur-[1px]" />
-        <span className="absolute bottom-2 right-8 h-1 w-3 rounded-full bg-white/60 blur-[1px]" />
-        <span className="absolute top-3.5 right-12 h-1 w-2.5 rounded-full bg-white/50 blur-[1px]" />
-      </span>
-
-      {/* The orb (sun ↔ moon) */}
-      <span
-        className="absolute top-1/2 h-7 w-7 rounded-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-transform"
-        style={{
-          transform: `translateY(-50%) translateX(${isDark ? "-36px" : "-4px"})`,
-          right: 4,
-          background: isDark
-            ? "radial-gradient(circle at 35% 35%, oklch(0.95 0.02 90) 0%, oklch(0.82 0.04 90) 70%, oklch(0.7 0.05 90) 100%)"
-            : "radial-gradient(circle at 35% 35%, oklch(0.98 0.08 90) 0%, oklch(0.88 0.16 80) 60%, oklch(0.75 0.18 65) 100%)",
-          boxShadow: isDark
-            ? "inset -6px -3px 0 0 oklch(0.22 0.04 250), 0 0 12px oklch(0.85 0.05 90 / 0.4)"
-            : "0 0 18px oklch(0.88 0.18 75 / 0.7), 0 0 32px oklch(0.88 0.18 75 / 0.3)",
-        }}
-        aria-hidden
-      >
-        {/* Sun rays — fade out in dark */}
-        <span
-          className="absolute inset-0 transition-opacity duration-300"
-          style={{ opacity: isDark ? 0 : 1 }}
+        <svg
+          className="toggle-scene"
+          viewBox="0 0 80 200"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
-          {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
-            <span
-              key={deg}
-              className="absolute top-1/2 left-1/2 h-[2px] w-1.5 rounded-full bg-amber-200"
-              style={{
-                transform: `translate(-50%, -50%) rotate(${deg}deg) translateX(14px)`,
-                boxShadow: "0 0 6px oklch(0.85 0.16 80)",
-              }}
+          <g ref={swingGroupRef}>
+            {/* Cap */}
+            <g className="bulb">
+              <path
+                className="bulb__cap"
+                d="M30 6 h20 a4 4 0 0 1 4 4 v8 a4 4 0 0 1 -4 4 h-20 a4 4 0 0 1 -4 -4 v-8 a4 4 0 0 1 4 -4 z"
+              />
+              <rect className="bulb__cap-shine" x="30" y="9" width="3" height="10" rx="1" />
+              <path
+                className="bulb__cap-outline"
+                d="M30 6 h20 a4 4 0 0 1 4 4 v8 a4 4 0 0 1 -4 4 h-20 a4 4 0 0 1 -4 -4 v-8 a4 4 0 0 1 4 -4 z"
+                fill="none"
+              />
+              {/* Glass */}
+              <path
+                className="bulb__bulb"
+                d="M28 22
+                   C 18 30, 14 46, 22 60
+                   C 28 70, 30 78, 30 86
+                   L 50 86
+                   C 50 78, 52 70, 58 60
+                   C 66 46, 62 30, 52 22 Z"
+              />
+              {/* Inner shine */}
+              <path
+                className="bulb__shine"
+                d="M32 28 C 26 36, 24 46, 28 56"
+                fill="none"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+              {/* Filament */}
+              <path
+                className="bulb__filament"
+                d="M34 70 q 3 -10 6 0 q 3 10 6 0"
+                fill="none"
+                strokeLinecap="round"
+              />
+            </g>
+
+            {/* Cord (draggable) */}
+            <line
+              ref={cordRef}
+              className="toggle-scene__dummy-cord"
+              x1="40"
+              y1="86"
+              x2="40"
+              y2="150"
+              strokeLinecap="round"
             />
-          ))}
-        </span>
-      </span>
-    </button>
+            {/* Cord end ball */}
+            <circle className="toggle-scene__cord-end" cx="40" cy="150" r="4" />
+          </g>
+        </svg>
+
+        {/* Invisible grab handle (bigger touch target) */}
+        <div ref={handleRef} className="lights-toggle__handle" aria-hidden="true" />
+      </button>
+    </form>
   );
 }
