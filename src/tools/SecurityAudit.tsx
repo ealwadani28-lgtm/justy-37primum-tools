@@ -231,6 +231,9 @@ export function SecurityAudit() {
           )}
         </div>
       )}
+
+      <SheildyWaitlist defaultUrl={result?.url || url} />
     </div>
   );
 }
+
