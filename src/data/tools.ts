@@ -7,7 +7,16 @@ export type Tool = {
   seoTitle: string;
   seoDescription: string;
   keywords: string[];
+  /** تعريف فني احترافي (سطر-سطرين) */
+  definition?: string;
+  /** ليش هي مهمة لمن يبني أونلاين — نقاط مختصرة */
+  importance?: string[];
+  /** أمثلة استخدام واقعية */
+  useCases?: string[];
+  /** الجمهور المستهدف */
+  targetAudience?: string[];
 };
+
 
 export const SITE = {
   name: "Justlator Tools",
