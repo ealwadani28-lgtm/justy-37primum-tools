@@ -159,7 +159,7 @@ function Index() {
         <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-20 md:pt-32 md:pb-28 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[oklch(0.82_0.13_85_/_0.4)] bg-card/50 backdrop-blur-sm text-xs text-muted-foreground mb-6 shadow-[0_0_30px_-5px_oklch(0.82_0.13_85_/_0.3)]">
             <span className="w-2 h-2 rounded-full bg-gold-gradient animate-pulse" />
-            ٢٤ أداة مصمّمة باحتراف · جاهزة للاستخدام
+            ٣٦ أداة مصمّمة باحتراف · جاهزة للاستخدام
           </div>
 
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
