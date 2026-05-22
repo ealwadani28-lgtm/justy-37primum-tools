@@ -168,7 +168,7 @@ function Index() {
           </h1>
 
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            مجموعة من ٢٤ أداة ويب عربية، مصمّمة بأناقة واحتراف، تساعدك على بناء موقع يليق بعملك في دقائق.
+            مجموعة من ٣٦ أداة ويب عربية، مصمّمة بأناقة واحتراف، تساعدك على بناء موقع يليق بعملك في دقائق.
           </p>
 
           <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
