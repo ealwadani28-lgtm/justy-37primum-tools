@@ -332,32 +332,33 @@ html, body, header, section, article, aside, footer, .card, [class*="bg-"], [cla
 
 /* ============================================================ */
 /*  Hanging light-bulb theme toggle (pull-cord)                 */
+/*  Faithful port of Jhey Tompkins's "lights off" CodePen        */
 /* ============================================================ */
 .lights-toggle {
   --lt-cord: oklch(0.55 0.02 200);
   --lt-stroke: oklch(0.65 0.02 200);
-  --lt-shine: oklch(0.95 0.02 200 / 0.7);
-  --lt-cap: oklch(0.45 0.02 200);
-  --lt-filament: oklch(0.55 0.02 200);
+  --lt-shine: oklch(0.92 0.02 200 / 0.7);
+  --lt-cap: oklch(0.42 0.02 200);
+  --lt-filament: oklch(0.5 0.02 200);
   --lt-bulb: transparent;
 
   position: fixed;
-  top: 0;
-  inset-inline-end: 1.25rem;
-  width: 64px;
-  height: 200px;
+  top: 1rem;
+  inset-inline-end: 1rem;
+  width: 48px;
+  height: 48px;
   z-index: 100;
-  pointer-events: none;
   margin: 0;
+  pointer-events: none;
 }
 [data-theme='light'] .lights-toggle,
 .light .lights-toggle {
-  --lt-cord: oklch(0.4 0.02 200);
-  --lt-stroke: oklch(0.35 0.02 200);
-  --lt-shine: oklch(1 0 0 / 0.7);
-  --lt-cap: oklch(0.3 0.02 200);
-  --lt-filament: oklch(0.78 0.18 80);
-  --lt-bulb: oklch(0.95 0.12 90 / 0.45);
+  --lt-cord: oklch(0.38 0.02 200);
+  --lt-stroke: oklch(0.3 0.02 200);
+  --lt-shine: oklch(1 0 0 / 0.75);
+  --lt-cap: oklch(0.28 0.02 200);
+  --lt-filament: oklch(0.78 0.2 80);
+  --lt-bulb: oklch(0.96 0.13 90 / 0.5);
 }
 
 .lights-toggle__btn {
@@ -367,76 +368,89 @@ html, body, header, section, article, aside, footer, .card, [class*="bg-"], [cla
   border: 0;
   padding: 0;
   margin: 0;
-  position: relative;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
   cursor: pointer;
   pointer-events: auto;
 }
 .lights-toggle__btn:focus-visible {
   outline: 2px dashed var(--lt-cord);
-  outline-offset: 4px;
-  border-radius: 8px;
+  outline-offset: 6px;
+  border-radius: 50%;
 }
 
 .toggle-scene {
-  width: 100%;
-  height: 100%;
   overflow: visible !important;
-  display: block;
-  filter: drop-shadow(0 4px 12px oklch(0 0 0 / 0.25));
+  position: absolute;
+  width: 65%;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  filter: drop-shadow(0 4px 14px oklch(0 0 0 / 0.3));
+  transition: filter 0.5s ease;
 }
 [data-theme='light'] .toggle-scene,
 .light .toggle-scene {
-  filter: drop-shadow(0 6px 22px oklch(0.85 0.18 85 / 0.55))
-          drop-shadow(0 0 14px oklch(0.95 0.18 85 / 0.4));
+  filter: drop-shadow(0 8px 28px oklch(0.85 0.18 85 / 0.55))
+          drop-shadow(0 0 18px oklch(0.95 0.18 85 / 0.45));
 }
 
-.toggle-scene .bulb__bulb {
-  stroke: var(--lt-stroke);
-  fill: var(--lt-bulb);
-  stroke-width: 2;
-  transition: fill 0.5s ease;
+.toggle-scene__cord {
+  stroke: var(--lt-cord);
+  stroke-width: 6;
+  cursor: move;
 }
-.toggle-scene .bulb__cap { fill: var(--lt-cap); }
-.toggle-scene .bulb__cap-shine { fill: var(--lt-shine); }
-.toggle-scene .bulb__cap-outline {
-  stroke: var(--lt-stroke);
-  stroke-width: 1.5;
-}
-.toggle-scene .bulb__shine { stroke: var(--lt-shine); }
-.toggle-scene .bulb__filament {
-  stroke: var(--lt-filament);
-  stroke-width: 2.5;
-  transition: stroke 0.4s ease, stroke-width 0.4s ease;
-}
-[data-theme='light'] .toggle-scene .bulb__filament,
-.light .toggle-scene .bulb__filament {
-  stroke-width: 4;
-  filter: drop-shadow(0 0 4px oklch(0.92 0.2 85));
+.toggle-scene__cord-end {
+  stroke: var(--lt-cord);
+  fill: var(--lt-cord);
 }
 .toggle-scene__dummy-cord {
   stroke: var(--lt-cord);
-  stroke-width: 2.5;
+  stroke-width: 6;
   cursor: grab;
 }
-.toggle-scene__cord-end {
-  fill: var(--lt-cord);
-  stroke: var(--lt-cord);
+.toggle-scene__dummy-cord:active { cursor: grabbing; }
+
+.bulb__bulb {
+  stroke: var(--lt-stroke);
+  fill: var(--lt-bulb);
+  stroke-width: 5;
+  transition: fill 0.5s ease;
+}
+.bulb__cap { fill: var(--lt-cap); }
+.bulb__cap-outline {
+  stroke: var(--lt-stroke);
+  stroke-width: 4.677;
+}
+.bulb__shine { stroke: var(--lt-shine); }
+.bulb__filament {
+  stroke: var(--lt-filament);
+  stroke-width: 6;
+  transition: stroke 0.4s ease, stroke-width 0.4s ease;
+}
+[data-theme='light'] .bulb__filament,
+.light .bulb__filament {
+  stroke-width: 9;
+  filter: drop-shadow(0 0 6px oklch(0.92 0.2 85));
 }
 
 .lights-toggle__handle {
-  position: absolute;
-  left: 50%;
-  top: 130px;
-  width: 56px;
-  height: 56px;
-  transform: translate(-50%, -50%);
+  width: 48px;
+  aspect-ratio: 1;
   border-radius: 50%;
+  position: absolute;
+  /* match original: cord visually ends ~125px below bulb center inside the 48px form */
+  top: calc((48px * (0.35 / 2)) + ((48px * 0.65) * (125 / 48)));
+  left: 50%;
+  translate: -50% -50%;
+  z-index: 999;
   cursor: grab;
   pointer-events: auto;
-  z-index: 2;
 }
 
-/* View Transitions — circular reveal from bulb position */
+/* View Transitions — circular reveal from toggle position */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -448,9 +462,10 @@ html, body, header, section, article, aside, footer, .card, [class*="bg-"], [cla
   animation: lt-reveal 0.6s cubic-bezier(0.25, 1, 0.4, 1);
 }
 @keyframes lt-reveal {
-  from { clip-path: circle(0% at calc(100% - 3rem) 4rem); }
-  to   { clip-path: circle(150% at calc(100% - 3rem) 4rem); }
+  from { clip-path: circle(0% at calc(100% - 2.5rem) 2.5rem); }
+  to   { clip-path: circle(150% at calc(100% - 2.5rem) 2.5rem); }
 }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-new(root) { animation-duration: 0.15s; }
 }
+
