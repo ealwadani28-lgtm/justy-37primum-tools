@@ -309,6 +309,40 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
       };
     }
 
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return {
+        url,
+        host: parsed.host,
+        https: false,
+        status: null,
+        totalScore: 0,
+        headersScore: 0,
+        httpsScore: 0,
+        headerChecks: [],
+        allHeaders: {},
+        aiSummary: "",
+        aiRecommendations: [],
+        error: "نوع الرابط غير مدعوم — يُسمح فقط بـ http و https.",
+      };
+    }
+
+    if (isBlockedHostname(parsed.hostname) || (await resolvesToPrivateIp(parsed.hostname))) {
+      return {
+        url,
+        host: parsed.host,
+        https: parsed.protocol === "https:",
+        status: null,
+        totalScore: 0,
+        headersScore: 0,
+        httpsScore: 0,
+        headerChecks: [],
+        allHeaders: {},
+        aiSummary: "",
+        aiRecommendations: [],
+        error: "هذا العنوان داخلي أو خاص ولا يمكن فحصه.",
+      };
+    }
+
     // فحص الـ cache أولاً — يوفر ~70% من تكلفة AI للمواقع الشائعة
     const cacheKey = parsed.host.toLowerCase();
     const cached = getCached(cacheKey);
