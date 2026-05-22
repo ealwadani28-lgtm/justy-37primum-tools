@@ -99,6 +99,44 @@ export function ToolLayout({
           )}
         </div>
       )}
+
+      {tool && (tool.definition || (tool.importance && tool.importance.length) || (tool.useCases && tool.useCases.length)) && (
+        <section className="mt-10 bg-card border border-border rounded-3xl p-6 md:p-10 shadow-card-soft">
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+            <span className="text-primary">▍</span> أسئلة شائعة عن {tool.name}
+          </h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-semibold text-lg mb-2">ما هي أداة {tool.name}؟</h3>
+              <p className="text-muted-foreground leading-relaxed">{tool.definition || tool.description}</p>
+            </div>
+            {tool.importance && tool.importance.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-lg mb-2">لماذا أستخدم {tool.name}؟</h3>
+                <p className="text-muted-foreground leading-relaxed">{tool.importance.join(" ")}</p>
+              </div>
+            )}
+            {tool.useCases && tool.useCases.length > 0 && (
+              <div>
+                <h3 className="font-semibold text-lg mb-2">أمثلة على استخدام {tool.name}؟</h3>
+                <p className="text-muted-foreground leading-relaxed">{tool.useCases.join(" — ")}</p>
+              </div>
+            )}
+            <div>
+              <h3 className="font-semibold text-lg mb-2">هل {tool.name} مجانية؟</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                نعم، {tool.name} مجانية بالكامل ضمن منصّة Justlator Tools — تعمل من المتصفح بدون تسجيل أو تثبيت.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg mb-2">هل تحتاج إلى حساب لاستخدام {tool.name}؟</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                لا — افتح الأداة من المتصفح واستخدمها فوراً، لا حساب ولا بطاقة دفع.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
