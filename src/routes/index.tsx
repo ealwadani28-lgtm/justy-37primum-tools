@@ -1,6 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { tools, SITE } from "@/data/tools";
 import { ToolPreview } from "@/components/ToolPreview";
+import {
+  Megaphone, Palette, PenTool, Film, MousePointerClick,
+  MessageSquare, ShieldCheck, BarChart3, Briefcase, Sparkles,
+  LayoutGrid, SlidersHorizontal, ArrowLeft,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { PdfShowcase } from "@/components/showcases/PdfShowcase";
 import { VideoShowcase } from "@/components/showcases/VideoShowcase";
 import { SecurityShowcase } from "@/components/showcases/SecurityShowcase";
