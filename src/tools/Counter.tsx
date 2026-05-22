@@ -31,7 +31,7 @@ export function Counter() {
     { value: 12500, label: "عميل سعيد", suffix: "+" },
     { value: 98, label: "نسبة الرضا", suffix: "%" },
     { value: 250, label: "مشروع مكتمل", suffix: "" },
-    { value: 24, label: "أداة متاحة", suffix: "" },
+    { value: 36, label: "أداة متاحة", suffix: "" },
   ];
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

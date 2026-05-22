@@ -21,8 +21,8 @@ import { TalentShowcase } from "@/components/showcases/TalentShowcase";
 import { CrmShowcase } from "@/components/showcases/CrmShowcase";
 import { BloomShowcase } from "@/components/showcases/BloomShowcase";
 
-const HOME_TITLE = "Justlator Tools | 24 أداة ويب عربية مجانية وجاهزة للاستخدام";
-const HOME_DESC = "مجموعة من 24 أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
+const HOME_TITLE = "Justlator Tools | ٣٦ أداة ويب عربية مجانية وجاهزة للاستخدام";
+const HOME_DESC = "مجموعة من ٣٦ أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
 const HOME_KEYWORDS = "أدوات ويب عربية, مولد QR, عد تنازلي, نماذج تواصل, استطلاعات رأي, أدوات مجانية, أدوات موقع عربي, web tools Arabic, RTL widgets";
 
 export const Route = createFileRoute("/")({
@@ -159,7 +159,7 @@ function Index() {
         <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-20 md:pt-32 md:pb-28 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[oklch(0.82_0.13_85_/_0.4)] bg-card/50 backdrop-blur-sm text-xs text-muted-foreground mb-6 shadow-[0_0_30px_-5px_oklch(0.82_0.13_85_/_0.3)]">
             <span className="w-2 h-2 rounded-full bg-gold-gradient animate-pulse" />
-            ٢٤ أداة مصمّمة باحتراف · جاهزة للاستخدام
+            ٣٦ أداة مصمّمة باحتراف · جاهزة للاستخدام
           </div>
 
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
@@ -168,7 +168,7 @@ function Index() {
           </h1>
 
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            مجموعة من ٢٤ أداة ويب عربية، مصمّمة بأناقة واحتراف، تساعدك على بناء موقع يليق بعملك في دقائق.
+            مجموعة من ٣٦ أداة ويب عربية، مصمّمة بأناقة واحتراف، تساعدك على بناء موقع يليق بعملك في دقائق.
           </p>
 
           <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
@@ -194,7 +194,7 @@ function Index() {
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[oklch(0.82_0.13_85_/_0.6)] to-transparent" />
                 <div className="grid grid-cols-3 gap-6 relative">
                   <div className="text-center">
-                    <div className="text-4xl md:text-5xl font-extrabold text-mint-gold-gradient">24</div>
+                    <div className="text-4xl md:text-5xl font-extrabold text-mint-gold-gradient">٣٦</div>
                     <div className="text-xs text-muted-foreground mt-1">أداة احترافية</div>
                   </div>
                   <div className="text-center border-x border-[oklch(0.82_0.13_85_/_0.2)]">
