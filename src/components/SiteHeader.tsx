@@ -23,12 +23,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
-            href="#tools"
-            className="text-sm font-semibold bg-mint-gradient text-primary-foreground px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
-          >
-            ابدأ مجاناً
-          </a>
+          {/* ThemeToggle renders here via __root.tsx */}
         </div>
       </div>
     </header>
