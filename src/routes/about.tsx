@@ -114,7 +114,7 @@ function AboutPage() {
           <li className="flex gap-3"><span className="text-primary mt-1">◆</span><span>رواد الأعمال والمتاجر الإلكترونية الذين يحتاجون أدوات سريعة بدون فريق تقني.</span></li>
           <li className="flex gap-3"><span className="text-primary mt-1">◆</span><span>المسوّقون وصنّاع المحتوى العربي الباحثون عن مولّدات ذكاء اصطناعي تفهم لغتهم.</span></li>
           <li className="flex gap-3"><span className="text-primary mt-1">◆</span><span>المصمّمون والمستقلّون الذين يريدون أدوات يومية في مكان واحد.</span></li>
-          <li className="flex gap-3"><span className="text-primary mt-1">◆</span><span>الفرق الصغيرة التي تبحث عن بدائل عربية مجانية لأدوات SaaS مدفوعة.</span></li>
+          <li className="flex gap-3"><span className="text-primary mt-1">◆</span><span>الفرق التي تبحث عن بدائل عربية مجانية لأدوات SaaS مدفوعة.</span></li>
         </ul>
       </section>
     </div>
