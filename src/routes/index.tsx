@@ -435,15 +435,21 @@ function Index() {
         {/* Sticky category nav */}
         <div className="sticky top-20 z-30 -mx-6 px-6 py-3 mb-10 bg-background/85 backdrop-blur-xl border-y border-border/40">
           <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map((c) => (
-              <a
-                key={c}
-                href={`#${catSlug(c)}`}
-                className="text-xs px-3 py-1.5 rounded-full bg-card border border-border text-muted-foreground hover:text-foreground hover:border-[oklch(0.82_0.13_85_/_0.6)] hover:bg-card/80 transition"
-              >
-                {CATEGORY_META[c]?.icon} {c}
-              </a>
-            ))}
+            {categories.map((c) => {
+              const m = CATEGORY_META[c];
+              const Icon = m?.Icon ?? Sparkles;
+              const color = m ? `oklch(0.78 0.16 ${m.hue})` : "currentColor";
+              return (
+                <a
+                  key={c}
+                  href={`#${catSlug(c)}`}
+                  className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-card border border-border text-muted-foreground hover:text-foreground hover:border-[oklch(0.82_0.13_85_/_0.6)] hover:bg-card/80 transition"
+                >
+                  <Icon className="w-3.5 h-3.5" style={{ color }} />
+                  {c}
+                </a>
+              );
+            })}
           </div>
         </div>
 
