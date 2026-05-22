@@ -21,10 +21,9 @@ function applyTheme(theme: Theme) {
 
 // View Transitions wrapper — falls back gracefully
 function withTransition(cb: () => void) {
-  // @ts-expect-error startViewTransition is not yet in lib.dom
-  if (typeof document !== "undefined" && document.startViewTransition) {
-    // @ts-expect-error
-    document.startViewTransition(() => cb());
+  const doc = typeof document !== "undefined" ? (document as Document & { startViewTransition?: (cb: () => void) => unknown }) : null;
+  if (doc && typeof doc.startViewTransition === "function") {
+    doc.startViewTransition(() => cb());
   } else {
     cb();
   }
