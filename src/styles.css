@@ -114,7 +114,8 @@
 }
 
 /* Light theme — warm parchment with mint identity preserved */
-.light {
+.light,
+[data-theme='light'] {
   --background: oklch(0.985 0.005 95);
   --foreground: oklch(0.18 0.02 200);
 
