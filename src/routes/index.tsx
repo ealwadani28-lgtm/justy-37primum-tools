@@ -312,67 +312,130 @@ function Index() {
       </section>
 
 
-      {/* TOOLS GRID */}
-      <section id="tools" className="max-w-7xl mx-auto px-6 py-20">
-        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">جميع الأدوات</h2>
-            <p className="text-muted-foreground mt-2">اختر الأداة التي تحتاجها واستخدمها فوراً.</p>
+      {/* CATEGORIES INDEX — فهرسة القوائم الكبرى */}
+      <section id="categories" className="max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center mb-10">
+          <div className="inline-block text-[11px] uppercase tracking-[0.3em] text-gold-gradient font-bold mb-3">
+            ★ الفهرس
           </div>
-          <div className="flex flex-wrap gap-2">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            تصفّح حسب <span className="text-mint-gold-gradient">القائمة</span>
+          </h2>
+          <p className="text-muted-foreground mt-3">
+            اختر القائمة التي تهمّك للوصول مباشرة إلى أدواتها — بدون لف ولا دوران.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {toolsByCategory.map(({ name, tools: items }) => {
+            const meta = CATEGORY_META[name] ?? { icon: "📦", blurb: "" };
+            return (
+              <a
+                key={name}
+                href={`#${catSlug(name)}`}
+                className="group relative rounded-2xl p-5 bg-card/70 backdrop-blur-sm border border-[oklch(0.82_0.13_85_/_0.25)] hover:border-[oklch(0.82_0.13_85_/_0.6)] hover:-translate-y-1 hover:shadow-gold-glow transition-all"
+              >
+                <div className="text-3xl mb-2">{meta.icon}</div>
+                <div className="font-bold text-foreground group-hover:text-mint-gold-gradient">{name}</div>
+                <div className="text-[11px] text-muted-foreground mt-1 leading-relaxed line-clamp-2">
+                  {meta.blurb}
+                </div>
+                <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600">
+                  {items.length} أدوات
+                  <span className="opacity-0 group-hover:opacity-100 transition">←</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* TOOLS GROUPED BY CATEGORY */}
+      <section id="tools" className="max-w-7xl mx-auto px-6 py-12">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">جميع الأدوات</h2>
+          <p className="text-muted-foreground mt-2">مرتّبة حسب القوائم لسهولة العثور على ما تحتاج.</p>
+        </div>
+
+        {/* Sticky category nav */}
+        <div className="sticky top-20 z-30 -mx-6 px-6 py-3 mb-10 bg-background/85 backdrop-blur-xl border-y border-border/40">
+          <div className="flex flex-wrap gap-2 justify-center">
             {categories.map((c) => (
-              <span key={c} className="text-xs px-3 py-1.5 rounded-full bg-card border border-border text-muted-foreground">
-                {c}
-              </span>
+              <a
+                key={c}
+                href={`#${catSlug(c)}`}
+                className="text-xs px-3 py-1.5 rounded-full bg-card border border-border text-muted-foreground hover:text-foreground hover:border-[oklch(0.82_0.13_85_/_0.6)] hover:bg-card/80 transition"
+              >
+                {CATEGORY_META[c]?.icon} {c}
+              </a>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tools.map((tool) => (
-            <Link
-              key={tool.slug}
-              to="/tools/$slug"
-              params={{ slug: tool.slug }}
-              className="group relative rounded-3xl overflow-hidden border border-emerald-200/40 bg-gradient-to-br from-[#e8f7f1] via-[#dff3ea] to-[#cfeee1] hover:-translate-y-1 hover:shadow-[0_30px_60px_-20px_rgba(30,180,140,0.45)] transition-all duration-300"
-            >
-              {/* Preview area (mockup) */}
-              <div className="relative h-44 overflow-hidden">
-                {/* Soft mesh background */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.9),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(167,243,208,0.6),transparent_55%)]" />
-                {/* Brand chip top-center */}
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 text-[10px] font-extrabold tracking-wide text-emerald-700/90 z-10">
-                  Justlator<span className="text-emerald-500">·</span>
+        <div className="space-y-16">
+          {toolsByCategory.map(({ name, tools: items }) => {
+            const meta = CATEGORY_META[name] ?? { icon: "📦", blurb: "" };
+            return (
+              <div key={name} id={catSlug(name)} className="scroll-mt-32">
+                <div className="flex items-end justify-between mb-6 flex-wrap gap-3 border-b border-border/40 pb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl">{meta.icon}</span>
+                    <div>
+                      <h3 className="text-2xl font-bold tracking-tight">{name}</h3>
+                      <p className="text-xs text-muted-foreground mt-1">{meta.blurb}</p>
+                    </div>
+                  </div>
+                  <span className="text-[11px] text-emerald-600 bg-emerald-500/10 border border-emerald-400/30 px-3 py-1 rounded-full font-bold">
+                    {items.length} أدوات
+                  </span>
                 </div>
-                <div className="absolute inset-0 pt-8">
-                  <ToolPreview slug={tool.slug} />
-                </div>
-              </div>
 
-              {/* Card meta — dark band */}
-              <div className="bg-card/95 backdrop-blur-sm border-t border-emerald-200/30 p-4">
-                <div className="flex items-start justify-between gap-3 mb-1">
-                  <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
-                    {tool.name}
-                  </h3>
-                  <span className="shrink-0 text-[10px] text-emerald-300 bg-emerald-500/10 border border-emerald-400/30 px-2 py-0.5 rounded-full">
-                    {tool.category}
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-                  {tool.description}
-                </p>
-                <div className="mt-3 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-primary opacity-70 group-hover:opacity-100 transition">
-                    جرّب الآن ←
-                  </span>
-                  <span className="text-[10px] text-muted-foreground/60">مجاني</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {items.map((tool) => (
+                    <Link
+                      key={tool.slug}
+                      to="/tools/$slug"
+                      params={{ slug: tool.slug }}
+                      className="group relative rounded-3xl overflow-hidden border border-emerald-200/40 bg-gradient-to-br from-[#e8f7f1] via-[#dff3ea] to-[#cfeee1] hover:-translate-y-1 hover:shadow-[0_30px_60px_-20px_rgba(30,180,140,0.45)] transition-all duration-300"
+                    >
+                      <div className="relative h-44 overflow-hidden">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.9),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(167,243,208,0.6),transparent_55%)]" />
+                        <div className="absolute top-3 left-1/2 -translate-x-1/2 text-[10px] font-extrabold tracking-wide text-emerald-700/90 z-10">
+                          Justlator<span className="text-emerald-500">·</span>
+                        </div>
+                        <div className="absolute inset-0 pt-8">
+                          <ToolPreview slug={tool.slug} />
+                        </div>
+                      </div>
+
+                      <div className="bg-card/95 backdrop-blur-sm border-t border-emerald-200/30 p-4">
+                        <div className="flex items-start justify-between gap-3 mb-1">
+                          <h4 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                            {tool.name}
+                          </h4>
+                          <span className="shrink-0 text-[10px] text-emerald-300 bg-emerald-500/10 border border-emerald-400/30 px-2 py-0.5 rounded-full">
+                            {tool.category}
+                          </span>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                          {tool.description}
+                        </p>
+                        <div className="mt-3 flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-primary opacity-70 group-hover:opacity-100 transition">
+                            جرّب الآن ←
+                          </span>
+                          <span className="text-[10px] text-muted-foreground/60">مجاني</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
+
 
       {/* ABOUT */}
       <section id="about" className="max-w-4xl mx-auto px-6 py-20 text-center">
