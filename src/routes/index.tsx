@@ -74,12 +74,34 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const CATEGORY_META: Record<string, { icon: string; blurb: string }> = {
+  "أدوات": { icon: "🧰", blurb: "أدوات عامة سريعة لاستخدام يومي" },
+  "تسويق": { icon: "📣", blurb: "أدوات لزيادة التحويلات والمبيعات" },
+  "محتوى": { icon: "📝", blurb: "تنظيم وعرض محتوى موقعك بأناقة" },
+  "عرض": { icon: "✨", blurb: "إبراز إنجازاتك وأرقامك بصرياً" },
+  "وسائط": { icon: "🎬", blurb: "صور، فيديو، وصوت احترافي" },
+  "بيانات": { icon: "📊", blurb: "تحليلات ولوحات بيانات تفاعلية" },
+  "أمان": { icon: "🛡️", blurb: "حماية موقعك وبيانات زوّارك" },
+  "تواصل": { icon: "💬", blurb: "قنوات تواصل مباشر مع عملائك" },
+  "تفاعل": { icon: "🗳️", blurb: "أدوات تفاعل تشرك جمهورك" },
+  "أعمال": { icon: "💼", blurb: "إدارة عمليات وفرق ومشاريع" },
+};
+
+function catSlug(c: string) {
+  return `cat-${encodeURIComponent(c)}`;
+}
+
 function Index() {
   const categories = Array.from(new Set(tools.map((t) => t.category)));
+  const toolsByCategory = categories.map((c) => ({
+    name: c,
+    tools: tools.filter((t) => t.category === c),
+  }));
   const featuredSlugs = ["whatsapp", "qr-generator", "pricing", "testimonials"];
   const featured = featuredSlugs
     .map((s) => tools.find((t) => t.slug === s))
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
+
 
   return (
     <div>
