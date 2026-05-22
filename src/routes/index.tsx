@@ -322,43 +322,108 @@ function Index() {
       </section>
 
 
-      {/* CATEGORIES INDEX — فهرسة القوائم الكبرى */}
-      <section id="categories" className="max-w-7xl mx-auto px-6 py-16">
-        <div className="text-center mb-10">
-          <div className="inline-block text-[11px] uppercase tracking-[0.3em] text-gold-gradient font-bold mb-3">
-            ★ الفهرس
+      {/* CATEGORIES PORTAL — بوابة التصنيفات الفاخرة */}
+      <section id="categories" className="relative max-w-7xl mx-auto px-6 py-20">
+        {/* Header row */}
+        <div className="flex items-start justify-between gap-6 mb-12 flex-wrap">
+          {/* Filter chips (top-start in RTL) */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              aria-label="ترتيب"
+              className="w-11 h-11 rounded-2xl bg-card/70 backdrop-blur-md border border-[oklch(0.82_0.13_85_/_0.25)] flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-[oklch(0.82_0.13_85_/_0.6)] transition"
+            >
+              <SlidersHorizontal className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              aria-label="تصفية"
+              className="w-11 h-11 rounded-2xl bg-card/70 backdrop-blur-md border border-[oklch(0.82_0.13_85_/_0.25)] flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-[oklch(0.82_0.13_85_/_0.6)] transition"
+            >
+              <LayoutGrid className="w-4 h-4" />
+            </button>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            تصفّح حسب <span className="text-mint-gold-gradient">القائمة</span>
-          </h2>
-          <p className="text-muted-foreground mt-3">
-            اختر القائمة التي تهمّك للوصول مباشرة إلى أدواتها — بدون لف ولا دوران.
-          </p>
+          <div className="text-right max-w-xl ms-auto">
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-mint-gold-gradient">
+              جميع الأدوات
+            </h2>
+            <p className="text-muted-foreground mt-3 leading-relaxed text-sm md:text-base">
+              بوابتك الذكية لاستكشاف الأدوات التقنية المتطورة. اختر الفئة المناسبة لمشروعك وابدأ رحلة الإبداع.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {/* Portal cards grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {toolsByCategory.map(({ name, tools: items }) => {
-            const meta = CATEGORY_META[name] ?? { icon: "📦", blurb: "" };
+            const meta = CATEGORY_META[name] ?? { Icon: Sparkles, blurb: "", hue: "200" };
+            const Icon = meta.Icon;
+            const color = `oklch(0.78 0.16 ${meta.hue})`;
+            const colorSoft = `oklch(0.78 0.16 ${meta.hue} / 0.18)`;
+            const colorBorder = `oklch(0.78 0.16 ${meta.hue} / 0.35)`;
+            const colorGlow = `oklch(0.78 0.16 ${meta.hue} / 0.55)`;
             return (
               <a
                 key={name}
                 href={`#${catSlug(name)}`}
-                className="group relative rounded-2xl p-5 bg-card/70 backdrop-blur-sm border border-[oklch(0.82_0.13_85_/_0.25)] hover:border-[oklch(0.82_0.13_85_/_0.6)] hover:-translate-y-1 hover:shadow-gold-glow transition-all"
+                className="group relative rounded-3xl p-7 min-h-[220px] overflow-hidden bg-card/40 backdrop-blur-xl border transition-all duration-500 hover:-translate-y-1"
+                style={{
+                  borderColor: colorBorder,
+                  boxShadow: `inset 0 1px 0 oklch(1 0 0 / 0.04), 0 0 0 1px ${colorBorder}`,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `inset 0 1px 0 oklch(1 0 0 / 0.06), 0 0 0 1px ${color}, 0 24px 60px -20px ${colorGlow}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = `inset 0 1px 0 oklch(1 0 0 / 0.04), 0 0 0 1px ${colorBorder}`;
+                }}
               >
-                <div className="text-3xl mb-2">{meta.icon}</div>
-                <div className="font-bold text-foreground group-hover:text-mint-gold-gradient">{name}</div>
-                <div className="text-[11px] text-muted-foreground mt-1 leading-relaxed line-clamp-2">
-                  {meta.blurb}
+                {/* Ambient corner glow */}
+                <div
+                  className="absolute -top-16 -start-16 w-56 h-56 rounded-full opacity-40 blur-3xl pointer-events-none transition-opacity duration-500 group-hover:opacity-70"
+                  style={{ background: `radial-gradient(circle, ${color}, transparent 65%)` }}
+                  aria-hidden
+                />
+
+                {/* Glowing icon chip — top-end (visually top-left in RTL) */}
+                <div className="absolute top-5 end-5">
+                  <div
+                    className="relative w-12 h-12 rounded-2xl flex items-center justify-center backdrop-blur-md border transition-transform duration-500 group-hover:scale-110"
+                    style={{
+                      background: colorSoft,
+                      borderColor: colorBorder,
+                      boxShadow: `0 0 24px -4px ${colorGlow}`,
+                    }}
+                  >
+                    <Icon className="w-5 h-5" style={{ color }} strokeWidth={2.25} />
+                  </div>
                 </div>
-                <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600">
-                  {items.length} أدوات
-                  <span className="opacity-0 group-hover:opacity-100 transition">←</span>
+
+                {/* Content */}
+                <div className="relative mt-16">
+                  <h3 className="text-2xl font-extrabold tracking-tight mb-2 text-foreground">
+                    أدوات {name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-5">
+                    {meta.blurb}
+                  </p>
+                  <div
+                    className="inline-flex items-center gap-2 text-sm font-bold transition-all group-hover:gap-3"
+                    style={{ color }}
+                  >
+                    استكشف الفئة
+                    <ArrowLeft className="w-4 h-4" />
+                    <span className="ms-2 text-[10px] font-medium opacity-70">
+                      {items.length} أداة
+                    </span>
+                  </div>
                 </div>
               </a>
             );
           })}
         </div>
       </section>
+
 
       {/* TOOLS GROUPED BY CATEGORY */}
       <section id="tools" className="max-w-7xl mx-auto px-6 py-12">
