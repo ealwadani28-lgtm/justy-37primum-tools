@@ -455,14 +455,25 @@ function Index() {
 
         <div className="space-y-16">
           {toolsByCategory.map(({ name, tools: items }) => {
-            const meta = CATEGORY_META[name] ?? { icon: "📦", blurb: "" };
+            const meta = CATEGORY_META[name] ?? { Icon: Sparkles, blurb: "", hue: "200" };
+            const Icon = meta.Icon;
+            const color = `oklch(0.78 0.16 ${meta.hue})`;
             return (
               <div key={name} id={catSlug(name)} className="scroll-mt-32">
                 <div className="flex items-end justify-between mb-6 flex-wrap gap-3 border-b border-border/40 pb-4">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">{meta.icon}</span>
+                    <div
+                      className="w-11 h-11 rounded-2xl flex items-center justify-center border"
+                      style={{
+                        background: `oklch(0.78 0.16 ${meta.hue} / 0.15)`,
+                        borderColor: `oklch(0.78 0.16 ${meta.hue} / 0.35)`,
+                        boxShadow: `0 0 20px -4px oklch(0.78 0.16 ${meta.hue} / 0.5)`,
+                      }}
+                    >
+                      <Icon className="w-5 h-5" style={{ color }} strokeWidth={2.25} />
+                    </div>
                     <div>
-                      <h3 className="text-2xl font-bold tracking-tight">{name}</h3>
+                      <h3 className="text-2xl font-bold tracking-tight">أدوات {name}</h3>
                       <p className="text-xs text-muted-foreground mt-1">{meta.blurb}</p>
                     </div>
                   </div>
