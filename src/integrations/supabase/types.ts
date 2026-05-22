@@ -14,7 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      sheildy_waitlist: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          source: string | null
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          source?: string | null
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          source?: string | null
+          url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
