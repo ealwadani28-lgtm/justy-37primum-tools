@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { checkRateLimit, rateLimitMessage } from "./rate-limit.server";
 
 const ContentSchema = z.object({
   idea: z.string().min(2).max(1000),
@@ -23,6 +24,14 @@ const TONE_LABEL: Record<string, string> = {
 export const generateAiContent = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => ContentSchema.parse(d))
   .handler(async ({ data }) => {
+    const rl = checkRateLimit({
+      scope: "ai-content",
+      perIpMax: 15,
+      perIpWindowMs: 60_000,
+      globalMax: 1000,
+      globalWindowMs: 24 * 60 * 60_000,
+    });
+    if (!rl.ok) return { text: "", error: rateLimitMessage(rl) };
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) return { text: "", error: "AI key not configured" };
     const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -61,6 +70,14 @@ const STYLE_HINT: Record<string, string> = {
 export const generateAiImage = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => ImageSchema.parse(d))
   .handler(async ({ data }) => {
+    const rl = checkRateLimit({
+      scope: "ai-image",
+      perIpMax: 5,
+      perIpWindowMs: 60_000,
+      globalMax: 300,
+      globalWindowMs: 24 * 60 * 60_000,
+    });
+    if (!rl.ok) return { imageUrl: "", error: rateLimitMessage(rl) };
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) return { imageUrl: "", error: "AI key not configured" };
     const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {

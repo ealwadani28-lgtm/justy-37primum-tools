@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { checkRateLimit, rateLimitMessage } from "./rate-limit.server";
 
 const SECURITY_HEADERS = [
   { key: "strict-transport-security", name: "HSTS", weight: 20 },
@@ -288,6 +289,29 @@ async function aiAnalyze(payload: {
 export const runSecurityAudit = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => InputSchema.parse(input))
   .handler(async ({ data }): Promise<AuditResult> => {
+    const rl = checkRateLimit({
+      scope: "security-audit",
+      perIpMax: 10,
+      perIpWindowMs: 60_000,
+      globalMax: 500,
+      globalWindowMs: 24 * 60 * 60_000,
+    });
+    if (!rl.ok) {
+      return {
+        url: data.url,
+        host: data.url,
+        https: false,
+        status: null,
+        totalScore: 0,
+        headersScore: 0,
+        httpsScore: 0,
+        headerChecks: [],
+        allHeaders: {},
+        aiSummary: "",
+        aiRecommendations: [],
+        error: rateLimitMessage(rl),
+      };
+    }
     const url = normalizeUrl(data.url);
     let parsed: URL;
     try {
