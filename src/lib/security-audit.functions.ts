@@ -78,6 +78,90 @@ function normalizeUrl(raw: string): string {
   return `https://${trimmed}`;
 }
 
+// SSRF protection: block private/internal IP ranges
+function ipv4ToInt(ip: string): number | null {
+  const parts = ip.split(".");
+  if (parts.length !== 4) return null;
+  let n = 0;
+  for (const p of parts) {
+    if (!/^\d+$/.test(p)) return null;
+    const v = Number(p);
+    if (v < 0 || v > 255) return null;
+    n = (n << 8) + v;
+  }
+  return n >>> 0;
+}
+
+function isPrivateIPv4(ip: string): boolean {
+  const n = ipv4ToInt(ip);
+  if (n === null) return false;
+  const inRange = (start: string, mask: number) => {
+    const s = ipv4ToInt(start)!;
+    const m = mask === 0 ? 0 : (~0 << (32 - mask)) >>> 0;
+    return (n & m) === (s & m);
+  };
+  return (
+    inRange("0.0.0.0", 8) ||
+    inRange("10.0.0.0", 8) ||
+    inRange("127.0.0.0", 8) ||
+    inRange("169.254.0.0", 16) ||
+    inRange("172.16.0.0", 12) ||
+    inRange("192.168.0.0", 16) ||
+    inRange("100.64.0.0", 10) ||
+    inRange("192.0.0.0", 24) ||
+    inRange("198.18.0.0", 15) ||
+    inRange("224.0.0.0", 4) ||
+    inRange("240.0.0.0", 4)
+  );
+}
+
+function isPrivateIPv6(ip: string): boolean {
+  const lower = ip.toLowerCase().replace(/^\[|\]$/g, "");
+  if (lower === "::1" || lower === "::") return true;
+  if (lower.startsWith("fc") || lower.startsWith("fd")) return true;
+  if (lower.startsWith("fe80")) return true;
+  if (lower.startsWith("::ffff:")) {
+    const v4 = lower.slice(7);
+    if (/^\d+\.\d+\.\d+\.\d+$/.test(v4)) return isPrivateIPv4(v4);
+  }
+  return false;
+}
+
+function isBlockedHostname(host: string): boolean {
+  const h = host.toLowerCase().replace(/^\[|\]$/g, "");
+  if (!h) return true;
+  if (h === "localhost" || h.endsWith(".localhost")) return true;
+  if (h.endsWith(".local") || h.endsWith(".internal")) return true;
+  if (h === "metadata.google.internal") return true;
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(h)) return isPrivateIPv4(h);
+  if (h.includes(":")) return isPrivateIPv6(h);
+  return false;
+}
+
+async function resolvesToPrivateIp(hostname: string): Promise<boolean> {
+  // DNS-over-HTTPS lookup to defeat DNS rebinding to internal IPs.
+  const types: { t: string; check: (ip: string) => boolean }[] = [
+    { t: "A", check: isPrivateIPv4 },
+    { t: "AAAA", check: isPrivateIPv6 },
+  ];
+  for (const { t, check } of types) {
+    try {
+      const r = await fetch(
+        `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(hostname)}&type=${t}`,
+        { headers: { accept: "application/dns-json" } },
+      );
+      if (!r.ok) continue;
+      const j: { Answer?: { data: string }[] } = await r.json();
+      for (const a of j.Answer ?? []) {
+        if (a.data && check(a.data)) return true;
+      }
+    } catch {
+      return true; // fail closed
+    }
+  }
+  return false;
+}
+
 async function aiAnalyze(payload: {
   host: string;
   https: boolean;
@@ -222,6 +306,40 @@ export const runSecurityAudit = createServerFn({ method: "POST" })
         aiSummary: "",
         aiRecommendations: [],
         error: "رابط غير صالح",
+      };
+    }
+
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return {
+        url,
+        host: parsed.host,
+        https: false,
+        status: null,
+        totalScore: 0,
+        headersScore: 0,
+        httpsScore: 0,
+        headerChecks: [],
+        allHeaders: {},
+        aiSummary: "",
+        aiRecommendations: [],
+        error: "نوع الرابط غير مدعوم — يُسمح فقط بـ http و https.",
+      };
+    }
+
+    if (isBlockedHostname(parsed.hostname) || (await resolvesToPrivateIp(parsed.hostname))) {
+      return {
+        url,
+        host: parsed.host,
+        https: parsed.protocol === "https:",
+        status: null,
+        totalScore: 0,
+        headersScore: 0,
+        httpsScore: 0,
+        headerChecks: [],
+        allHeaders: {},
+        aiSummary: "",
+        aiRecommendations: [],
+        error: "هذا العنوان داخلي أو خاص ولا يمكن فحصه.",
       };
     }
 
