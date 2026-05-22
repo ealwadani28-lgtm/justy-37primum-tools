@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 import appCss from "../styles.css?url";
 
@@ -52,11 +53,11 @@ export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
 });
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem('justlator-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.classList.add(t);document.documentElement.style.colorScheme=t;}catch(e){document.documentElement.classList.add('dark');}})();`;
+const themeInitScript = `(function(){try{var t=localStorage.getItem('justlator-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.classList.add(t);document.documentElement.setAttribute('data-theme',t);document.documentElement.style.colorScheme=t;}catch(e){document.documentElement.classList.add('dark');document.documentElement.setAttribute('data-theme','dark');}})();`;
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ar" dir="rtl" className="dark">
+    <html lang="ar" dir="rtl" className="dark" data-theme="dark">
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <HeadContent />
@@ -73,6 +74,7 @@ function RootComponent() {
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
+      <ThemeToggle />
       <main className="flex-1">
         <Outlet />
       </main>
