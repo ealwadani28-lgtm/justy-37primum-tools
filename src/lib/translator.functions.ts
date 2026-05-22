@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { checkRateLimit, rateLimitMessage } from "./rate-limit.server";
 
 const LANG_NAMES: Record<string, string> = {
   ar: "Arabic",
@@ -17,6 +18,15 @@ const InputSchema = z.object({
 export const translateText = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => InputSchema.parse(d))
   .handler(async ({ data }) => {
+    const rl = checkRateLimit({
+      scope: "translate",
+      perIpMax: 30,
+      perIpWindowMs: 60_000,
+      globalMax: 2000,
+      globalWindowMs: 24 * 60 * 60_000,
+    });
+    if (!rl.ok) return { translation: "", error: rateLimitMessage(rl) };
+
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) {
       return { translation: "", error: "AI key not configured" };
