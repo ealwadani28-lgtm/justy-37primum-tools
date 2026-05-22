@@ -163,10 +163,10 @@ function Index() {
 
           <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
             <a
-              href="#tools"
+              href="#categories"
               className="relative group bg-mint-gold-gradient text-[oklch(0.18_0.02_200)] font-bold px-7 py-3.5 rounded-2xl shadow-gold-glow hover:scale-[1.03] transition-all overflow-hidden shimmer-gold"
             >
-              <span className="relative z-10">تصفّح الأدوات ←</span>
+              <span className="relative z-10">تصفّح حسب القائمة ←</span>
             </a>
             <a
               href="#featured"
@@ -175,6 +175,7 @@ function Index() {
               الأدوات المختارة ✨
             </a>
           </div>
+
 
           {/* Hero showcase card — luxe glass with mint+gold */}
           <div className="mt-20 max-w-3xl mx-auto">
