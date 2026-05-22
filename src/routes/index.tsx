@@ -194,7 +194,7 @@ function Index() {
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[oklch(0.82_0.13_85_/_0.6)] to-transparent" />
                 <div className="grid grid-cols-3 gap-6 relative">
                   <div className="text-center">
-                    <div className="text-4xl md:text-5xl font-extrabold text-mint-gold-gradient">24</div>
+                    <div className="text-4xl md:text-5xl font-extrabold text-mint-gold-gradient">٣٦</div>
                     <div className="text-xs text-muted-foreground mt-1">أداة احترافية</div>
                   </div>
                   <div className="text-center border-x border-[oklch(0.82_0.13_85_/_0.2)]">
