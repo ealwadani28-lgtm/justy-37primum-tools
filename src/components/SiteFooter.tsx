@@ -13,7 +13,7 @@ export function SiteFooter() {
             decoding="async"
           />
           <p className="text-muted-foreground leading-relaxed">
-            مجموعة أدوات صغيرة وقوية لتطوير موقعك بسرعة وأناقة.
+            مجموعة أدوات ويب عربية احترافية لتطوير موقعك بسرعة وأناقة.
           </p>
         </div>
         <div>

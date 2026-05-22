@@ -163,12 +163,12 @@ function Index() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
-            أدوات صغيرة <br />
-            <span className="text-mint-gold-gradient">بنتائج كبيرة</span>
+            أدوات احترافية <br />
+            <span className="text-mint-gold-gradient">بنتائج استثنائية</span>
           </h1>
 
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            مجموعة من ٢٤ أداة ويب عربية، مصمّمة بأناقة، تساعدك على بناء موقع يليق بعملك في دقائق.
+            مجموعة من ٢٤ أداة ويب عربية، مصمّمة بأناقة واحتراف، تساعدك على بناء موقع يليق بعملك في دقائق.
           </p>
 
           <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
@@ -534,8 +534,8 @@ function Index() {
       <section id="about" className="max-w-4xl mx-auto px-6 py-20 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">من نحن</h2>
         <p className="text-muted-foreground text-lg leading-loose">
-          نحن فريق صغير شغوف ببناء أدوات ويب صغيرة وذكية. نؤمن أن الأدوات البسيطة
-          المُصمَّمة جيداً يمكن أن تُحدث فرقاً كبيراً في تجربة المستخدم وفي نتائج عملك.
+          فريق شغوف ببناء أدوات ويب عربية احترافية ومُتقنة. نؤمن أن الأدوات
+          المُصمَّمة بإتقان تُحدث فرقاً كبيراً في تجربة المستخدم وفي نتائج عملك.
         </p>
       </section>
     </div>
