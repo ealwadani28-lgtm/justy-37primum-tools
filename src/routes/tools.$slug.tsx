@@ -51,8 +51,13 @@ export const Route = createFileRoute("/tools/$slug")({
             applicationCategory: "WebApplication",
             operatingSystem: "Any",
             inLanguage: "ar",
+            isAccessibleForFree: true,
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             keywords: t.keywords.join(", "),
+            featureList: t.useCases?.join(" • "),
+            audience: t.targetAudience
+              ? { "@type": "Audience", audienceType: t.targetAudience.join(", ") }
+              : undefined,
             publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
           }),
         },
@@ -68,6 +73,55 @@ export const Route = createFileRoute("/tools/$slug")({
             ],
           }),
         },
+        ...(t.importance && t.importance.length
+          ? [
+              {
+                type: "application/ld+json" as const,
+                children: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: [
+                    {
+                      "@type": "Question",
+                      name: `ما هي أداة ${t.name}؟`,
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: t.definition || t.seoDescription,
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: `لماذا أستخدم ${t.name}؟`,
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: t.importance.join(" "),
+                      },
+                    },
+                    ...(t.useCases && t.useCases.length
+                      ? [
+                          {
+                            "@type": "Question",
+                            name: `أمثلة على استخدام ${t.name}؟`,
+                            acceptedAnswer: {
+                              "@type": "Answer",
+                              text: t.useCases.join(" — "),
+                            },
+                          },
+                        ]
+                      : []),
+                    {
+                      "@type": "Question",
+                      name: `هل ${t.name} مجانية؟`,
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: `نعم، ${t.name} مجانية بالكامل ضمن منصّة ${SITE.name} — تعمل من المتصفح بدون تسجيل أو تثبيت.`,
+                      },
+                    },
+                  ],
+                }),
+              },
+            ]
+          : []),
       ],
     };
   },
