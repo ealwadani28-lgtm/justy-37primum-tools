@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { runSecurityAudit, type AuditResult } from "@/lib/security-audit.functions";
 import { arNumber, toArabicDigits } from "@/lib/utils";
+import { SheildyWaitlist } from "@/components/SheildyWaitlist";
+
 
 export function SecurityAudit() {
   const auditFn = useServerFn(runSecurityAudit);
@@ -229,6 +231,9 @@ export function SecurityAudit() {
           )}
         </div>
       )}
+
+      <SheildyWaitlist defaultUrl={result?.url || url} />
     </div>
   );
 }
+
