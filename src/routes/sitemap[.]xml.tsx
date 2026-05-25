@@ -9,6 +9,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const urls = [
           `<url><loc>${SITE.url}/</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>`,
           `<url><loc>${SITE.url}/about</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`,
+          `<url><loc>${SITE.url}/llms.txt</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>`,
           ...tools.map(
             (t) =>
               `<url><loc>${SITE.url}/tools/${t.slug}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>`

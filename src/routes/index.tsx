@@ -22,7 +22,7 @@ import { CrmShowcase } from "@/components/showcases/CrmShowcase";
 import { BloomShowcase } from "@/components/showcases/BloomShowcase";
 
 const HOME_TITLE = "Justlator Tools | ٣٦ أداة ويب عربية مجانية وجاهزة للاستخدام";
-const HOME_DESC = "مجموعة من ٣٦ أداة ويب عربية مجانية: مولّد QR، عدّ تنازلي، استطلاعات رأي، نماذج تواصل، رسوم بيانية، قوائم مطاعم، وأكثر. بدون تسجيل، بدون كود، تدعم RTL بالكامل.";
+const HOME_DESC = "٣٦ أداة ويب عربية مجانية: QR، عدّ تنازلي، استطلاعات، نماذج، رسوم بيانية، قوائم مطاعم وأكثر. بدون تسجيل، بدون كود، RTL كاملة.";
 const HOME_KEYWORDS = "أدوات ويب عربية, مولد QR, عد تنازلي, نماذج تواصل, استطلاعات رأي, أدوات مجانية, أدوات موقع عربي, web tools Arabic, RTL widgets";
 
 export const Route = createFileRoute("/")({

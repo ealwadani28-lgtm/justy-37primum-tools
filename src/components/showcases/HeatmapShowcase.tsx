@@ -23,7 +23,7 @@ export function HeatmapShowcase() {
                 <div className="w-6 h-6 rounded bg-white/10" />
                 <div className="w-6 h-6 rounded-full bg-white/10" />
               </div>
-              <div className="flex gap-3 text-[10px] text-white/40">
+              <div className="flex gap-3 text-[10px] text-white/70">
                 <span>اتصل</span><span>المنتجات</span><span>المتجر</span>
               </div>
               <span className="text-white font-bold text-sm">تسوّق الأصفياء</span>

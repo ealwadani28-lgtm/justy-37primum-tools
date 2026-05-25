@@ -10,9 +10,12 @@ export function SiteHeader() {
           <img
             src={logo}
             alt="Justlator Technologies"
+            width="200"
+            height="64"
             className="h-16 w-auto object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_18px_rgba(80,160,255,0.35)]"
             loading="eager"
             decoding="async"
+            fetchPriority="high"
           />
         </Link>
 
