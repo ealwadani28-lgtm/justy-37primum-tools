@@ -17,7 +17,7 @@ import { MarketingShowcase } from "@/components/showcases/MarketingShowcase";
 import { LogisticsShowcase } from "@/components/showcases/LogisticsShowcase";
 import { ProjectsShowcase } from "@/components/showcases/ProjectsShowcase";
 import { PaymentsShowcase } from "@/components/showcases/PaymentsShowcase";
-import { TalentShowcase } from "@/components/showcases/TalentShowcase";
+
 import { CrmShowcase } from "@/components/showcases/CrmShowcase";
 import { BloomShowcase } from "@/components/showcases/BloomShowcase";
 
@@ -297,13 +297,6 @@ function Index() {
             className="block group transition-transform duration-500 hover:-translate-y-1"
           >
             <PaymentsShowcase />
-          </Link>
-          <Link
-            to="/tools/$slug"
-            params={{ slug: "talent-management" }}
-            className="block group transition-transform duration-500 hover:-translate-y-1"
-          >
-            <TalentShowcase />
           </Link>
           <Link
             to="/tools/$slug"
