@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import logo from "@/assets/justlator-logo.png";
 import { VisitCounter } from "@/components/VisitCounter";
 
