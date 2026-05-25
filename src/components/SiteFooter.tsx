@@ -22,7 +22,7 @@ export function SiteFooter() {
           <ul className="space-y-2 text-muted-foreground">
             <li><a href="#tools" className="hover:text-primary">جميع الأدوات</a></li>
             <li><a href="#about" className="hover:text-primary">من نحن</a></li>
-            <li><a href="#contact" className="hover:text-primary">تواصل معنا</a></li>
+            <li><Link to="/about" hash="contact" className="hover:text-primary">تواصل معنا</Link></li>
           </ul>
         </div>
         <div>
