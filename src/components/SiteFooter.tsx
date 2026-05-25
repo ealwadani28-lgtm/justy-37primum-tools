@@ -1,4 +1,5 @@
 import logo from "@/assets/justlator-logo.png";
+import { VisitCounter } from "@/components/VisitCounter";
 
 export function SiteFooter() {
   return (
