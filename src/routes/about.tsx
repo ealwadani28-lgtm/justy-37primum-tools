@@ -6,8 +6,8 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => {
     const url = `${SITE.url}/about`;
-    const title = `من نحن | ${SITE.name} — منصة الأدوات العربية بالذكاء الاصطناعي`;
-    const description = `${SITE.name} منصة عربية مجانية تضم ${arNumber(tools.length)} أداة ويب وذكاء اصطناعي (مولّد محتوى، مولّد صور، تحليل مشاعر، ومترجم) — تعمل من المتصفح بدون تسجيل أو تثبيت.`;
+    const title = `من نحن | ${SITE.name} — أدوات عربية بالذكاء الاصطناعي`;
+    const description = `${SITE.name} منصة عربية مجانية تضم ${arNumber(tools.length)} أداة ويب وذكاء اصطناعي تعمل من المتصفح بدون تسجيل.`;
     return {
       meta: [
         { title },
