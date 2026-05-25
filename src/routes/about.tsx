@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { tools, SITE } from "@/data/tools";
 import { arNumber } from "@/lib/utils";
+import { ContactForm } from "@/components/ContactForm";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -106,7 +107,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-card border border-border rounded-3xl p-8 md:p-10 shadow-card-soft">
+      <section className="bg-card border border-border rounded-3xl p-8 md:p-10 shadow-card-soft mb-8">
         <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
           <span className="text-primary">▍</span> لمن صُمِّمت {SITE.name}؟
         </h2>
@@ -117,6 +118,8 @@ function AboutPage() {
           <li className="flex gap-3"><span className="text-primary mt-1">◆</span><span>الفرق التي تبحث عن بدائل عربية مجانية لأدوات SaaS مدفوعة.</span></li>
         </ul>
       </section>
+
+      <ContactForm />
     </div>
   );
 }
