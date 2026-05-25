@@ -51,12 +51,12 @@ export function SecurityShowcase() {
             { sev: "منخفضة", color: "text-emerald-400", icon: "👤", title: "تكوين خاطئ", status: "تم الحل", time: "12:46" },
           ].map((i, idx) => (
             <div key={idx} className="flex items-center justify-between bg-slate-800/60 border border-white/5 rounded-xl px-3 py-2 text-sm">
-              <span className="text-xs text-white/40">🕐 {i.time} مدخل</span>
+              <span className="text-xs text-white/70">🕐 {i.time} مدخل</span>
               <div className="flex items-center gap-2 text-white/90">
                 <span className={`font-bold ${i.color}`}>{i.sev}</span>
-                <span className="text-white/50">-</span>
+                <span className="text-white/75">-</span>
                 <span>{i.title}</span>
-                <span className="text-white/50">-</span>
+                <span className="text-white/75">-</span>
                 <span>{i.status}</span>
                 <span className="text-base">{i.icon}</span>
               </div>

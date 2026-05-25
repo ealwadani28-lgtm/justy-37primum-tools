@@ -27,7 +27,7 @@ export function PaymentsShowcase() {
                 </div>
               </div>
               <div>
-                <div className="text-xs text-white/50 mb-1">Balance</div>
+                <div className="text-xs text-white/75 mb-1">Balance</div>
                 <div className="text-2xl font-extrabold">SAR 24,580<span className="text-sm text-white/60">.42</span></div>
               </div>
               <div className="flex items-center justify-between text-[10px] text-white/60">
