@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { tools, SITE } from "@/data/tools";
 import { ToolLayout } from "@/components/ToolLayout";
 import { toolRegistry } from "@/tools/registry";
+import { ToolErrorBoundary } from "@/components/ToolErrorBoundary";
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolPage,
@@ -135,7 +136,13 @@ function ToolPage() {
 
   return (
     <ToolLayout slug={slug} title={tool.name} description={tool.description}>
-      {Component ? <Component /> : <div className="text-muted-foreground">قريباً...</div>}
+      {Component ? (
+        <ToolErrorBoundary toolName={tool.name}>
+          <Component />
+        </ToolErrorBoundary>
+      ) : (
+        <div className="text-muted-foreground">قريباً...</div>
+      )}
     </ToolLayout>
   );
 }
