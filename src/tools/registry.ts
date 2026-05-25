@@ -31,7 +31,7 @@ import { Logistics } from "./Logistics";
 import { ProjectsKanban } from "./ProjectsKanban";
 import { CrmPipeline } from "./CrmPipeline";
 import { PaymentsDashboard } from "./PaymentsDashboard";
-import { TalentManagement } from "./TalentManagement";
+
 import { BloomAnalytics } from "./BloomAnalytics";
 import { AiContent } from "./AiContent";
 import { AiImage } from "./AiImage";
@@ -71,6 +71,6 @@ export const toolRegistry: Record<string, ComponentType> = {
   "projects-kanban": ProjectsKanban,
   "crm-pipeline": CrmPipeline,
   "payments-dashboard": PaymentsDashboard,
-  "talent-management": TalentManagement,
+  
   "bloom-analytics": BloomAnalytics,
 };

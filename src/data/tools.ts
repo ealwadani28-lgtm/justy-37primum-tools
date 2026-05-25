@@ -453,16 +453,6 @@ export const tools: Tool[] = [
     keywords: ["بوابة دفع", "payment gateway", "fintech", "مدى", "Apple Pay", "STC Pay", "تقنية مالية"],
   },
   {
-    slug: "talent-management",
-    name: "إدارة المواهب",
-    description: "منصّة موارد بشرية لإدارة الأداء والتطوير.",
-    icon: "🌟",
-    category: "أعمال",
-    seoTitle: "منصة إدارة المواهب البشرية | HR Talent Management عربي",
-    seoDescription: "أدر مواهب فريقك من التوظيف للتطوير: تقييم OKR، خطط L&D، برامج المكافآت، واكتشف نجوم فريقك بالذكاء الاصطناعي.",
-    keywords: ["إدارة مواهب", "HR", "talent management", "OKR", "تقييم أداء", "موارد بشرية", "people management"],
-  },
-  {
     slug: "bloom-analytics",
     name: "لوحة التحليلات",
     description: "لوحة تحليلات أنيقة بأسلوب نعناعي هادئ.",
