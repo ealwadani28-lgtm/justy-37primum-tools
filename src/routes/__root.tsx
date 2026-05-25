@@ -32,6 +32,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "SMmWytGRgUR9FLfotuvynHMewIWvNy_Q8q1l3LlJQBs" },
       { title: "Justlator Tools — مجموعة أدوات الويب العربية" },
       { name: "description", content: "لكل مهتم بالتقنية والبناء اونلاين - هنا كنز معرفي يحتوي على + 30 أداة ويب عربية احترافية جاهزة للاستخدام: ذكاء صناعي ، تسويق ، تصميم، تحليلات، نماذج ، وأكثر" },
       { property: "og:title", content: "Justlator Tools — مجموعة أدوات الويب العربية" },
