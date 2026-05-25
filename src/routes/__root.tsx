@@ -2,6 +2,8 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Toaster } from "@/components/ui/sonner";
+import { GlobalErrorListener } from "@/components/ToolErrorBoundary";
 
 import appCss from "../styles.css?url";
 
@@ -74,12 +76,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <div className="min-h-screen flex flex-col">
+      <GlobalErrorListener />
       <SiteHeader />
       <ThemeToggle />
       <main className="flex-1">
         <Outlet />
       </main>
       <SiteFooter />
+      <Toaster richColors closeButton position="top-center" dir="rtl" />
     </div>
   );
 }
