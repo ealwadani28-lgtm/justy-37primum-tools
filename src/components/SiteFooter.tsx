@@ -1,4 +1,5 @@
 import logo from "@/assets/justlator-logo.png";
+import { VisitCounter } from "@/components/VisitCounter";
 
 export function SiteFooter() {
   return (
@@ -30,6 +31,9 @@ export function SiteFooter() {
             <a href="https://www.justlator.com" className="hover:text-primary">www.justlator.com</a>
           </p>
           <p className="text-muted-foreground mt-3">© {new Date().getFullYear()} Justlator Tools. جميع الحقوق محفوظة.</p>
+          <div className="mt-4">
+            <VisitCounter />
+          </div>
         </div>
       </div>
     </footer>
