@@ -21,9 +21,11 @@ export function SiteFooter() {
         <div>
           <div className="font-semibold mb-3 text-foreground">روابط</div>
           <ul className="space-y-2 text-muted-foreground">
-            <li><a href="#tools" className="hover:text-primary">جميع الأدوات</a></li>
-            <li><a href="#about" className="hover:text-primary">من نحن</a></li>
+            <li><Link to="/" className="hover:text-primary">جميع الأدوات</Link></li>
+            <li><Link to="/about" className="hover:text-primary">من نحن</Link></li>
             <li><Link to="/about" hash="contact" className="hover:text-primary">تواصل معنا</Link></li>
+            <li><Link to="/privacy" className="hover:text-primary">سياسة الخصوصية</Link></li>
+            <li><Link to="/terms" className="hover:text-primary">الشروط والأحكام</Link></li>
           </ul>
         </div>
         <div>

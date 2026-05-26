@@ -9,14 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -25,6 +32,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   id: '/robots.txt',
   path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
@@ -58,8 +70,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/llms.txt': typeof LlmsDottxtRoute
+  '/privacy': typeof PrivacyRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -67,8 +81,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/llms.txt': typeof LlmsDottxtRoute
+  '/privacy': typeof PrivacyRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -77,8 +93,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/llms.txt': typeof LlmsDottxtRoute
+  '/privacy': typeof PrivacyRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -88,8 +106,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/llms.txt'
+    | '/privacy'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/terms'
     | '/tools/$slug'
     | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
@@ -97,8 +117,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/llms.txt'
+    | '/privacy'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/terms'
     | '/tools/$slug'
     | '/lovable/email/queue/process'
   id:
@@ -106,8 +128,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/llms.txt'
+    | '/privacy'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/terms'
     | '/tools/$slug'
     | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
@@ -116,14 +140,23 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   LlmsDottxtRoute: typeof LlmsDottxtRoute
+  PrivacyRoute: typeof PrivacyRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
   ToolsSlugRoute: typeof ToolsSlugRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -136,6 +169,13 @@ declare module '@tanstack/react-router' {
       path: '/robots.txt'
       fullPath: '/robots.txt'
       preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/llms.txt': {
@@ -180,20 +220,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   LlmsDottxtRoute: LlmsDottxtRoute,
+  PrivacyRoute: PrivacyRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
   ToolsSlugRoute: ToolsSlugRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
