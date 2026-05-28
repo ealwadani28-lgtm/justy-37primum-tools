@@ -25,7 +25,7 @@ export function Protection() {
           حاول نسخ هذا النص أو النقر بزر الفأرة الأيمن. عند تفعيل الحماية، ستجد أن العمليات معطّلة.
           هذا النص جزء من المحتوى المحمي للموقع.
         </p>
-        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400" className="mt-4 rounded-xl pointer-events-none" alt="محمية" />
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400" className="mt-4 rounded-xl pointer-events-none" alt="صورة محمية من النسخ" />
       </div>
       <p className="text-xs text-muted-foreground text-center">⚠️ الحماية على مستوى المتصفح فقط — ليست بديلاً عن حماية الخادم.</p>
     </div>

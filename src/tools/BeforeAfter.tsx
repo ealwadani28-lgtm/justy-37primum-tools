@@ -24,9 +24,9 @@ export function BeforeAfter() {
       onTouchStart={(e) => update(e.touches[0].clientX)}
       onTouchMove={(e) => update(e.touches[0].clientX)}
     >
-      <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200" alt="بعد" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
-      <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
-        <img src="https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=1200" alt="قبل" className="absolute inset-0 w-full h-full object-cover" style={{ width: `${100 / (pos / 100)}%`, maxWidth: "none" }} draggable={false} />
+      <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200" alt="الصورة بعد التعديل" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
+        <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
+        <img src="https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=1200" alt="الصورة قبل التعديل" className="absolute inset-0 w-full h-full object-cover" style={{ width: `${100 / (pos / 100)}%`, maxWidth: "none" }} draggable={false} />
       </div>
       <div className="absolute top-0 bottom-0 w-1 bg-white shadow-lg" style={{ left: `${pos}%` }}>
         <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white shadow-glow flex items-center justify-center text-primary-foreground font-bold">

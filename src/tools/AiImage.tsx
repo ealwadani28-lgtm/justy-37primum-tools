@@ -83,7 +83,7 @@ export function AiImage() {
         ) : loading ? (
           <div className="text-muted-foreground text-sm animate-pulse">يرسم الذكاء الاصطناعي صورتك الآن...</div>
         ) : imageUrl ? (
-          <img src={imageUrl} alt="Generated" className="max-w-full max-h-[520px] rounded-xl" />
+          <img src={imageUrl} alt="صورة مولّدة بالذكاء الاصطناعي" className="max-w-full max-h-[520px] rounded-xl" />
         ) : (
           <span className="text-muted-foreground text-sm">ستظهر الصورة هنا بعد التوليد...</span>
         )}
