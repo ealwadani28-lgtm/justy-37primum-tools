@@ -50,7 +50,7 @@ export class ToolErrorBoundary extends Component<Props, State> {
             تعذّر تشغيل أداة {this.props.toolName}
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            {this.state.error?.message
+            {import.meta.env.DEV && this.state.error?.message
               ? `السبب: ${this.state.error.message}`
               : "حدث خطأ غير متوقع أثناء تحميل الأداة."}
           </p>

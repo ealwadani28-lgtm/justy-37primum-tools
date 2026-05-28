@@ -68,10 +68,9 @@ export function ContactForm() {
         description: "سنتواصل معك في أقرب وقت ممكن.",
       });
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "تعذّر إرسال الرسالة";
       console.error("[ContactForm] فشل الإرسال:", err);
       toast.error("فشل إرسال الرسالة", {
-        description: `${msg} — حاول مرة أخرى بعد قليل.`,
+        description: "تعذّر إرسال الرسالة الآن. حاول مرة أخرى بعد قليل.",
       });
     } finally {
       setSubmitting(false);
