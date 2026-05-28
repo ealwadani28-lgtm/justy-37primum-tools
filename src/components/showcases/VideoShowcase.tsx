@@ -47,7 +47,7 @@ export function VideoShowcase() {
             <Hotspot label="شاهد العرض" className="top-[50%] right-[15%]" />
 
             {/* Center play button */}
-            <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-[0_0_40px_rgba(168,85,247,0.6)] hover:scale-110 transition">
+            <button aria-label="تشغيل الفيديو" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-[0_0_40px_rgba(168,85,247,0.6)] hover:scale-110 transition">
               <Play className="w-7 h-7 text-white fill-white ml-1" />
             </button>
 
