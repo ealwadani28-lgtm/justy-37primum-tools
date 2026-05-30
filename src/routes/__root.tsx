@@ -35,6 +35,9 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-site-verification", content: "SMmWytGRgUR9FLfotuvynHMewIWvNy_Q8q1l3LlJQBs" },
+      { name: "theme-color", content: "#0f1a16" },
+      { name: "author", content: "Justlator Tools" },
+      { name: "language", content: "Arabic" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Justlator Tools" },
       { property: "og:image", content: "https://justlator.com/justlator-logo.png" },
@@ -44,6 +47,8 @@ export const Route = createRootRoute({
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/justlator-logo.png" },
+      { rel: "alternate", hrefLang: "ar", href: "https://justlator.com/" },
+      { rel: "alternate", hrefLang: "x-default", href: "https://justlator.com/" },
     ],
   }),
   shellComponent: RootShell,
