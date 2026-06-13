@@ -1,29 +1,35 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Twitter, Facebook, Send, Youtube } from "lucide-react";
-import logoAsset from "@/assets/justlator-emblem.png.asset.json";
-const logo = logoAsset.url;
 import { VisitCounter } from "@/components/VisitCounter";
 import { arNumber } from "@/lib/utils";
 
-const socials = [
-  { icon: Instagram, href: "https://instagram.com/justlator", label: "Instagram" },
-  { icon: Twitter, href: "https://x.com/justlator", label: "X" },
-  { icon: Facebook, href: "https://facebook.com/justlator", label: "Facebook" },
-  { icon: Send, href: "https://t.me/justlator", label: "Telegram" },
-  { icon: Youtube, href: "https://youtube.com/@justlator", label: "YouTube" },
+type Product = {
+  name: string;
+  href: string;
+  status: "available" | "soon";
+  note?: string;
+};
+
+const products: Product[] = [
+  { name: "Justlator Tools", href: "https://www.justlator.com", status: "available", note: "متاح" },
+  { name: "JustSecure — حصين", href: "#", status: "soon", note: "قريباً" },
+  { name: "JustSyncFlow", href: "#", status: "soon", note: "قريباً" },
+];
+
+const domains = [
+  { label: "www.justlator.com", href: "https://www.justlator.com" },
+  { label: "www.justlator.tech", href: "https://www.justlator.tech" },
 ];
 
 export function SiteFooter() {
   return (
     <footer className="relative border-t border-border/50 mt-24 overflow-hidden">
-      {/* Ambient glow + grid */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_center,rgba(80,160,255,0.12),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_center,rgba(80,160,255,0.10),transparent_70%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
@@ -32,97 +38,106 @@ export function SiteFooter() {
       />
 
       <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
-        {/* Corporate Lockup */}
-        <div className="flex flex-col items-center text-center mb-14">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-primary/25 blur-3xl rounded-full scale-150"
-            />
-            <img
-              src={logo}
-              alt="Justlator Technologies"
-              className="relative h-32 md:h-40 w-auto object-contain drop-shadow-[0_0_30px_rgba(80,160,255,0.4)]"
-              loading="eager"
-              decoding="sync"
-            />
+        {/* Corporate Lockup — Parent Brand */}
+        <div className="flex flex-col items-center text-center mb-16">
+          <p
+            className="text-4xl md:text-5xl text-foreground font-bold tracking-[0.2em]"
+            dir="ltr"
+          >
+            JUSTLATOR
+          </p>
+          <p
+            className="mt-2 text-[11px] md:text-xs text-primary font-semibold tracking-[0.55em]"
+            dir="ltr"
+          >
+            TECHNOLOGIES
+          </p>
+
+          <div className="mt-6 flex items-center gap-3 text-[10px] tracking-[0.45em] text-muted-foreground/70" dir="ltr">
+            <span className="h-px w-10 bg-border" />
+            <span>SIGNATURE</span>
+            <span className="h-px w-10 bg-border" />
           </div>
 
-          <div className="mt-5 space-y-1.5">
-            <p
-              className="text-3xl md:text-4xl text-foreground font-bold tracking-[0.18em]"
-              dir="ltr"
-            >
-              JUSTLATOR
-            </p>
-            <p
-              className="text-[11px] md:text-xs text-primary font-semibold tracking-[0.5em]"
-              dir="ltr"
-            >
-              TECHNOLOGIES
-            </p>
-          </div>
-
-          <div className="mt-7 space-y-1">
-            <p className="text-sm md:text-base text-foreground/90 font-medium">
-              أحد منتجات شركة مبدأ العدالة للتقنية
-            </p>
-            <p
-              className="text-xs text-muted-foreground tracking-wider"
-              dir="ltr"
-            >
-              A <span className="text-primary font-semibold">Justlator Technologies</span> Product
-            </p>
-          </div>
+          <p className="mt-6 text-sm md:text-base text-foreground/90 font-medium max-w-2xl">
+            شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف
+          </p>
+          <p className="mt-2 text-xs text-muted-foreground tracking-wide" dir="ltr">
+            A <span className="text-primary font-semibold">Justlator Technologies</span> product family
+          </p>
         </div>
 
         <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-12" />
 
-        {/* Columns + Socials */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-sm">
+        {/* Three columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
+          {/* Products */}
           <div>
-            <div className="font-semibold mb-4 text-foreground tracking-wide">شركة Justlator</div>
-            <ul className="space-y-2.5 text-muted-foreground">
-              <li><Link to="/about" className="hover:text-primary transition-colors">من نحن</Link></li>
-              <li><Link to="/" className="hover:text-primary transition-colors">الأدوات والخدمات</Link></li>
-              <li><Link to="/about" hash="media" className="hover:text-primary transition-colors">الملف الإعلامي</Link></li>
+            <div className="font-semibold mb-5 text-foreground tracking-wide">منتجاتنا</div>
+            <ul className="space-y-3">
+              {products.map((p) => (
+                <li key={p.name} className="flex items-center gap-2 flex-row-reverse justify-end">
+                  {p.status === "available" ? (
+                    <a
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      dir="ltr"
+                    >
+                      {p.name}
+                    </a>
+                  ) : (
+                    <span className="text-muted-foreground/80" dir="ltr">{p.name}</span>
+                  )}
+                  <span className="text-muted-foreground/50">—</span>
+                  <span
+                    className={
+                      p.status === "available"
+                        ? "text-[10px] px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30"
+                        : "text-[10px] px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30"
+                    }
+                  >
+                    {p.note}
+                  </span>
+                </li>
+              ))}
             </ul>
-          </div>
 
-          <div>
-            <div className="font-semibold mb-4 text-foreground tracking-wide">قانوني</div>
-            <ul className="space-y-2.5 text-muted-foreground">
-              <li><Link to="/terms" className="hover:text-primary transition-colors">الشروط والأحكام</Link></li>
-              <li><Link to="/privacy" className="hover:text-primary transition-colors">سياسة الخصوصية</Link></li>
-              <li><Link to="/privacy" hash="cookies" className="hover:text-primary transition-colors">سياسة الكوكيز</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <div className="font-semibold mb-4 text-foreground tracking-wide">دعم</div>
-            <ul className="space-y-2.5 text-muted-foreground">
-              <li><Link to="/about" hash="contact" className="hover:text-primary transition-colors">تواصل معنا</Link></li>
-              <li><Link to="/about" hash="help" className="hover:text-primary transition-colors">مركز المساعدة</Link></li>
-              <li><Link to="/about" hash="faq" className="hover:text-primary transition-colors">الأسئلة الشائعة</Link></li>
-            </ul>
-          </div>
-
-          <div className="col-span-2 md:col-span-1 md:justify-self-end">
-            <div className="font-semibold mb-4 text-foreground tracking-wide">تابعنا</div>
-            <div className="flex items-center gap-2.5">
-              {socials.map(({ icon: Icon, href, label }) => (
+            <div className="mt-6 space-y-1.5">
+              {domains.map((d) => (
                 <a
-                  key={label}
-                  href={href}
+                  key={d.label}
+                  href={d.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={label}
-                  className="group relative h-10 w-10 rounded-xl border border-border/60 bg-card/40 backdrop-blur flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-all"
+                  className="block text-primary/90 hover:text-primary transition-colors text-xs"
+                  dir="ltr"
                 >
-                  <Icon className="h-4 w-4" />
+                  {d.label}
                 </a>
               ))}
             </div>
+          </div>
+
+          {/* Links */}
+          <div>
+            <div className="font-semibold mb-5 text-foreground tracking-wide">روابط</div>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><Link to="/" className="hover:text-primary transition-colors">جميع الأدوات</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">من نحن</Link></li>
+              <li><Link to="/about" hash="contact" className="hover:text-primary transition-colors">تواصل معنا</Link></li>
+              <li><Link to="/privacy" className="hover:text-primary transition-colors">سياسة الخصوصية</Link></li>
+              <li><Link to="/terms" className="hover:text-primary transition-colors">الشروط والأحكام</Link></li>
+            </ul>
+          </div>
+
+          {/* About */}
+          <div>
+            <div className="font-semibold mb-5 text-foreground tracking-wide">عن المنصة</div>
+            <p className="text-muted-foreground leading-relaxed">
+              مجموعة أدوات ويب عربية احترافية لتطوير موقعك بسرعة وأناقة.
+            </p>
             <div className="mt-6">
               <VisitCounter />
             </div>
@@ -130,8 +145,8 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+          <p>صُنع بإتقان في المملكة العربية السعودية</p>
           <p>© {arNumber(new Date().getFullYear())} Justlator Technologies — جميع الحقوق محفوظة.</p>
-          <p className="tracking-wider opacity-70">صُنع بإتقان في المملكة العربية السعودية</p>
         </div>
       </div>
     </footer>
