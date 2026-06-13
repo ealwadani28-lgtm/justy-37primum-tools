@@ -1,42 +1,80 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/justlator-logo.png";
 import { VisitCounter } from "@/components/VisitCounter";
+import { arNumber } from "@/lib/utils";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/50 mt-24">
-      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8 text-sm">
-        <div>
+    <footer className="relative border-t border-border/50 mt-24 overflow-hidden">
+      {/* Ambient glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(80,160,255,0.12),transparent_70%)]"
+      />
+
+      <div className="relative max-w-7xl mx-auto px-6 pt-16 pb-10">
+        {/* Corporate emblem + bilingual byline */}
+        <div className="flex flex-col items-center text-center mb-12">
           <img
             src={logo}
             alt="Justlator Technologies"
-            className="h-20 w-auto object-contain mb-4 drop-shadow-[0_0_24px_rgba(80,160,255,0.3)]"
+            className="h-28 md:h-32 w-auto object-contain drop-shadow-[0_0_40px_rgba(80,160,255,0.35)]"
             loading="lazy"
             decoding="async"
           />
-          <p className="text-muted-foreground leading-relaxed">
-            مجموعة أدوات ويب عربية احترافية لتطوير موقعك بسرعة وأناقة.
-          </p>
-        </div>
-        <div>
-          <div className="font-semibold mb-3 text-foreground">روابط</div>
-          <ul className="space-y-2 text-muted-foreground">
-            <li><Link to="/" className="hover:text-primary">جميع الأدوات</Link></li>
-            <li><Link to="/about" className="hover:text-primary">من نحن</Link></li>
-            <li><Link to="/about" hash="contact" className="hover:text-primary">تواصل معنا</Link></li>
-            <li><Link to="/privacy" className="hover:text-primary">سياسة الخصوصية</Link></li>
-            <li><Link to="/terms" className="hover:text-primary">الشروط والأحكام</Link></li>
-          </ul>
-        </div>
-        <div>
-          <div className="font-semibold mb-3 text-foreground">Justlator Technologies</div>
-          <p className="text-muted-foreground">
-            <a href="https://www.justlator.com" className="hover:text-primary">www.justlator.com</a>
-          </p>
-          <p className="text-muted-foreground mt-3">© {new Date().getFullYear()} Justlator Tools. جميع الحقوق محفوظة.</p>
-          <div className="mt-4">
-            <VisitCounter />
+          <div className="mt-5 space-y-1">
+            <p className="text-base md:text-lg text-foreground font-semibold tracking-wide">
+              أحد منتجات شركة <span className="text-primary">Justlator Technologies</span>
+            </p>
+            <p className="text-sm text-muted-foreground tracking-wider" dir="ltr">
+              A <span className="text-primary font-medium">Justlator Technologies</span> product
+            </p>
           </div>
+        </div>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-10" />
+
+        {/* Columns */}
+        <div className="grid md:grid-cols-3 gap-8 text-sm">
+          <div>
+            <div className="font-semibold mb-4 text-foreground">عن المنصة</div>
+            <p className="text-muted-foreground leading-relaxed">
+              مجموعة أدوات ويب عربية احترافية لتطوير موقعك بسرعة وأناقة.
+            </p>
+            <div className="mt-5">
+              <VisitCounter />
+            </div>
+          </div>
+
+          <div>
+            <div className="font-semibold mb-4 text-foreground">روابط</div>
+            <ul className="space-y-2.5 text-muted-foreground">
+              <li><Link to="/" className="hover:text-primary transition-colors">جميع الأدوات</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">من نحن</Link></li>
+              <li><Link to="/about" hash="contact" className="hover:text-primary transition-colors">تواصل معنا</Link></li>
+              <li><Link to="/privacy" className="hover:text-primary transition-colors">سياسة الخصوصية</Link></li>
+              <li><Link to="/terms" className="hover:text-primary transition-colors">الشروط والأحكام</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <div className="font-semibold mb-4 text-foreground">الشركة الأم</div>
+            <p className="text-muted-foreground leading-relaxed mb-2">
+              شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف.
+            </p>
+            <a
+              href="https://www.justlator.com"
+              className="inline-block mt-2 text-primary hover:underline"
+              dir="ltr"
+            >
+              www.justlator.com
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-6 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+          <p>© {arNumber(new Date().getFullYear())} Justlator Technologies — جميع الحقوق محفوظة.</p>
+          <p className="tracking-wider opacity-70">صُنع بإتقان في المملكة العربية السعودية</p>
         </div>
       </div>
     </footer>
