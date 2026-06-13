@@ -376,9 +376,9 @@ html, body, header, section, article, aside, footer, .card, [class*="bg-"], [cla
   pointer-events: auto;
 }
 .lights-toggle__btn:focus-visible {
-  outline: 2px dashed var(--lt-cord);
-  outline-offset: 6px;
-  border-radius: 50%;
+  outline: none;
+  box-shadow: 0 0 0 2px oklch(0.7 0.12 230 / 0.35);
+  border-radius: 12px;
 }
 
 .toggle-scene {
@@ -397,10 +397,12 @@ html, body, header, section, article, aside, footer, .card, [class*="bg-"], [cla
           drop-shadow(0 0 18px oklch(0.95 0.18 85 / 0.45));
 }
 
+/* Swing frames are only shown by GSAP during the pull animation. */
 .toggle-scene__cord {
   stroke: var(--lt-cord);
   stroke-width: 6;
   cursor: move;
+  display: none;
 }
 .toggle-scene__cord-end {
   stroke: var(--lt-cord);
