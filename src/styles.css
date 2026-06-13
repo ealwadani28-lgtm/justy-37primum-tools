@@ -378,30 +378,31 @@ html, body, header, section, article, aside, footer, .card, [class*="bg-"], [cla
 .lights-toggle__btn:focus { outline: none; }
 .lights-toggle__btn:focus-visible { outline: none; box-shadow: none; }
 
-/* "Drag me" hint with arrow pointing to the cord */
+/* "اسحبني" hint sits below the cord with arrow pointing up to it */
 .lights-toggle__hint {
   position: absolute;
-  top: 60%;
-  inset-inline-end: 100%;
-  margin-inline-end: 8px;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 6px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: oklch(0.75 0.05 200 / 0.85);
+  color: oklch(0.75 0.05 200 / 0.9);
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
-  animation: lt-hint-pulse 2s ease-in-out infinite;
+  animation: lt-hint-pulse 1.8s ease-in-out infinite;
 }
-.lights-toggle__hint svg { width: 22px; height: 12px; }
+.lights-toggle__hint svg { width: 12px; height: 18px; }
 @keyframes lt-hint-pulse {
-  0%, 100% { opacity: 0.55; transform: translateX(0); }
-  50% { opacity: 1; transform: translateX(-3px); }
+  0%, 100% { opacity: 0.55; transform: translate(-50%, 0); }
+  50% { opacity: 1; transform: translate(-50%, 3px); }
 }
-[dir="rtl"] .lights-toggle__hint svg { transform: scaleX(-1); }
 
 .toggle-scene {
   overflow: visible !important;
