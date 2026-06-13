@@ -1,15 +1,24 @@
 import { Link } from "@tanstack/react-router";
-import monogramAsset from "@/assets/justlator-monogram-gold.png.asset.json";
+import { Instagram, Twitter, Facebook, Send, Youtube } from "lucide-react";
+import logo from "@/assets/justlator-logo.png";
 import { VisitCounter } from "@/components/VisitCounter";
 import { arNumber } from "@/lib/utils";
+
+const socials = [
+  { icon: Instagram, href: "https://instagram.com/justlator", label: "Instagram" },
+  { icon: Twitter, href: "https://x.com/justlator", label: "X" },
+  { icon: Facebook, href: "https://facebook.com/justlator", label: "Facebook" },
+  { icon: Send, href: "https://t.me/justlator", label: "Telegram" },
+  { icon: Youtube, href: "https://youtube.com/@justlator", label: "YouTube" },
+];
 
 export function SiteFooter() {
   return (
     <footer className="relative border-t border-border/50 mt-24 overflow-hidden">
-      {/* Ambient glow */}
+      {/* Ambient glow + grid */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_at_center,rgba(80,160,255,0.14),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_center,rgba(80,160,255,0.12),transparent_70%)]"
       />
       <div
         aria-hidden
@@ -21,104 +30,101 @@ export function SiteFooter() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 pt-16 pb-10">
-        {/* Corporate Lockup: J-Monogram + Wordmark + Bilingual byline */}
+      <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
+        {/* Corporate Lockup */}
         <div className="flex flex-col items-center text-center mb-14">
           <div className="relative">
             <div
               aria-hidden
-              className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.45),transparent_70%)] blur-3xl rounded-full scale-150"
+              className="absolute inset-0 bg-primary/25 blur-3xl rounded-full scale-150"
             />
             <img
-              src={monogramAsset.url}
+              src={logo}
               alt="Justlator Technologies"
-              className="relative h-28 md:h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]"
+              className="relative h-32 md:h-40 w-auto object-contain drop-shadow-[0_0_30px_rgba(80,160,255,0.4)]"
               loading="eager"
               decoding="sync"
             />
           </div>
 
-          <div className="mt-6 space-y-1.5">
+          <div className="mt-5 space-y-1.5">
             <p
-              className="text-2xl md:text-3xl text-foreground font-bold tracking-[0.15em]"
+              className="text-3xl md:text-4xl text-foreground font-bold tracking-[0.18em]"
               dir="ltr"
             >
               JUSTLATOR
             </p>
             <p
-              className="text-[10px] md:text-xs text-primary font-semibold tracking-[0.45em]"
+              className="text-[11px] md:text-xs text-primary font-semibold tracking-[0.5em]"
               dir="ltr"
             >
               TECHNOLOGIES
             </p>
           </div>
 
-          <div className="mt-7 flex items-center gap-3 w-full max-w-md">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-            <span className="text-[10px] text-muted-foreground/60 tracking-[0.3em] uppercase">
-              Signature
-            </span>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-          </div>
-
-          <div className="mt-5 space-y-1">
+          <div className="mt-7 space-y-1">
             <p className="text-sm md:text-base text-foreground/90 font-medium">
-              شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف
+              أحد منتجات شركة مبدأ العدالة للتقنية
             </p>
             <p
               className="text-xs text-muted-foreground tracking-wider"
               dir="ltr"
             >
-              A <span className="text-primary font-semibold">Justlator Technologies</span> product family
+              A <span className="text-primary font-semibold">Justlator Technologies</span> Product
             </p>
           </div>
         </div>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-10" />
+        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-12" />
 
-        {/* Columns */}
-        <div className="grid md:grid-cols-3 gap-8 text-sm">
+        {/* Columns + Socials */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-sm">
           <div>
-            <div className="font-semibold mb-4 text-foreground">عن المنصة</div>
-            <p className="text-muted-foreground leading-relaxed">
-              مجموعة أدوات ويب عربية احترافية لتطوير موقعك بسرعة وأناقة.
-            </p>
-            <div className="mt-5">
+            <div className="font-semibold mb-4 text-foreground tracking-wide">شركة Justlator</div>
+            <ul className="space-y-2.5 text-muted-foreground">
+              <li><Link to="/about" className="hover:text-primary transition-colors">من نحن</Link></li>
+              <li><Link to="/" className="hover:text-primary transition-colors">الأدوات والخدمات</Link></li>
+              <li><Link to="/about" hash="media" className="hover:text-primary transition-colors">الملف الإعلامي</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <div className="font-semibold mb-4 text-foreground tracking-wide">قانوني</div>
+            <ul className="space-y-2.5 text-muted-foreground">
+              <li><Link to="/terms" className="hover:text-primary transition-colors">الشروط والأحكام</Link></li>
+              <li><Link to="/privacy" className="hover:text-primary transition-colors">سياسة الخصوصية</Link></li>
+              <li><Link to="/privacy" hash="cookies" className="hover:text-primary transition-colors">سياسة الكوكيز</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <div className="font-semibold mb-4 text-foreground tracking-wide">دعم</div>
+            <ul className="space-y-2.5 text-muted-foreground">
+              <li><Link to="/about" hash="contact" className="hover:text-primary transition-colors">تواصل معنا</Link></li>
+              <li><Link to="/about" hash="help" className="hover:text-primary transition-colors">مركز المساعدة</Link></li>
+              <li><Link to="/about" hash="faq" className="hover:text-primary transition-colors">الأسئلة الشائعة</Link></li>
+            </ul>
+          </div>
+
+          <div className="col-span-2 md:col-span-1 md:justify-self-end">
+            <div className="font-semibold mb-4 text-foreground tracking-wide">تابعنا</div>
+            <div className="flex items-center gap-2.5">
+              {socials.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="group relative h-10 w-10 rounded-xl border border-border/60 bg-card/40 backdrop-blur flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-all"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+            <div className="mt-6">
               <VisitCounter />
             </div>
-          </div>
-
-          <div>
-            <div className="font-semibold mb-4 text-foreground">روابط</div>
-            <ul className="space-y-2.5 text-muted-foreground">
-              <li><Link to="/" className="hover:text-primary transition-colors">جميع الأدوات</Link></li>
-              <li><Link to="/about" className="hover:text-primary transition-colors">من نحن</Link></li>
-              <li><Link to="/about" hash="contact" className="hover:text-primary transition-colors">تواصل معنا</Link></li>
-              <li><Link to="/privacy" className="hover:text-primary transition-colors">سياسة الخصوصية</Link></li>
-              <li><Link to="/terms" className="hover:text-primary transition-colors">الشروط والأحكام</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <div className="font-semibold mb-4 text-foreground">منتجاتنا</div>
-            <ul className="space-y-2.5 text-muted-foreground">
-              <li>
-                <Link to="/" className="hover:text-primary transition-colors">
-                  Justlator Tools <span className="text-xs text-primary/80">— متاح</span>
-                </Link>
-              </li>
-              <li className="flex items-center gap-2">
-                <span>JustSecure — حصين</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">قريباً</span>
-              </li>
-            </ul>
-            <a
-              href="https://www.justlator.com"
-              className="inline-block mt-5 text-primary hover:underline text-sm"
-              dir="ltr"
-            >
-              www.justlator.com
-            </a>
           </div>
         </div>
 
