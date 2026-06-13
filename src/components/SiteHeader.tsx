@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/justlator-logo.png";
+import logoAsset from "@/assets/justlator-emblem.png.asset.json";
+const logo = logoAsset.url;
 
 
 export function SiteHeader() {
