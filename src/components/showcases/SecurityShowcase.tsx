@@ -81,12 +81,9 @@ export function SecurityShowcase() {
         <div className="text-[10px] text-emerald-400 flex items-center justify-end gap-1">✓ وقت التشغيل: 99.99%</div>
       </div>
 
-      <div className="relative z-10 text-center mt-10 space-y-3">
+      <div className="relative z-10 text-center mt-10">
         <h2 className="text-3xl md:text-5xl font-black text-white">مدقق الأمان</h2>
-        <p className="text-emerald-400 font-semibold text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-          🇸🇦 الأداة الوحيدة المتخصصة في امتثال معايير الهيئة الوطنية للأمن السيبراني NCA ECC-1:2018 بالعربية
-        </p>
-        <p className="text-white/60 text-xs md:text-sm">احمِ موقعك من الثغرات ودقّق امتثالك للمعايير الوطنية فوراً</p>
+        <p className="text-white/60 mt-2">احمِ موقعك من الثغرات قبل أن يكتشفها المخترقون</p>
       </div>
     </div>
   );
