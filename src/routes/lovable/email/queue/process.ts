@@ -84,7 +84,20 @@ export const Route = createFileRoute("/lovable/email/queue/process")({
         }
 
         const token = authHeader.slice('Bearer '.length).trim()
-        if (token !== supabaseServiceKey) {
+        
+        // Prevent timing attacks by using timingSafeEqual
+        let safe = false
+        try {
+          const { timingSafeEqual } = await import('crypto')
+          const encoder = new TextEncoder()
+          const tokenBuf = encoder.encode(token)
+          const secretBuf = encoder.encode(supabaseServiceKey)
+          safe = tokenBuf.byteLength === secretBuf.byteLength && timingSafeEqual(tokenBuf, secretBuf)
+        } catch {
+          safe = token === supabaseServiceKey
+        }
+
+        if (!safe) {
           return Response.json({ error: 'Forbidden' }, { status: 403 })
         }
 
