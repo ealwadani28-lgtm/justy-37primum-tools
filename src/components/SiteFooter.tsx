@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import monogramAsset from "@/assets/justlator-monogram.png.asset.json";
+import monogramAsset from "@/assets/justlator-monogram-gold.png.asset.json";
 import { VisitCounter } from "@/components/VisitCounter";
 import { arNumber } from "@/lib/utils";
 
@@ -27,12 +27,12 @@ export function SiteFooter() {
           <div className="relative">
             <div
               aria-hidden
-              className="absolute inset-0 bg-primary/25 blur-3xl rounded-full scale-125"
+              className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.45),transparent_70%)] blur-3xl rounded-full scale-150"
             />
             <img
               src={monogramAsset.url}
               alt="Justlator Technologies"
-              className="relative h-24 md:h-28 w-auto object-contain drop-shadow-[0_0_30px_rgba(80,160,255,0.4)]"
+              className="relative h-28 md:h-32 w-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]"
               loading="eager"
               decoding="sync"
             />
