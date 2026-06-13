@@ -58,13 +58,21 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <div className="font-semibold mb-4 text-foreground">الشركة الأم</div>
-            <p className="text-muted-foreground leading-relaxed mb-2">
-              شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف.
-            </p>
+            <div className="font-semibold mb-4 text-foreground">منتجاتنا</div>
+            <ul className="space-y-2.5 text-muted-foreground">
+              <li>
+                <Link to="/" className="hover:text-primary transition-colors">
+                  Justlator Tools <span className="text-xs text-primary/80">— متاح</span>
+                </Link>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>JustSecure — حصين</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">قريباً</span>
+              </li>
+            </ul>
             <a
               href="https://www.justlator.com"
-              className="inline-block mt-2 text-primary hover:underline"
+              className="inline-block mt-5 text-primary hover:underline text-sm"
               dir="ltr"
             >
               www.justlator.com
