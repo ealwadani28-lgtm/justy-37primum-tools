@@ -46,6 +46,9 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" },
       { rel: "icon", type: "image/png", href: "/justlator-logo.png" },
       { rel: "alternate", hrefLang: "ar", href: "https://justlator.com/" },
       { rel: "alternate", hrefLang: "x-default", href: "https://justlator.com/" },
