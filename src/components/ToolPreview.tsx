@@ -416,34 +416,6 @@ function TimelinePreview() {
   );
 }
 
-function VideoBannerPreview() {
-  return (
-    <Window className="w-full overflow-hidden">
-      <div className="relative h-24 bg-gradient-to-br from-emerald-700 via-teal-600 to-emerald-500 flex items-center justify-center">
-        <div className="absolute inset-0 opacity-20">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full"
-              style={{
-                top: `${(i * 17) % 100}%`,
-                left: `${(i * 23) % 100}%`,
-              }}
-            />
-          ))}
-        </div>
-        <div className="w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-emerald-700 text-sm shadow-xl">
-          ▶
-        </div>
-        <div className="absolute bottom-2 right-2 left-2">
-          <div className="h-0.5 bg-white/30 rounded-full">
-            <div className="h-full w-2/5 bg-white rounded-full" />
-          </div>
-        </div>
-      </div>
-    </Window>
-  );
-}
 
 function TestimonialsPreview() {
   return (
@@ -515,26 +487,6 @@ function TrustBadgesPreview() {
   );
 }
 
-function PdfPreview() {
-  return (
-    <Window className="w-full" title="document.pdf">
-      <div className="p-2 space-y-1 bg-gradient-to-b from-white to-emerald-50/30">
-        <div className="h-1.5 rounded-full bg-slate-300 w-2/3 mb-1.5" />
-        <div className="h-1 rounded-full bg-slate-200 w-full" />
-        <div className="h-1 rounded-full bg-slate-200 w-5/6" />
-        <div className="h-1 rounded-full bg-slate-200 w-full" />
-        <div className="h-1 rounded-full bg-slate-200 w-4/5" />
-        <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-emerald-100">
-          <span className="text-[7px] text-slate-400">صفحة 1 من 12</span>
-          <div className="flex gap-1">
-            <span className="w-3 h-3 rounded bg-emerald-100 text-[7px] flex items-center justify-center text-emerald-700">‹</span>
-            <span className="w-3 h-3 rounded bg-emerald-500 text-[7px] flex items-center justify-center text-white">›</span>
-          </div>
-        </div>
-      </div>
-    </Window>
-  );
-}
 
 function GdprPreview() {
   return (
@@ -602,11 +554,11 @@ const previews: Record<string, () => React.JSX.Element> = {
   pricing: PricingPreview,
   audio: AudioPreview,
   timeline: TimelinePreview,
-  "video-banner": VideoBannerPreview,
+  
   testimonials: TestimonialsPreview,
   "open-hours": OpenHoursPreview,
   "trust-badges": TrustBadgesPreview,
-  "pdf-viewer": PdfPreview,
+  
   gdpr: GdprPreview,
   "form-builder": FormBuilderPreview,
 };

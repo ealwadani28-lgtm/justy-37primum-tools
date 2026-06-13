@@ -7,11 +7,8 @@ import {
   LayoutGrid, SlidersHorizontal, ArrowLeft,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { PdfShowcase } from "@/components/showcases/PdfShowcase";
-import { VideoShowcase } from "@/components/showcases/VideoShowcase";
 import { SecurityShowcase } from "@/components/showcases/SecurityShowcase";
 import { SentimentShowcase } from "@/components/showcases/SentimentShowcase";
-import { HeatmapShowcase } from "@/components/showcases/HeatmapShowcase";
 import { WhatsappShowcase } from "@/components/showcases/WhatsappShowcase";
 import { MarketingShowcase } from "@/components/showcases/MarketingShowcase";
 import { LogisticsShowcase } from "@/components/showcases/LogisticsShowcase";
@@ -21,8 +18,8 @@ import { PaymentsShowcase } from "@/components/showcases/PaymentsShowcase";
 import { CrmShowcase } from "@/components/showcases/CrmShowcase";
 import { BloomShowcase } from "@/components/showcases/BloomShowcase";
 
-const HOME_TITLE = "Justlator Tools | ٣٦ أداة ويب عربية مجانية وجاهزة للاستخدام";
-const HOME_DESC = "٣٦ أداة ويب عربية مجانية: QR، عدّ تنازلي، استطلاعات، نماذج، رسوم بيانية، قوائم مطاعم وأكثر. بدون تسجيل، بدون كود، RTL كاملة.";
+const HOME_TITLE = "Justlator Tools | ٣٢ أداة ويب عربية مجانية وجاهزة للاستخدام";
+const HOME_DESC = "٣٢ أداة ويب عربية مجانية: QR، عدّ تنازلي، استطلاعات، نماذج، رسوم بيانية، قوائم مطاعم وأكثر. بدون تسجيل، بدون كود، RTL كاملة.";
 const HOME_KEYWORDS = "أدوات ويب عربية, مولد QR, عد تنازلي, نماذج تواصل, استطلاعات رأي, أدوات مجانية, أدوات موقع عربي, web tools Arabic, RTL widgets";
 
 export const Route = createFileRoute("/")({
@@ -230,20 +227,6 @@ function Index() {
         <div className="space-y-8">
           <Link
             to="/tools/$slug"
-            params={{ slug: "pdf-viewer" }}
-            className="block group transition-transform duration-500 hover:-translate-y-1"
-          >
-            <PdfShowcase />
-          </Link>
-          <Link
-            to="/tools/$slug"
-            params={{ slug: "video-banner" }}
-            className="block group transition-transform duration-500 hover:-translate-y-1"
-          >
-            <VideoShowcase />
-          </Link>
-          <Link
-            to="/tools/$slug"
             params={{ slug: "security-audit" }}
             className="block group transition-transform duration-500 hover:-translate-y-1"
           >
@@ -255,13 +238,6 @@ function Index() {
             className="block group transition-transform duration-500 hover:-translate-y-1"
           >
             <SentimentShowcase />
-          </Link>
-          <Link
-            to="/tools/$slug"
-            params={{ slug: "heatmap" }}
-            className="block group transition-transform duration-500 hover:-translate-y-1"
-          >
-            <HeatmapShowcase />
           </Link>
           <Link
             to="/tools/$slug"
