@@ -293,6 +293,14 @@ export function ThemeToggle() {
         {/* Invisible bigger touch target */}
         <div ref={handleRef} className="lights-toggle__handle" aria-hidden="true" />
       </button>
+
+      <span className="lights-toggle__hint" aria-hidden="true">
+        اسحبني
+        <svg viewBox="0 0 22 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M1 6h18" />
+          <path d="M14 1l5 5-5 5" />
+        </svg>
+      </span>
     </form>
   );
 }
