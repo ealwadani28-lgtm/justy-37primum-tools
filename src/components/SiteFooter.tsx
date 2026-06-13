@@ -22,12 +22,12 @@ export function SiteFooter() {
             loading="lazy"
             decoding="async"
           />
-          <div className="mt-5 space-y-1">
-            <p className="text-base md:text-lg text-foreground font-semibold tracking-wide">
-              أحد منتجات شركة <span className="text-primary">Justlator Technologies</span>
+          <div className="mt-5 space-y-2">
+            <p className="text-xl md:text-2xl text-foreground font-bold tracking-wide" dir="ltr">
+              Justlator <span className="text-primary">Technologies</span>
             </p>
-            <p className="text-sm text-muted-foreground tracking-wider" dir="ltr">
-              A <span className="text-primary font-medium">Justlator Technologies</span> product
+            <p className="text-sm text-muted-foreground tracking-wide">
+              شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف.
             </p>
           </div>
         </div>
