@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { VisitCounter } from "@/components/VisitCounter";
 import { arNumber } from "@/lib/utils";
+import logoAsset from "@/assets/justlator-emblem.png.asset.json";
+const logo = logoAsset.url;
 
 type Product = {
   name: string;
