@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/justlator-logo.png";
+import monogramAsset from "@/assets/justlator-monogram.png.asset.json";
 import { VisitCounter } from "@/components/VisitCounter";
 import { arNumber } from "@/lib/utils";
 
@@ -9,25 +9,67 @@ export function SiteFooter() {
       {/* Ambient glow */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(80,160,255,0.12),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_at_center,rgba(80,160,255,0.14),transparent_70%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
       />
 
       <div className="relative max-w-7xl mx-auto px-6 pt-16 pb-10">
-        {/* Corporate emblem + bilingual byline */}
-        <div className="flex flex-col items-center text-center mb-12">
-          <img
-            src={logo}
-            alt="Justlator Technologies"
-            className="h-28 md:h-32 w-auto object-contain drop-shadow-[0_0_40px_rgba(80,160,255,0.35)]"
-            loading="lazy"
-            decoding="async"
-          />
-          <div className="mt-5 space-y-2">
-            <p className="text-xl md:text-2xl text-foreground font-bold tracking-wide" dir="ltr">
-              Justlator <span className="text-primary">Technologies</span>
+        {/* Corporate Lockup: J-Monogram + Wordmark + Bilingual byline */}
+        <div className="flex flex-col items-center text-center mb-14">
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-primary/25 blur-3xl rounded-full scale-125"
+            />
+            <img
+              src={monogramAsset.url}
+              alt="Justlator Technologies"
+              className="relative h-24 md:h-28 w-auto object-contain drop-shadow-[0_0_30px_rgba(80,160,255,0.4)]"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div className="mt-6 space-y-1.5">
+            <p
+              className="text-2xl md:text-3xl text-foreground font-bold tracking-[0.15em]"
+              dir="ltr"
+            >
+              JUSTLATOR
             </p>
-            <p className="text-sm text-muted-foreground tracking-wide">
-              شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف.
+            <p
+              className="text-[10px] md:text-xs text-primary font-semibold tracking-[0.45em]"
+              dir="ltr"
+            >
+              TECHNOLOGIES
+            </p>
+          </div>
+
+          <div className="mt-7 flex items-center gap-3 w-full max-w-md">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+            <span className="text-[10px] text-muted-foreground/60 tracking-[0.3em] uppercase">
+              Signature
+            </span>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+          </div>
+
+          <div className="mt-5 space-y-1">
+            <p className="text-sm md:text-base text-foreground/90 font-medium">
+              شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف
+            </p>
+            <p
+              className="text-xs text-muted-foreground tracking-wider"
+              dir="ltr"
+            >
+              A <span className="text-primary font-semibold">Justlator Technologies</span> product family
             </p>
           </div>
         </div>
