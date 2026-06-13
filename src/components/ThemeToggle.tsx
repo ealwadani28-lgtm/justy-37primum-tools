@@ -295,11 +295,11 @@ export function ThemeToggle() {
       </button>
 
       <span className="lights-toggle__hint" aria-hidden="true">
-        اسحبني
-        <svg viewBox="0 0 22 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M1 6h18" />
-          <path d="M14 1l5 5-5 5" />
+        <svg viewBox="0 0 12 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 17V3" />
+          <path d="M1 8l5-5 5 5" />
         </svg>
+        اسحبني
       </span>
     </form>
   );
