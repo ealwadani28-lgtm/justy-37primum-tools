@@ -33,8 +33,8 @@ export function SiteFooter() {
               src={monogramAsset.url}
               alt="Justlator Technologies"
               className="relative h-24 md:h-28 w-auto object-contain drop-shadow-[0_0_30px_rgba(80,160,255,0.4)]"
-              loading="lazy"
-              decoding="async"
+              loading="eager"
+              decoding="sync"
             />
           </div>
 
