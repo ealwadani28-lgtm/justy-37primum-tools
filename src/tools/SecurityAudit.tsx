@@ -44,6 +44,22 @@ export function SecurityAudit() {
 
   return (
     <div className="space-y-6" dir="rtl">
+      {/* NCA ECC Specialization Banner */}
+      <div className="rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/10 via-card to-primary/5 p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">🇸🇦</span>
+          <div>
+            <h4 className="font-bold text-sm text-foreground">الامتثال الوطني لضوابط الأمن السيبراني</h4>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              الأداة الوحيدة المتخصصة في تدقيق امتثال معايير الهيئة الوطنية للأمن السيبراني <span className="text-primary font-semibold">NCA ECC-1:2018</span> باللغة العربية.
+            </p>
+          </div>
+        </div>
+        <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
+          امتثال وطني 🛡️
+        </span>
+      </div>
+
       <form onSubmit={handleScan} className="flex flex-col sm:flex-row gap-2">
         <input
           value={url}
