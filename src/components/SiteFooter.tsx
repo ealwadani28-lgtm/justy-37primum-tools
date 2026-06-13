@@ -42,6 +42,16 @@ export function SiteFooter() {
       <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
         {/* Corporate Lockup — Parent Brand */}
         <div className="flex flex-col items-center text-center mb-16">
+          <div className="relative mb-5">
+            <div aria-hidden className="absolute inset-0 bg-primary/25 blur-3xl rounded-full scale-150" />
+            <img
+              src={logo}
+              alt="Justlator Technologies"
+              className="relative h-24 md:h-28 w-auto object-contain drop-shadow-[0_0_30px_rgba(80,160,255,0.4)]"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
           <p
             className="text-4xl md:text-5xl text-foreground font-bold tracking-[0.2em]"
             dir="ltr"
