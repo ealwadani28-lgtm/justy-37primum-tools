@@ -22,12 +22,12 @@ export function SiteFooter() {
             loading="lazy"
             decoding="async"
           />
-          <div className="mt-5 space-y-1">
-            <p className="text-base md:text-lg text-foreground font-semibold tracking-wide">
-              أحد منتجات شركة <span className="text-primary">Justlator Technologies</span>
+          <div className="mt-5 space-y-2">
+            <p className="text-xl md:text-2xl text-foreground font-bold tracking-wide" dir="ltr">
+              Justlator <span className="text-primary">Technologies</span>
             </p>
-            <p className="text-sm text-muted-foreground tracking-wider" dir="ltr">
-              A <span className="text-primary font-medium">Justlator Technologies</span> product
+            <p className="text-sm text-muted-foreground tracking-wide">
+              شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف.
             </p>
           </div>
         </div>
@@ -58,13 +58,21 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <div className="font-semibold mb-4 text-foreground">الشركة الأم</div>
-            <p className="text-muted-foreground leading-relaxed mb-2">
-              شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف.
-            </p>
+            <div className="font-semibold mb-4 text-foreground">منتجاتنا</div>
+            <ul className="space-y-2.5 text-muted-foreground">
+              <li>
+                <Link to="/" className="hover:text-primary transition-colors">
+                  Justlator Tools <span className="text-xs text-primary/80">— متاح</span>
+                </Link>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>JustSecure — حصين</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">قريباً</span>
+              </li>
+            </ul>
             <a
               href="https://www.justlator.com"
-              className="inline-block mt-2 text-primary hover:underline"
+              className="inline-block mt-5 text-primary hover:underline text-sm"
               dir="ltr"
             >
               www.justlator.com
