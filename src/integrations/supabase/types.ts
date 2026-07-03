@@ -131,6 +131,80 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_index_issues: {
+        Row: {
+          coverage_state: string | null
+          detected_at: string
+          id: string
+          indexing_state: string | null
+          issue_type: string
+          raw: Json | null
+          robots_txt_state: string | null
+          scan_id: string | null
+          url: string
+          verdict: string | null
+        }
+        Insert: {
+          coverage_state?: string | null
+          detected_at?: string
+          id?: string
+          indexing_state?: string | null
+          issue_type: string
+          raw?: Json | null
+          robots_txt_state?: string | null
+          scan_id?: string | null
+          url: string
+          verdict?: string | null
+        }
+        Update: {
+          coverage_state?: string | null
+          detected_at?: string
+          id?: string
+          indexing_state?: string | null
+          issue_type?: string
+          raw?: Json | null
+          robots_txt_state?: string | null
+          scan_id?: string | null
+          url?: string
+          verdict?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seo_index_issues_scan_id_fkey"
+            columns: ["scan_id"]
+            isOneToOne: false
+            referencedRelation: "seo_index_scans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      seo_index_scans: {
+        Row: {
+          id: string
+          issues_found: number
+          notes: string | null
+          ran_at: string
+          status: string
+          urls_checked: number
+        }
+        Insert: {
+          id?: string
+          issues_found?: number
+          notes?: string | null
+          ran_at?: string
+          status?: string
+          urls_checked?: number
+        }
+        Update: {
+          id?: string
+          issues_found?: number
+          notes?: string | null
+          ran_at?: string
+          status?: string
+          urls_checked?: number
+        }
+        Relationships: []
+      }
       sheildy_waitlist: {
         Row: {
           created_at: string
