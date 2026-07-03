@@ -6,13 +6,20 @@ import { ToolErrorBoundary } from "@/components/ToolErrorBoundary";
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolPage,
+  // نلقي notFound() في اللودر حتى ترجع الاستجابة 404 حقيقي بدل 200-مع-noindex.
+  // Google كان يبلّغ عن هذه الصفحات كـ "Excluded by 'noindex' tag"؛ الآن سيراها كـ 404 عادي.
+  loader: ({ params }) => {
+    const t = tools.find((x) => x.slug === params.slug);
+    if (!t) throw notFound();
+    return { tool: t };
+  },
   notFoundComponent: () => (
     <div className="max-w-2xl mx-auto p-12 text-center">
       <h1 className="text-3xl font-bold">الأداة غير موجودة</h1>
     </div>
   ),
-  head: ({ params }) => {
-    const t = tools.find((x) => x.slug === params.slug);
+  head: ({ params, loaderData }) => {
+    const t = loaderData?.tool ?? tools.find((x) => x.slug === params.slug);
     if (!t) {
       return {
         meta: [
@@ -21,6 +28,7 @@ export const Route = createFileRoute("/tools/$slug")({
         ],
       };
     }
+
     const url = `${SITE.url}/tools/${t.slug}`;
     return {
       meta: [
