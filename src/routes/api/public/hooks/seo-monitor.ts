@@ -93,23 +93,26 @@ export const Route = createFileRoute("/api/public/hooks/seo-monitor")({
 
         const urls = Array.from(new Set([...sitemapUrls(), ...SUSPECT_STALE_URLS]));
 
-        // فحص متسلسل مع تأخير بسيط لتجنّب حدود GSC
+        // فحص متوازي (5 دفعات) لتجنّب المهلة
         const results: Array<{
           url: string;
           issue?: string;
           idx?: InspectionResult["inspectionResult"];
           error?: string;
         }> = [];
-        for (const u of urls) {
-          const r = await inspectUrl(u);
-          if ("error" in r && r.error) {
-            results.push({ url: u, error: r.error });
-          } else if ("data" in r && r.data) {
-            const idx = r.data.inspectionResult;
-            const issue = classify(idx);
-            results.push({ url: u, issue: issue ?? undefined, idx });
+        const CONCURRENCY = 5;
+        for (let i = 0; i < urls.length; i += CONCURRENCY) {
+          const chunk = urls.slice(i, i + CONCURRENCY);
+          const chunkResults = await Promise.all(chunk.map(inspectUrl));
+          for (const r of chunkResults) {
+            if ("error" in r && r.error) {
+              results.push({ url: r.url, error: r.error });
+            } else if ("data" in r && r.data) {
+              const idx = r.data.inspectionResult;
+              const issue = classify(idx);
+              results.push({ url: r.url, issue: issue ?? undefined, idx });
+            }
           }
-          await new Promise((res) => setTimeout(res, 250));
         }
 
         const issues = results.filter((r) => r.issue);
