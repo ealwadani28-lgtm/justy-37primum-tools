@@ -64,14 +64,12 @@ function classify(idx?: InspectionResult["inspectionResult"]) {
   if (!idx?.indexStatusResult) return null;
   const s = idx.indexStatusResult;
   const verdict = s.verdict ?? "";
-  const coverage = s.coverageState ?? "";
+  const coverage = (s.coverageState ?? "").toLowerCase();
   const robots = s.robotsTxtState ?? "";
-  const lower = `${coverage} ${verdict}`.toLowerCase();
-  if (lower.includes("noindex")) return "noindex";
-  if (lower.includes("soft 404") || lower.includes("soft_404")) return "soft_404";
-  if (robots.toUpperCase() === "DISALLOWED") return "blocked_by_robots";
-  if (verdict === "FAIL") return "fail";
-  if (verdict === "NEUTRAL" && !lower.includes("submitted and indexed")) return "not_indexed";
+  // نلتقط فقط المشاكل الحقيقية — noindex أو soft-404 أو حجب robots
+  if (coverage.includes("noindex")) return "noindex";
+  if (coverage.includes("soft 404") || coverage.includes("soft_404")) return "soft_404";
+  if (robots.toUpperCase() === "DISALLOWED" && verdict === "FAIL") return "blocked_by_robots";
   return null;
 }
 
