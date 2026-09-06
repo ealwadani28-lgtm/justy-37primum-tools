@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Twitter } from "lucide-react";
 import { VisitCounter } from "@/components/VisitCounter";
 import { arNumber } from "@/lib/utils";
 import logoAsset from "@/assets/justlator-emblem.png.asset.json";
@@ -154,6 +155,21 @@ export function SiteFooter() {
             </p>
             <div className="mt-6">
               <VisitCounter />
+            </div>
+            <div className="mt-5">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/70 mb-2">
+                تواصل
+              </div>
+              <a
+                href="https://x.com/justlator"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                dir="ltr"
+              >
+                <Twitter className="w-4 h-4" />
+                <span>@justlator</span>
+              </a>
             </div>
           </div>
         </div>
