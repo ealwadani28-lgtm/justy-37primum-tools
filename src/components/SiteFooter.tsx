@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Twitter } from "lucide-react";
 import { VisitCounter } from "@/components/VisitCounter";
 import { arNumber } from "@/lib/utils";
 import logoAsset from "@/assets/justlator-emblem.png.asset.json";
