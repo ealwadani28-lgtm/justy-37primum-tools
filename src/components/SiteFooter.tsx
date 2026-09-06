@@ -72,11 +72,13 @@ export function SiteFooter() {
           </div>
 
           <p className="mt-6 text-sm md:text-base text-foreground/90 font-medium max-w-2xl">
-            شركة مبدأ العدالة للتقنية — نبني منتجات رقمية بمبادئ العدل والإنصاف
+            منتجات رقمية تُبنى بمبادئ العدل والإنصاف
           </p>
           <p className="mt-2 text-xs text-muted-foreground tracking-wide" dir="ltr">
-            A <span className="text-primary font-semibold">Justlator Technologies</span> product family
+            Independently built by a solo founder — part of the{" "}
+            <span className="text-primary font-semibold">Justlator</span> family
           </p>
+
         </div>
 
         <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-12" />
@@ -158,7 +160,7 @@ export function SiteFooter() {
 
         <div className="mt-12 pt-6 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
           <p>صُنع بإتقان في المملكة العربية السعودية</p>
-          <p>© {arNumber(new Date().getFullYear())} Justlator Technologies — جميع الحقوق محفوظة.</p>
+          <p>© {arNumber(new Date().getFullYear())} Justlator — جميع الحقوق محفوظة.</p>
         </div>
       </div>
     </footer>
